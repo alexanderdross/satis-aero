@@ -11,28 +11,36 @@ export const locales: Locale[] = ["de", "en"];
 export const defaultLocale: Locale = "de";
 
 // Route paths per locale. The German imprint lives at /impressum/, the
-// German privacy at /datenschutz/. The English equivalents live under
-// /en/. All routes end with a trailing slash so they match the
-// `trailingSlash: true` setting in next.config.ts and avoid 308
-// redirects on internal navigation.
+// German privacy at /datenschutz/, the German services index at
+// /leistungen/. The English equivalents live under /en/. All routes
+// end with a trailing slash so they match the `trailingSlash: true`
+// setting in next.config.ts and avoid 308 redirects on internal
+// navigation.
 export const routes = {
   de: {
     home: "/",
     imprint: "/impressum/",
     privacy: "/datenschutz/",
-    services: "/#leistungen",
+    contact: "/kontakt/",
+    services: "/#leistungen", // anchor on the homepage
+    servicesBase: "/leistungen", // base for service detail pages
     about: "/#ueber-uns",
-    contact: "/#kontakt",
   },
   en: {
     home: "/en/",
     imprint: "/en/imprint/",
     privacy: "/en/privacy/",
+    contact: "/en/contact/",
     services: "/en/#services",
+    servicesBase: "/en/services",
     about: "/en/#about",
-    contact: "/en/#contact",
   },
 } as const;
+
+// Build the URL of a service detail page in a given locale.
+export function serviceUrl(locale: Locale, slug: string): string {
+  return `${routes[locale].servicesBase}/${slug}/`;
+}
 
 // Cross-locale page alternates. Each entry maps a logical page to its
 // concrete URL in every locale, so the language switcher can take you
@@ -43,10 +51,20 @@ export const pageAlternates = {
   home: { de: "/", en: "/en/" },
   imprint: { de: "/impressum/", en: "/en/imprint/" },
   privacy: { de: "/datenschutz/", en: "/en/privacy/" },
+  contact: { de: "/kontakt/", en: "/en/contact/" },
 } as const;
 
 export type PageKey = keyof typeof pageAlternates;
-export type PageAlternates = (typeof pageAlternates)[PageKey];
+export type PageAlternates = { de: string; en: string };
+
+// Build cross-locale alternates for a service detail page (slug is shared
+// across locales because they encode the same concept).
+export function serviceAlternates(slug: string): PageAlternates {
+  return {
+    de: serviceUrl("de", slug),
+    en: serviceUrl("en", slug),
+  };
+}
 
 // Section IDs used as in-page anchors. German page uses German slugs,
 // English page uses English slugs.
@@ -71,8 +89,12 @@ export const t = {
       "Aviation Consultancy für Flughafenfeuerwehren, Piloten und Flughafenbetreiber. EASA-konforme Trainings, ICAO-Übungs-Coaching, CAT 9 Mock-Up und Virtual Reality Trainings.",
     nav: {
       services: "Leistungen",
+      servicesTitle: "Alle Leistungen anzeigen",
+      servicesDropdownLabel: "Leistungen-Untermenü",
+      servicesAll: "Alle Leistungen ansehen",
       about: "Über uns",
       contact: "Kontakt",
+      contactTitle: "Zum Kontaktformular",
       cta: "Anfrage",
       ctaTitle: "Jetzt unverbindliche Anfrage stellen",
       home: "Startseite",
@@ -81,6 +103,67 @@ export const t = {
         "SATIS Aero – Smart Aviation Training Innovative Solutions, Startseite",
       langSwitch: "EN",
       langSwitchTitle: "Switch to English version",
+    },
+    breadcrumbs: {
+      ariaLabel: "Brotkrumen-Navigation",
+      home: "Startseite",
+      homeTitle: "Zur Startseite",
+      services: "Leistungen",
+      servicesTitle: "Zur Leistungsübersicht",
+      separator: "/",
+    },
+    serviceDetail: {
+      eyebrow: "Leistung",
+      backLabel: "Alle Leistungen ansehen",
+      backTitle: "Zurück zur Leistungsübersicht",
+      descriptionHeading: "Über diese Leistung",
+      audienceHeading: "Für wen ist dieses Training?",
+      outcomesHeading: "Lernergebnisse",
+      formatHeading: "Format",
+      complianceHeading: "Compliance & Regelwerke",
+      ctaHeading: "Interesse an diesem Training?",
+      ctaText:
+        "Wir erstellen ein maßgeschneidertes Konzept für Ihr Team. Sprechen Sie uns an.",
+      ctaButton: "Anfrage stellen",
+      ctaButtonTitle: "Jetzt unverbindliche Anfrage stellen",
+    },
+    contactPage: {
+      eyebrow: "Kontakt",
+      title: "Sprechen Sie mit uns",
+      sub: "Wir freuen uns auf Ihre Anfrage. Schreiben Sie uns ein paar Zeilen zu Ihrem Vorhaben – wir melden uns innerhalb von zwei Werktagen mit einem ersten Vorschlag.",
+      addressHeading: "Anschrift",
+      addressName: "Hans-Christoph Peter Grunwald",
+      addressStreet: "Im Kranzfeld 39",
+      addressCity: "52538 Gangelt",
+      addressCountry: "Deutschland",
+      mailHeading: "E-Mail",
+      mailValue: "info@satis.aero",
+      mailTitle: "E-Mail an SATIS Aero senden",
+      formHeading: "Kontaktformular",
+      formNameLabel: "Name",
+      formNamePlaceholder: "Ihr Name",
+      formEmailLabel: "E-Mail",
+      formEmailPlaceholder: "ihre@email.de",
+      formCompanyLabel: "Organisation (optional)",
+      formCompanyPlaceholder: "Flughafen, Airline, Behörde …",
+      formSubjectLabel: "Betreff",
+      formSubjectPlaceholder: "Worum geht es?",
+      formMessageLabel: "Nachricht",
+      formMessagePlaceholder: "Beschreiben Sie kurz Ihr Vorhaben.",
+      formSubmit: "Anfrage senden",
+      formSubmitTitle: "Anfrage absenden",
+      formSubmitting: "Wird gesendet …",
+      formSuccess:
+        "Vielen Dank! Wir haben Ihre Nachricht erhalten und melden uns in Kürze.",
+      formError:
+        "Beim Senden ist etwas schiefgelaufen. Bitte versuchen Sie es erneut oder schreiben Sie direkt an info@satis.aero.",
+      formTurnstileError:
+        "Spam-Schutz konnte nicht verifiziert werden. Bitte laden Sie die Seite neu.",
+      formPrivacyHint:
+        "Mit dem Absenden akzeptieren Sie unsere Datenschutzbestimmungen.",
+      formPrivacyLinkLabel: "Datenschutzbestimmungen",
+      formPrivacyLinkTitle: "Datenschutzbestimmungen ansehen",
+      turnstileLabel: "Spam-Schutz",
     },
     hero: {
       badge: "Aviation Consultancy",
@@ -186,8 +269,12 @@ export const t = {
       "Aviation consultancy for airport fire services, pilots and airport operators. EASA-compliant training, ICAO exercise coaching, CAT 9 mock-up and Virtual Reality training.",
     nav: {
       services: "Services",
+      servicesTitle: "View all services",
+      servicesDropdownLabel: "Services submenu",
+      servicesAll: "View all services",
       about: "About",
       contact: "Contact",
+      contactTitle: "Open the contact form",
       cta: "Enquiry",
       ctaTitle: "Send us a non-binding enquiry",
       home: "Home",
@@ -196,6 +283,67 @@ export const t = {
         "SATIS Aero – Smart Aviation Training Innovative Solutions, home",
       langSwitch: "DE",
       langSwitchTitle: "Zur deutschen Version wechseln",
+    },
+    breadcrumbs: {
+      ariaLabel: "Breadcrumb navigation",
+      home: "Home",
+      homeTitle: "Back to the home page",
+      services: "Services",
+      servicesTitle: "Back to the services overview",
+      separator: "/",
+    },
+    serviceDetail: {
+      eyebrow: "Service",
+      backLabel: "View all services",
+      backTitle: "Back to the services overview",
+      descriptionHeading: "About this service",
+      audienceHeading: "Who is this training for?",
+      outcomesHeading: "Learning outcomes",
+      formatHeading: "Format",
+      complianceHeading: "Compliance & frameworks",
+      ctaHeading: "Interested in this training?",
+      ctaText:
+        "We design tailored programmes for your team. Get in touch with us.",
+      ctaButton: "Send enquiry",
+      ctaButtonTitle: "Send a non-binding enquiry",
+    },
+    contactPage: {
+      eyebrow: "Contact",
+      title: "Talk to us",
+      sub: "We look forward to hearing from you. Send us a few lines about your project — we will get back to you within two working days with an initial proposal.",
+      addressHeading: "Address",
+      addressName: "Hans-Christoph Peter Grunwald",
+      addressStreet: "Im Kranzfeld 39",
+      addressCity: "52538 Gangelt",
+      addressCountry: "Germany",
+      mailHeading: "Email",
+      mailValue: "info@satis.aero",
+      mailTitle: "Send an email to SATIS Aero",
+      formHeading: "Contact form",
+      formNameLabel: "Name",
+      formNamePlaceholder: "Your name",
+      formEmailLabel: "Email",
+      formEmailPlaceholder: "you@email.com",
+      formCompanyLabel: "Organisation (optional)",
+      formCompanyPlaceholder: "Airport, airline, authority …",
+      formSubjectLabel: "Subject",
+      formSubjectPlaceholder: "What is it about?",
+      formMessageLabel: "Message",
+      formMessagePlaceholder: "Briefly describe your project.",
+      formSubmit: "Send enquiry",
+      formSubmitTitle: "Send the enquiry",
+      formSubmitting: "Sending …",
+      formSuccess:
+        "Thank you! We have received your message and will be in touch shortly.",
+      formError:
+        "Something went wrong while sending. Please try again or email us directly at info@satis.aero.",
+      formTurnstileError:
+        "Spam protection could not be verified. Please reload the page.",
+      formPrivacyHint:
+        "By sending this form you accept our privacy policy.",
+      formPrivacyLinkLabel: "privacy policy",
+      formPrivacyLinkTitle: "Read the privacy policy",
+      turnstileLabel: "Spam protection",
     },
     hero: {
       badge: "Aviation Consultancy",

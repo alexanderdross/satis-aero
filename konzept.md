@@ -153,22 +153,30 @@ der Website eine eigene Detailseite unter `/services/[slug]` angelegt.
 Redirect. Alle internen Links und Canonical-URLs sind mit Slash am Ende
 hardcoded, sodass keine Redirect-Latenz entsteht.
 
-**URL-Struktur (kein `[locale]` Route-Group):**
+**URL-Struktur (Multi-Root-Layout via Route Groups):**
 
 | URL | Locale | Inhalt |
 |---|---|---|
 | `/` | `de` | Homepage Deutsch |
+| `/leistungen/[slug]/` | `de` | 11 Service-Detailseiten |
+| `/kontakt/` | `de` | Kontaktformular mit Cloudflare Turnstile |
 | `/impressum/` | `de` | Impressum |
 | `/datenschutz/` | `de` | Datenschutz |
 | `/en/` | `en` | Homepage English |
+| `/en/services/[slug]/` | `en` | 11 service detail pages |
+| `/en/contact/` | `en` | Contact form with Cloudflare Turnstile |
 | `/en/imprint/` | `en` | Imprint |
 | `/en/privacy/` | `en` | Privacy |
 
+**Service-Slugs (DE und EN identisch):**
+`coaching-crm-ccc`, `just-culture-awareness`, `easa-compliance-training`,
+`icao-uebungen-coaching`, `communication-training-fire-services`,
+`communication-training-pilots`, `grundausbildung`, `cat9-mockup-training`,
+`training-management-system`, `vr-training`, `icao-language-proficiency`
+
 **Geplant (Folge-Iterationen):**
-- `/services/[slug]` bzw. `/en/services/[slug]` – Detailseiten je Service
-- `/about` / `/en/about`
-- `/references` / `/en/references`
-- `/contact` / `/en/contact`
+- `/about` / `/en/about` – dedizierte About-Seite
+- `/references` / `/en/references` – Referenzen / Kunden
 
 **i18n-Ansatz – Multi-Root-Layout (server-only):**
 
@@ -201,6 +209,18 @@ src/app/
   Root-Layout-Tree).
 - Alle UI-Strings, Routen und In-Page-Anker liegen zentral in
   `src/lib/i18n.ts`.
+
+**Brotkrumen-Navigation:** `src/components/breadcrumbs.tsx` ist eine
+Server Component, rendert eine `<nav aria-label="Breadcrumb …">` mit
+strukturierten Daten (`schema.org/BreadcrumbList`) und wird auf jeder
+Unterseite (Service-Detail, Kontakt, Impressum, Datenschutz)
+direkt unter dem Header angezeigt.
+
+**Leistungen-Dropdown:** Statt eines einfachen Nav-Links ist
+"Leistungen" / "Services" jetzt ein `<details>`-basiertes Dropdown
+(`src/components/services-dropdown.tsx`), das alle 11 Services mit Icon
+und Titel auflistet und direkt auf die Detailseiten verlinkt. Auch das
+ist server-side gerendert ohne Client-JS.
 
 **Sprachumschalter (server-only):**
 `src/components/language-switcher.tsx` ist eine **Server Component**

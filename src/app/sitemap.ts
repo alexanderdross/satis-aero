@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { services } from "@/lib/services";
 
 // =============================================================================
 // SATIS Aero – Multilingual XML Sitemap
@@ -23,8 +24,14 @@ type Page = {
   priority?: number;
 };
 
-const pages: Page[] = [
+const staticPages: Page[] = [
   { de: "/", en: "/en/", changeFrequency: "monthly", priority: 1.0 },
+  {
+    de: "/kontakt/",
+    en: "/en/contact/",
+    changeFrequency: "monthly",
+    priority: 0.7,
+  },
   {
     de: "/impressum/",
     en: "/en/imprint/",
@@ -38,6 +45,15 @@ const pages: Page[] = [
     priority: 0.3,
   },
 ];
+
+const servicePages: Page[] = services.map((service) => ({
+  de: `/leistungen/${service.slug}/`,
+  en: `/en/services/${service.slug}/`,
+  changeFrequency: "monthly",
+  priority: 0.8,
+}));
+
+const pages: Page[] = [...staticPages, ...servicePages];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();

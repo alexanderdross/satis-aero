@@ -1,9 +1,5 @@
 import { Header } from "@/components/header";
-import {
-  pageAlternates,
-  type Locale,
-  type PageKey,
-} from "@/lib/i18n";
+import { type Locale, type PageAlternates } from "@/lib/i18n";
 
 // =============================================================================
 // SATIS Aero – PageShell
@@ -13,20 +9,22 @@ import {
 // locale, so the language switcher can navigate cross-page (e.g. from
 // /impressum/ to /en/imprint/).
 //
+// `alternates` is passed in directly so dynamic routes (service detail
+// pages) can build their own DE/EN URL pairs without needing a static
+// pageKey lookup.
+//
 // Footer lives in the root layout because it has no per-page state.
 // =============================================================================
 
 export function PageShell({
   locale,
-  pageKey,
+  alternates,
   children,
 }: {
   locale: Locale;
-  pageKey: PageKey;
+  alternates: PageAlternates;
   children: React.ReactNode;
 }) {
-  const alternates = pageAlternates[pageKey];
-
   return (
     <>
       <Header locale={locale} alternates={alternates} />
