@@ -17,6 +17,7 @@ Airlines bei der Konzeption, Durchführung und Dokumentation von
 sicherheitskritischen Trainings.
 
 **USP:**
+
 - EASA- und ICAO-konforme Trainingskonzepte aus einer Hand
 - Praktische Trainings am CAT 9 Mock-Up (Brandübungsanlage)
 - Virtual-Reality-gestützte Lerneinheiten
@@ -27,13 +28,13 @@ sicherheitskritischen Trainings.
 
 ## 2. Zielgruppen
 
-| Zielgruppe | Bedarf |
-|---|---|
-| Flughafenbetreiber | EASA-Compliance, Audit-Vorbereitung, Trainingsdokumentation |
-| Flughafenfeuerwehren | Grundausbildung, Refresher, ICAO-Übungen, Mock-Up-Training |
-| Piloten / Flugschulen | Communication Training, ICAO Language Proficiency |
-| Luftfahrtbehörden / Auditoren | Independent Coaching, Just Culture Schulungen |
-| Ausbildungsverantwortliche | Training Management System, Curriculum-Beratung |
+| Zielgruppe                    | Bedarf                                                      |
+| ----------------------------- | ----------------------------------------------------------- |
+| Flughafenbetreiber            | EASA-Compliance, Audit-Vorbereitung, Trainingsdokumentation |
+| Flughafenfeuerwehren          | Grundausbildung, Refresher, ICAO-Übungen, Mock-Up-Training  |
+| Piloten / Flugschulen         | Communication Training, ICAO Language Proficiency           |
+| Luftfahrtbehörden / Auditoren | Independent Coaching, Just Culture Schulungen               |
+| Ausbildungsverantwortliche    | Training Management System, Curriculum-Beratung             |
 
 ---
 
@@ -43,6 +44,7 @@ Vollständige Liste der angebotenen Services. Für jeden Service wird auf
 der Website eine eigene Detailseite unter `/services/[slug]` angelegt.
 
 ### 3.1 Coaching / CRM / CCC
+
 - **Slug (DE/EN):** `coaching-crm-ccc`
 - **DE:** Crew Resource Management und Crisis & Communication Coaching für
   Cockpit- und Bodenpersonal. Verbessert Teamarbeit, Entscheidungsfindung
@@ -53,6 +55,7 @@ der Website eine eigene Detailseite unter `/services/[slug]` angelegt.
 - **Compliance:** EASA Part-ORO.FC.115 (CRM), ICAO Doc 9683
 
 ### 3.2 Just Culture Awareness
+
 - **Slug:** `just-culture-awareness`
 - **DE:** Sensibilisierungs- und Schulungsprogramm zu Just Culture als
   Grundlage einer offenen Sicherheitskultur. Für Führungskräfte und
@@ -62,6 +65,7 @@ der Website eine eigene Detailseite unter `/services/[slug]` angelegt.
 - **Compliance:** EU Regulation 376/2014, ICAO Annex 19
 
 ### 3.3 EASA Compliance Training für Flughafenfeuerwehren
+
 - **Slug:** `easa-compliance-training`
 - **DE:** Strukturierte EASA-Compliance-Schulung für Flughafenfeuerwehren
   inklusive Dokumentation, Auditvorbereitung und Refresher-Konzepten.
@@ -70,6 +74,7 @@ der Website eine eigene Detailseite unter `/services/[slug]` angelegt.
 - **Compliance:** EASA ADR.OPS.B.010, Implementing Rule (EU) 139/2014
 
 ### 3.4 ICAO-Übungen – Coaching, Vorbereitung & Durchführung
+
 - **Slug:** `icao-uebungen-coaching`
 - **DE:** Coaching, Vorbereitung und Durchführungsunterstützung der
   2-jährlichen ICAO-Notfallübungen am Flughafen. Von Szenario-Entwicklung
@@ -79,6 +84,7 @@ der Website eine eigene Detailseite unter `/services/[slug]` angelegt.
 - **Compliance:** ICAO Annex 14, Vol. I, §9.1; EASA ADR.OPS.B.005
 
 ### 3.5 Communication Training für Flughafenfeuerwehren (121.555)
+
 - **Slug:** `communication-training-fire-services`
 - **DE:** Funk- und Phraseologie-Training für Flughafenfeuerwehren auf der
   Notfrequenz **121.555 MHz**. Standardphrasen, Englischkompetenz,
@@ -89,6 +95,7 @@ der Website eine eigene Detailseite unter `/services/[slug]` angelegt.
 - **Compliance:** ICAO Annex 10 Vol. II, ICAO Doc 9432
 
 ### 3.6 Communication Training für Piloten (121.555)
+
 - **Slug:** `communication-training-pilots`
 - **DE:** Funktraining für Piloten auf der Emergency-Frequenz 121.555 MHz.
   Realistische Szenarien, Phraseologie, Stress-Communication.
@@ -98,6 +105,7 @@ der Website eine eigene Detailseite unter `/services/[slug]` angelegt.
 - **Compliance:** ICAO Annex 10 Vol. II, ICAO Doc 4444
 
 ### 3.7 Flughafenfeuerwehr Grundausbildung
+
 - **Slug:** `grundausbildung`
 - **DE:** Modulare Grundausbildung für neue Mitglieder von
   Flughafenfeuerwehren. Theorie, Praxis und Examen nach EASA-Vorgaben.
@@ -106,6 +114,7 @@ der Website eine eigene Detailseite unter `/services/[slug]` angelegt.
 - **Compliance:** EASA ADR.OPS.B.010
 
 ### 3.8 Training am CAT 9 Mock-Up (Brandübungsanlage)
+
 - **Slug:** `cat9-mockup-training`
 - **DE:** Praktisches Live-Fire-Training an einem Mock-Up der Kategorie 9.
   Realistische Szenarien für Großflugzeug-Brände, Innenangriff und Rescue.
@@ -114,6 +123,7 @@ der Website eine eigene Detailseite unter `/services/[slug]` angelegt.
 - **Compliance:** ICAO Annex 14 Vol. I, §9.2
 
 ### 3.9 Training Management System
+
 - **Slug:** `training-management-system`
 - **DE:** Software-gestütztes Trainingsmanagement zur Planung,
   Dokumentation und Audit-Nachweisführung aller Schulungen einer
@@ -123,6 +133,7 @@ der Website eine eigene Detailseite unter `/services/[slug]` angelegt.
 - **Compliance:** EASA Part-ADR Record-Keeping
 
 ### 3.10 Virtual Reality Trainings
+
 - **Slug:** `vr-training`
 - **DE:** Immersive VR-Szenarien für sicherheitskritische Trainings –
   Brandbekämpfung, Notfallkommunikation, Entscheidungsfindung. Skalierbar
@@ -133,6 +144,7 @@ der Website eine eigene Detailseite unter `/services/[slug]` angelegt.
 - **Compliance:** Ergänzend zu klassischen Trainings nach EASA/ICAO
 
 ### 3.11 ICAO Language Proficiency 4/5 Vorbereitungskurse + Prüfung
+
 - **Slug:** `icao-language-proficiency`
 - **DE:** Vorbereitungskurse für ICAO Language Proficiency Level 4 und 5
   mit anschließender Prüfung. Speziell für Piloten, Lotsen und
@@ -155,18 +167,18 @@ hardcoded, sodass keine Redirect-Latenz entsteht.
 
 **URL-Struktur (Multi-Root-Layout via Route Groups):**
 
-| URL | Locale | Inhalt |
-|---|---|---|
-| `/` | `de` | Homepage Deutsch |
-| `/leistungen/[slug]/` | `de` | 11 Service-Detailseiten |
-| `/kontakt/` | `de` | Kontaktformular mit Cloudflare Turnstile |
-| `/impressum/` | `de` | Impressum |
-| `/datenschutz/` | `de` | Datenschutz |
-| `/en/` | `en` | Homepage English |
-| `/en/services/[slug]/` | `en` | 11 service detail pages |
-| `/en/contact/` | `en` | Contact form with Cloudflare Turnstile |
-| `/en/imprint/` | `en` | Imprint |
-| `/en/privacy/` | `en` | Privacy |
+| URL                    | Locale | Inhalt                                   |
+| ---------------------- | ------ | ---------------------------------------- |
+| `/`                    | `de`   | Homepage Deutsch                         |
+| `/leistungen/[slug]/`  | `de`   | 11 Service-Detailseiten                  |
+| `/kontakt/`            | `de`   | Kontaktformular mit Cloudflare Turnstile |
+| `/impressum/`          | `de`   | Impressum                                |
+| `/datenschutz/`        | `de`   | Datenschutz                              |
+| `/en/`                 | `en`   | Homepage English                         |
+| `/en/services/[slug]/` | `en`   | 11 service detail pages                  |
+| `/en/contact/`         | `en`   | Contact form with Cloudflare Turnstile   |
+| `/en/imprint/`         | `en`   | Imprint                                  |
+| `/en/privacy/`         | `en`   | Privacy                                  |
 
 **Service-Slugs (DE und EN identisch):**
 `coaching-crm-ccc`, `just-culture-awareness`, `easa-compliance-training`,
@@ -175,10 +187,12 @@ hardcoded, sodass keine Redirect-Latenz entsteht.
 `training-management-system`, `vr-training`, `icao-language-proficiency`
 
 **Geplant (Folge-Iterationen):**
+
 - `/about` / `/en/about` – dedizierte About-Seite
 - `/references` / `/en/references` – Referenzen / Kunden
 
 **Strukturierte Daten (JSON-LD):**
+
 - `Organization` JSON-LD wird in beiden Root-Layouts ausgespielt
   (Adresse, Logo, Sprachen, ContactPoint)
 - `Service` JSON-LD pro Service-Detailseite mit Provider-Referenz auf
@@ -186,6 +200,7 @@ hardcoded, sodass keine Redirect-Latenz entsteht.
 - `BreadcrumbList`-Mikrodata direkt im Breadcrumb-Component
 
 **Open Graph Image:**
+
 - Default-OG-Image (1200×630) statisch generiert via
   `src/app/opengraph-image.tsx` mit `next/og` `ImageResponse`
 - Brand-Gradient (`#173a5c → #255685 → #3d7bb3`), SATIS-Wortmarke,
@@ -249,11 +264,11 @@ hervorgehoben und mit `aria-current="page"` markiert.
 
 **In-Page-Anker (deutsch vs englisch):**
 
-| Section | DE-Hash | EN-Hash |
-|---|---|---|
+| Section  | DE-Hash       | EN-Hash     |
+| -------- | ------------- | ----------- |
 | Services | `#leistungen` | `#services` |
-| About | `#ueber-uns` | `#about` |
-| Contact | `#kontakt` | `#contact` |
+| About    | `#ueber-uns`  | `#about`    |
+| Contact  | `#kontakt`    | `#contact`  |
 
 **Service-Slugs:**
 `coaching-crm-ccc`, `just-culture-awareness`, `easa-compliance-training`,
@@ -266,6 +281,7 @@ hervorgehoben und mit `aria-current="page"` markiert.
 ## 5. Design-System
 
 ### 5.1 Logo
+
 - **Datei:** `public/images/brand/satis-logo.png`
 - **Format:** PNG, 321 × 108 px, RGBA (transparenter Hintergrund), 10.2 KB
 - **Aspect Ratio:** ~2.97 : 1
@@ -287,21 +303,21 @@ hervorgehoben und mit `aria-current="page"` markiert.
 
 ### 5.2 Farbpalette (Aviation)
 
-| Token | Hex | Verwendung |
-|---|---|---|
-| `primary` | `#255685` | Logo, CTAs, Headlines |
-| `primary-dark` | `#173a5c` | Hover, Footer-BG |
-| `primary-light` | `#3d7bb3` | Links, Akzente |
-| `sky` | `#e8f1f9` | Section-Backgrounds |
-| `cloud` | `#f7f9fc` | Page-Background |
-| `runway` | `#0f172a` | Body-Text (slate-900) |
-| `runway-soft` | `#334155` | Sekundär-Text (≥ 7 : 1 auf Cloud, AAA) |
-| `runway-mute` | `#475569` | Tertiär-Text (≥ 6.5 : 1 auf Cloud, AAA) |
-| `on-primary` | `#ffffff` | Text auf primary / primary-dark |
+| Token             | Hex       | Verwendung                                |
+| ----------------- | --------- | ----------------------------------------- |
+| `primary`         | `#255685` | Logo, CTAs, Headlines                     |
+| `primary-dark`    | `#173a5c` | Hover, Footer-BG                          |
+| `primary-light`   | `#3d7bb3` | Links, Akzente                            |
+| `sky`             | `#e8f1f9` | Section-Backgrounds                       |
+| `cloud`           | `#f7f9fc` | Page-Background                           |
+| `runway`          | `#0f172a` | Body-Text (slate-900)                     |
+| `runway-soft`     | `#334155` | Sekundär-Text (≥ 7 : 1 auf Cloud, AAA)    |
+| `runway-mute`     | `#475569` | Tertiär-Text (≥ 6.5 : 1 auf Cloud, AAA)   |
+| `on-primary`      | `#ffffff` | Text auf primary / primary-dark           |
 | `on-primary-soft` | `#e6edf5` | Sekundär-Text auf primary-dark (≥ 12 : 1) |
 | `on-primary-mute` | `#c7d4e3` | Tertiär-Text auf primary-dark (≥ 7.5 : 1) |
-| `signal` | `#c1272d` | Alerts, Emergency-Bezug |
-| `success` | `#1f8a7a` | Bestätigungen |
+| `signal`          | `#c1272d` | Alerts, Emergency-Bezug                   |
+| `success`         | `#1f8a7a` | Bestätigungen                             |
 
 **Kontrast:** Alle Muted-Text-Tokens sind auf WCAG AA (mind. 4.5 : 1) bzw.
 AAA (≥ 7 : 1) ausgelegt. Statt Opacity-basierter Abdunkelung
@@ -311,6 +327,7 @@ verwendet, da Lighthouse / axe Opacity-Berechnungen häufig falsch
 einschätzt.
 
 **Begründung:**
+
 - **Cockpit-Blau** (Primary) – direkt aus dem Logo
 - **Asphalt / Runway** – seriöser dunkler Text-Ton
 - **Cloud** – heller Background, der Seriosität ausstrahlt
@@ -347,6 +364,7 @@ einschätzt.
 - **Grid-Gap:** `gap-6` Mobile, `gap-8` Desktop
 
 ### 5.5 Komponenten-Inventar (geplant)
+
 - `Header` (Logo + Nav + Locale-Switcher)
 - `Footer` (Sitemap, Legal-Links, Kontakt)
 - `Hero` (Bild + Headline + CTA)
@@ -387,16 +405,17 @@ einschätzt.
 
 ### 6a.1 Cache- und Security-Header (`vercel.json`)
 
-| Pfad | Cache-Control |
-|---|---|
-| `/icons/*` | `public, max-age=31536000, immutable` |
-| `/images/*` | `public, max-age=31536000, immutable` |
-| `/fonts/*` | `public, max-age=31536000, immutable` |
-| `/favicon.ico` | `public, max-age=86400, must-revalidate` |
+| Pfad                    | Cache-Control                            |
+| ----------------------- | ---------------------------------------- |
+| `/icons/*`              | `public, max-age=31536000, immutable`    |
+| `/images/*`             | `public, max-age=31536000, immutable`    |
+| `/fonts/*`              | `public, max-age=31536000, immutable`    |
+| `/favicon.ico`          | `public, max-age=86400, must-revalidate` |
 | `/manifest.webmanifest` | `public, max-age=86400, must-revalidate` |
-| `/browserconfig.xml` | `public, max-age=86400, must-revalidate` |
+| `/browserconfig.xml`    | `public, max-age=86400, must-revalidate` |
 
 Globale Security-Header für `/(.*)`:
+
 - `X-Content-Type-Options: nosniff`
 - `X-Frame-Options: SAMEORIGIN`
 - `Referrer-Policy: strict-origin-when-cross-origin`
@@ -425,6 +444,7 @@ Globale Security-Header für `/(.*)`:
 `node_modules/next/dist/docs/01-app/03-api-reference/02-components/image.md`
 
 ### 6.1 Regeln
+
 - **Immer `next/image`** – nie native `<img>`
 - **Statische `width`/`height`** für CLS-Optimierung (außer bei `fill`)
 - **`sizes`-Prop** bei `fill` und responsiven Bildern,
@@ -459,18 +479,19 @@ public/
 
 ## 7. Tech-Stack (bereits installiert)
 
-| Layer | Tooling |
-|---|---|
-| Framework | Next.js 16.2.3 (App Router, Turbopack) |
-| Runtime | React 19.2.4 |
-| Language | TypeScript 5 |
-| Styling | Tailwind CSS v4 + `@tailwindcss/postcss` |
-| Lint/Format | ESLint 9 + Prettier + `prettier-plugin-tailwindcss` |
-| Icons | `lucide-react` |
+| Layer       | Tooling                                                    |
+| ----------- | ---------------------------------------------------------- |
+| Framework   | Next.js 16.2.3 (App Router, Turbopack)                     |
+| Runtime     | React 19.2.4                                               |
+| Language    | TypeScript 5                                               |
+| Styling     | Tailwind CSS v4 + `@tailwindcss/postcss`                   |
+| Lint/Format | ESLint 9 + Prettier + `prettier-plugin-tailwindcss`        |
+| Icons       | `lucide-react`                                             |
 | Class Utils | `clsx`, `tailwind-merge` (cn-Helper in `src/lib/utils.ts`) |
-| Hosting | Vercel (`vercel.json`) |
+| Hosting     | Vercel (`vercel.json`)                                     |
 
 **Noch zu installieren (für spätere Phasen):**
+
 - `next-intl` oder eigener i18n-Provider
 - `zod` (Validierung Kontaktformular)
 - `react-hook-form`
@@ -483,6 +504,7 @@ public/
 ## 8. SEO & Generative Engine Optimization (GEO)
 
 ### 8.1 Metadata-Pipeline
+
 Alle Pages laufen über den zentralen `buildMetadata()`-Helper
 (`src/lib/seo.ts`). Dieser liefert automatisch:
 
@@ -502,16 +524,17 @@ Service-Eintrag generiert.
 
 ### 8.2 JSON-LD Coverage
 
-| Schema | Wo gerendert | Zweck |
-|---|---|---|
-| `Organization` + `ProfessionalService` | Beide Root-Layouts | Haupt-Entität (`@id: #organization`) mit Adresse, Logo, Contact, `knowsAbout`, `hasOfferCatalog` |
-| `WebSite` | Home-Pages | Website-Entität mit Publisher-Referenz |
-| `WebPage` (bzw. `ContactPage`) | Jede Page | Page-spezifische Metadata, referenziert Organization + WebSite |
-| `BreadcrumbList` | Jede Nicht-Home-Page | Navigation Trail, automatisch aus `Breadcrumbs`-Component |
-| `Service` | Jede Service-Detailseite | Service mit `provider`-Referenz, Audience, `hasCredential` für Compliance |
-| `ItemList` | Home-Pages | Vollständiger Service-Katalog |
+| Schema                                 | Wo gerendert             | Zweck                                                                                            |
+| -------------------------------------- | ------------------------ | ------------------------------------------------------------------------------------------------ |
+| `Organization` + `ProfessionalService` | Beide Root-Layouts       | Haupt-Entität (`@id: #organization`) mit Adresse, Logo, Contact, `knowsAbout`, `hasOfferCatalog` |
+| `WebSite`                              | Home-Pages               | Website-Entität mit Publisher-Referenz                                                           |
+| `WebPage` (bzw. `ContactPage`)         | Jede Page                | Page-spezifische Metadata, referenziert Organization + WebSite                                   |
+| `BreadcrumbList`                       | Jede Nicht-Home-Page     | Navigation Trail, automatisch aus `Breadcrumbs`-Component                                        |
+| `Service`                              | Jede Service-Detailseite | Service mit `provider`-Referenz, Audience, `hasCredential` für Compliance                        |
+| `ItemList`                             | Home-Pages               | Vollständiger Service-Katalog                                                                    |
 
 ### 8.3 Sitemap & robots
+
 - **`src/app/sitemap.ts`** – multilingual XML-Sitemap. Generiert aus
   einer zentralen `pages`-Liste je einen `<url>`-Eintrag für DE und EN,
   beide enthalten `xhtml:link rel="alternate"` mit `hreflang="de"`,
@@ -523,6 +546,7 @@ Service-Eintrag generiert.
   Sitemap-Pointer auf `/sitemap.xml`.
 
 ### 8.4 Generative Engine Optimization (GEO)
+
 - **`src/app/llms.txt/route.ts`** – Markdown-Zusammenfassung nach
   llmstxt.org Spec, erreichbar unter `/llms.txt`. Enthält:
   - Firmenprofil und Adresse
@@ -537,6 +561,7 @@ Service-Eintrag generiert.
   dass wir Citations willkommen heißen
 
 ### 8.5 Performance-Impact
+
 Alle SEO-Elemente sind statisch zur Build-Zeit generiert. Keine
 Runtime-Metadaten, kein zusätzlicher Client-JS-Bundle. JSON-LD wird
 als Inline-`<script type="application/ld+json">` eingebettet, das
@@ -548,12 +573,12 @@ sind unter 2 KB zusätzliches HTML pro Page.
 
 ### Diensteanbieter / Impressum
 
-| Feld | Wert |
-|---|---|
-| Inhaber | Hans-Christoph Peter Grunwald |
-| Straße | Im Kranzfeld 39 |
-| PLZ / Ort | 52538 Gangelt |
-| Land | Deutschland |
+| Feld                              | Wert                          |
+| --------------------------------- | ----------------------------- |
+| Inhaber                           | Hans-Christoph Peter Grunwald |
+| Straße                            | Im Kranzfeld 39               |
+| PLZ / Ort                         | 52538 Gangelt                 |
+| Land                              | Deutschland                   |
 | Verantwortlich (§ 18 Abs. 2 MStV) | Hans-Christoph Peter Grunwald |
 
 Diese Daten werden auf `/legal/imprint` ausgegeben (Komponente:
@@ -571,6 +596,7 @@ Daten sind beide Stellen synchron zu halten.
 ### 9.1 Cloudflare Turnstile (Spam-Schutz Kontaktformular)
 
 **Warum Turnstile statt reCAPTCHA / hCaptcha:**
+
 - Keine Cookies, keine personenbezogenen Daten an Dritte → DSGVO-konform
   ohne Cookie-Banner
 - Privacy-First-Ansatz von Cloudflare (keine Datenverkauf)
@@ -608,11 +634,11 @@ Konkrete Umsetzung:
 // src/app/[locale]/contact/page.tsx
 export const metadata = {
   // preconnect zur Cloudflare-Domain
-  other: { "link": "<https://challenges.cloudflare.com>; rel=preconnect" },
+  other: { link: "<https://challenges.cloudflare.com>; rel=preconnect" },
 };
 
 // Client-Component für das Formular
-"use client";
+("use client");
 import Script from "next/script";
 import { useState, useRef } from "react";
 
@@ -660,17 +686,14 @@ oder Route Handler muss gegen Cloudflares siteverify-Endpoint prüfen:
 "use server";
 async function submitContact(formData: FormData) {
   const token = formData.get("cf-turnstile-response");
-  const verify = await fetch(
-    "https://challenges.cloudflare.com/turnstile/v0/siteverify",
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams({
-        secret: process.env.TURNSTILE_SECRET_KEY!,
-        response: String(token),
-      }),
-    },
-  ).then((r) => r.json());
+  const verify = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      secret: process.env.TURNSTILE_SECRET_KEY!,
+      response: String(token),
+    }),
+  }).then((r) => r.json());
 
   if (!verify.success) throw new Error("Turnstile verification failed");
   // … Mail via Resend versenden …
@@ -679,16 +702,17 @@ async function submitContact(formData: FormData) {
 
 **Environment-Variablen:**
 
-| Variable | Scope | Quelle |
-|---|---|---|
+| Variable                         | Scope           | Quelle               |
+| -------------------------------- | --------------- | -------------------- |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Client (public) | Cloudflare Dashboard |
-| `TURNSTILE_SECRET_KEY` | Server only | Cloudflare Dashboard |
+| `TURNSTILE_SECRET_KEY`           | Server only     | Cloudflare Dashboard |
 
 In Vercel als Environment Variables für Production / Preview / Development
 hinterlegen. Nie ins Repo committen. `.env.example` mit den Keys (ohne
 Werte) ablegen.
 
 **Performance-Budget:**
+
 - Initial-Load Kontakt-Seite: < 50 KB JS (ohne Turnstile)
 - Turnstile-Script (~80 KB) lädt erst nach `window.load` und nur auf
   `/contact` → 0 Impact auf alle anderen Routen
@@ -696,18 +720,38 @@ Werte) ablegen.
 
 ---
 
-## 10. Offene Punkte
+## 10. Offene Punkte (Content / DevOps)
 
-| # | Thema | Owner | Status |
-|---|---|---|---|
-| 1 | SVG-Version des Logos vom Kunden | Kunde | offen |
-| 2 | Bildmaterial: Trainings, CAT 9 Mock-Up, Team | Kunde | offen |
-| 3 | Englische Übersetzungen Service-Beschreibungen | Translation | Entwurf vorhanden |
-| 4 | Datenschutzerklärung Inhalt | Kunde / Anwalt | offen |
-| 5 | Telefonnummer & offizielle E-Mail | Kunde | offen |
-| 6 | Liberation Sans woff2-Files in `public/fonts/` | Dev | offen |
-| 7 | Referenzen / Kundenliste | Kunde | offen |
-| 8 | Cloudflare Turnstile Site- & Secret-Key | Kunde / Dev | offen |
+Technisch ist die Site produktionsreif. Folgende Punkte blockieren
+ausschließlich Content, externe Services oder juristische Freigabe:
+
+| #   | Thema                                                                | Owner               | Status                                                          |
+| --- | -------------------------------------------------------------------- | ------------------- | --------------------------------------------------------------- |
+| 1   | SVG-Version des Logos                                                | Kunde               | offen                                                           |
+| 2   | Bildmaterial (Trainings, CAT 9 Mock-Up, Team, Referenzen)            | Kunde               | offen                                                           |
+| 3   | Englische Übersetzungen final reviewen                               | Translation / Kunde | Entwurf ausgeliefert                                            |
+| 4   | Anwaltliche Freigabe der Datenschutzerklärung                        | Kunde / Anwalt      | Text liegt vor, muss geprüft werden                             |
+| 5   | Telefonnummer & offizielle E-Mail                                    | Kunde               | offen                                                           |
+| 6   | Liberation Sans woff2-Files in `public/fonts/`                       | Dev                 | `next/font/local`-Snippet liegt als Kommentar in beiden Layouts |
+| 7   | About-Seite Inhalt                                                   | Kunde               | offen (Route nicht gebaut)                                      |
+| 8   | Referenzen / Kundenlogos                                             | Kunde               | offen (Route nicht gebaut)                                      |
+| 9   | `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL` in Vercel | DevOps              | muss vor Go-Live gesetzt werden                                 |
+| 10  | `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` in Vercel   | DevOps              | muss vor Go-Live gesetzt werden                                 |
+| 11  | Resend-Domain `satis.aero` verifizieren (SPF/DKIM/DMARC)             | DevOps              | muss vor Go-Live erfolgen                                       |
+| 12  | Domain `satis.aero` auf Vercel verbinden                             | DevOps              | Preview läuft aktuell auf `satis-aero.vercel.app`               |
+
+**Code-seitige Hinweise:**
+
+- Die `metadataBase`-Warnung beim lokalen `npm run build` ist kosmetisch
+  – Next.js unterdrückt sie automatisch, sobald `VERCEL=1` (Standard auf
+  Vercel) gesetzt ist. Die Production-URLs werden nach wie vor korrekt
+  aufgelöst, weil jeder Page-Title und jedes OG-Bild absolute URLs
+  (`https://satis.aero/…`) enthält.
+- Rate-Limit auf `submitContact` ist In-Memory und damit instance-local.
+  Für produktions-harten Schutz → Upstash Redis (`@upstash/ratelimit`)
+  oder Vercel KV nachrüsten, der aktuelle Stand ist als erste
+  Verteidigungslinie gemeinsam mit Turnstile + Honeypot + zod
+  ausreichend.
 
 ---
 

@@ -1,10 +1,6 @@
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
-import {
-  categoryLabels,
-  categoryOrder,
-  services,
-} from "@/lib/services";
+import { categoryLabels, categoryOrder, services } from "@/lib/services";
 import { routes, serviceUrl, t, type Locale } from "@/lib/i18n";
 
 // =============================================================================
@@ -32,7 +28,7 @@ export function MobileMenu({ locale }: { locale: Locale }) {
       <summary
         title={tr.nav.mobileMenuLabel}
         aria-label={tr.nav.mobileMenuLabel}
-        className="inline-flex h-9 w-9 cursor-pointer list-none items-center justify-center rounded-md text-runway transition-colors hover:bg-sky [&::-webkit-details-marker]:hidden"
+        className="text-runway hover:bg-sky inline-flex h-9 w-9 cursor-pointer list-none items-center justify-center rounded-md transition-colors [&::-webkit-details-marker]:hidden"
       >
         <Menu className="h-5 w-5 group-open:hidden" aria-hidden="true" />
         <X className="hidden h-5 w-5 group-open:block" aria-hidden="true" />
@@ -40,16 +36,16 @@ export function MobileMenu({ locale }: { locale: Locale }) {
 
       <nav
         aria-label={tr.nav.ariaLabel}
-        className="absolute left-0 right-0 top-full z-40 max-h-[calc(100vh-4rem)] overflow-y-auto border-b border-sky bg-white shadow-lg"
+        className="border-sky absolute top-full right-0 left-0 z-40 max-h-[calc(100vh-4rem)] overflow-y-auto border-b bg-white shadow-lg"
       >
         <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
           {/* Top-level nav links ===================================== */}
-          <ul className="space-y-1 border-b border-sky pb-4">
+          <ul className="border-sky space-y-1 border-b pb-4">
             <li>
               <Link
                 href={r.about}
                 title={tr.nav.aboutTitle}
-                className="block rounded-md px-3 py-2 text-base font-medium text-runway transition-colors hover:bg-sky hover:text-primary"
+                className="text-runway hover:bg-sky hover:text-primary block rounded-md px-3 py-2 text-base font-medium transition-colors"
               >
                 {tr.nav.about}
               </Link>
@@ -58,7 +54,7 @@ export function MobileMenu({ locale }: { locale: Locale }) {
               <Link
                 href={r.contact}
                 title={tr.nav.contactTitle}
-                className="block rounded-md px-3 py-2 text-base font-medium text-runway transition-colors hover:bg-sky hover:text-primary"
+                className="text-runway hover:bg-sky hover:text-primary block rounded-md px-3 py-2 text-base font-medium transition-colors"
               >
                 {tr.nav.contact}
               </Link>
@@ -67,7 +63,7 @@ export function MobileMenu({ locale }: { locale: Locale }) {
               <Link
                 href={r.services}
                 title={tr.nav.servicesTitle}
-                className="block rounded-md px-3 py-2 text-base font-medium text-runway transition-colors hover:bg-sky hover:text-primary"
+                className="text-runway hover:bg-sky hover:text-primary block rounded-md px-3 py-2 text-base font-medium transition-colors"
               >
                 {tr.nav.services}
               </Link>
@@ -78,7 +74,7 @@ export function MobileMenu({ locale }: { locale: Locale }) {
           <div className="space-y-4 py-4">
             {grouped.map((group) => (
               <section key={group.label}>
-                <h3 className="px-3 pb-1 text-[10px] font-semibold uppercase tracking-wider text-runway-mute">
+                <h3 className="text-runway-mute px-3 pb-1 text-[10px] font-semibold tracking-wider uppercase">
                   {group.label}
                 </h3>
                 <ul>
@@ -92,17 +88,15 @@ export function MobileMenu({ locale }: { locale: Locale }) {
                         <Link
                           href={href}
                           title={fullTitle}
-                          className="flex items-center gap-3 rounded-md px-3 py-2 text-sm text-runway transition-colors hover:bg-sky hover:text-primary"
+                          className="text-runway hover:bg-sky hover:text-primary flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors"
                         >
                           <span
-                            className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-sky text-primary"
+                            className="bg-sky text-primary inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md"
                             aria-hidden="true"
                           >
                             <Icon className="h-4 w-4" />
                           </span>
-                          <span className="truncate font-medium">
-                            {menuTitle}
-                          </span>
+                          <span className="truncate font-medium">{menuTitle}</span>
                         </Link>
                       </li>
                     );
@@ -113,12 +107,12 @@ export function MobileMenu({ locale }: { locale: Locale }) {
           </div>
 
           {/* Legal links =========================================== */}
-          <ul className="space-y-1 border-t border-sky pt-4 text-sm text-runway-soft">
+          <ul className="border-sky text-runway-soft space-y-1 border-t pt-4 text-sm">
             <li>
               <Link
                 href={r.imprint}
                 title={tr.footer.links.imprint}
-                className="block rounded-md px-3 py-2 transition-colors hover:bg-sky hover:text-primary"
+                className="hover:bg-sky hover:text-primary block rounded-md px-3 py-2 transition-colors"
               >
                 {tr.footer.links.imprint}
               </Link>
@@ -127,7 +121,7 @@ export function MobileMenu({ locale }: { locale: Locale }) {
               <Link
                 href={r.privacy}
                 title={tr.footer.links.privacy}
-                className="block rounded-md px-3 py-2 transition-colors hover:bg-sky hover:text-primary"
+                className="hover:bg-sky hover:text-primary block rounded-md px-3 py-2 transition-colors"
               >
                 {tr.footer.links.privacy}
               </Link>

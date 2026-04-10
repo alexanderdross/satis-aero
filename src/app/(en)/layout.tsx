@@ -115,15 +115,13 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-export default function EnglishRootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function EnglishRootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className="h-full antialiased">
-      <body className="flex min-h-full flex-col bg-cloud font-sans text-runway">
+      <body className="bg-cloud text-runway flex min-h-full flex-col font-sans">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded focus:bg-primary focus:px-4 focus:py-2 focus:text-white"
+          className="focus:bg-primary sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded focus:px-4 focus:py-2 focus:text-white"
         >
           Skip to main content
         </a>

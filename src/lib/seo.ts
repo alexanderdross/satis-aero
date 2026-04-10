@@ -83,7 +83,11 @@ export function buildMetadata(input: BuildMetadataInput): Metadata {
 
   return {
     metadataBase: new URL(SITE_URL),
-    title,
+    // Use `absolute` so the root layout's `title.template` does not
+    // append a second " | SATIS Aero" to titles that already contain
+    // the brand name. Without this, most pages would render as
+    // "Foo | SATIS Aero | SATIS Aero".
+    title: { absolute: title },
     description,
     keywords: keywords ? [...keywords] : undefined,
     applicationName: SITE_NAME,

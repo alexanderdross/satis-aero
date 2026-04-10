@@ -10,6 +10,7 @@ Claude. Inhaltliche und gestalterische Entscheidungen stehen in
 das Fachkonzept.
 
 ## Stack
+
 - Next.js **16.2.3** (App Router, Turbopack)
 - React 19 / TypeScript 5
 - Tailwind CSS **v4** (`@tailwindcss/postcss`) – Konfiguration via
@@ -21,6 +22,7 @@ das Fachkonzept.
 ## Architektur
 
 ### Server-Only / Edge-First
+
 > **Hard rule:** Die gesamte Site rendert serverseitig. Es gibt **keine**
 > Client Components im Layout-Shell. Vor dem Hinzufügen von `"use client"`
 > immer prüfen, ob das Feature mit nativen HTML-Elementen oder einem
@@ -39,6 +41,7 @@ das Fachkonzept.
   im Layout gemountet.
 
 ### Multi-Root-Layout via Route Groups
+
 ```
 src/app/
 ├── (de)/
@@ -56,6 +59,7 @@ src/app/
 ├── sitemap.ts                  # multilingual mit hreflang
 └── robots.ts
 ```
+
 - Es existiert **kein** zentrales `src/app/layout.tsx` mehr – Next.js 16
   erlaubt mehrere Root-Layouts via Route Groups.
 - Beide Layouts importieren `../globals.css`.
@@ -63,11 +67,13 @@ src/app/
   Sprache, anderer Root-Layout-Tree).
 
 ### Trailing Slash
+
 - `next.config.ts`: `trailingSlash: true`
 - Alle Routen, alle internen Links und alle `alternates.canonical`-Werte
   haben einen Trailing Slash. Variante ohne Slash → 308 Redirect.
 
 ## Next.js 16 Reminder
+
 > Diese Version hat Breaking Changes ggü. älteren Next.js-Versionen.
 > Vor jedem nicht-trivialen Change die lokalen Docs unter
 > `node_modules/next/dist/docs/` lesen.
@@ -85,20 +91,21 @@ src/app/
   importieren `globals.css`.
 
 ## Design-Tokens (siehe `konzept.md` §5.2 für die volle Palette)
-| Token | Hex | Nutzung |
-|---|---|---|
-| `primary` | `#255685` | Logo, CTAs, Headlines |
-| `primary-dark` | `#173a5c` | Hover, Footer |
-| `primary-light` | `#3d7bb3` | Links, Akzente |
-| `sky` | `#e8f1f9` | Section-BG |
-| `cloud` | `#f7f9fc` | Page-BG |
-| `runway` | `#0f172a` | Body-Text |
-| `runway-soft` | `#334155` | Sekundär-Text (≥ 7:1 auf cloud, AAA) |
-| `runway-mute` | `#475569` | Tertiär-Text (≥ 6.5:1 auf cloud, AAA) |
+
+| Token             | Hex       | Nutzung                                 |
+| ----------------- | --------- | --------------------------------------- |
+| `primary`         | `#255685` | Logo, CTAs, Headlines                   |
+| `primary-dark`    | `#173a5c` | Hover, Footer                           |
+| `primary-light`   | `#3d7bb3` | Links, Akzente                          |
+| `sky`             | `#e8f1f9` | Section-BG                              |
+| `cloud`           | `#f7f9fc` | Page-BG                                 |
+| `runway`          | `#0f172a` | Body-Text                               |
+| `runway-soft`     | `#334155` | Sekundär-Text (≥ 7:1 auf cloud, AAA)    |
+| `runway-mute`     | `#475569` | Tertiär-Text (≥ 6.5:1 auf cloud, AAA)   |
 | `on-primary-soft` | `#e6edf5` | Sekundär-Text auf primary-dark (≥ 12:1) |
 | `on-primary-mute` | `#c7d4e3` | Tertiär-Text auf primary-dark (≥ 7.5:1) |
-| `signal` | `#c1272d` | Emergency / Feuerwehr-Bezug |
-| `success` | `#1f8a7a` | Bestätigungen |
+| `signal`          | `#c1272d` | Emergency / Feuerwehr-Bezug             |
+| `success`         | `#1f8a7a` | Bestätigungen                           |
 
 Tokens werden in `src/app/globals.css` über `@theme inline` als CSS-Variablen
 definiert und sind dann als Tailwind-Klassen verfügbar (z. B. `bg-primary`).
@@ -107,6 +114,7 @@ Tokens (`text-runway-soft`, `text-runway-mute`) verwenden – Lighthouse / axe
 berechnen Opacity-Kontraste oft falsch.
 
 ## Font-Regeln
+
 - **Self-hosted only.** Niemals `next/font/google` oder externe Font-CDNs.
 - Font: **Liberation Sans** (OFL-Lizenz, metrisch kompatibel zu Arial)
 - Files in `public/fonts/LiberationSans-{Regular,Bold,Italic,BoldItalic}.woff2`
@@ -118,6 +126,7 @@ berechnen Opacity-Kontraste oft falsch.
   woff2-Files noch fehlen)
 
 ## Image-Regeln
+
 - **Immer `next/image`** – nie native `<img>`.
 - Statische `width` und `height` setzen (außer bei `fill`) → CLS-Optimierung.
 - Bei `fill` und responsiven Bildern **immer** `sizes` setzen,
@@ -135,16 +144,18 @@ berechnen Opacity-Kontraste oft falsch.
 - Verzeichnis: `public/images/{brand,hero,services,team,references}/`.
 
 ## Static Asset Cache (vercel.json)
-| Pfad | Cache-Control |
-|---|---|
-| `/icons/*` | `public, max-age=31536000, immutable` (1 Jahr) |
-| `/images/*` | `public, max-age=31536000, immutable` (1 Jahr) |
-| `/fonts/*` | `public, max-age=31536000, immutable` (1 Jahr) |
-| `/favicon.ico` | `public, max-age=86400, must-revalidate` (1 Tag) |
+
+| Pfad                    | Cache-Control                                    |
+| ----------------------- | ------------------------------------------------ |
+| `/icons/*`              | `public, max-age=31536000, immutable` (1 Jahr)   |
+| `/images/*`             | `public, max-age=31536000, immutable` (1 Jahr)   |
+| `/fonts/*`              | `public, max-age=31536000, immutable` (1 Jahr)   |
+| `/favicon.ico`          | `public, max-age=86400, must-revalidate` (1 Tag) |
 | `/manifest.webmanifest` | `public, max-age=86400, must-revalidate` (1 Tag) |
-| `/browserconfig.xml` | `public, max-age=86400, must-revalidate` (1 Tag) |
+| `/browserconfig.xml`    | `public, max-age=86400, must-revalidate` (1 Tag) |
 
 Zusätzlich global gesetzt für `/(.*)`:
+
 - `X-Content-Type-Options: nosniff`
 - `X-Frame-Options: SAMEORIGIN`
 - `Referrer-Policy: strict-origin-when-cross-origin`
@@ -156,6 +167,7 @@ Zusätzlich global gesetzt für `/(.*)`:
 ## SEO, GEO & strukturierte Daten
 
 ### Zentrale Helpers
+
 - **`src/lib/seo.ts`** – `buildMetadata()` baut einheitliche `Metadata`-
   Objekte inkl. Title-Template, Description, Keywords, hreflang-
   Alternates, OpenGraph (mit alternate Locale), Twitter Cards und
@@ -179,10 +191,12 @@ Zusätzlich global gesetzt für `/(.*)`:
   - `ServiceItemListJsonLd` – auf den Home-Pages mit allen 11 Services.
 
 ### Twitter Cards
+
 - Alle Pages setzen `twitter.card: "summary_large_image"` mit
   `site`/`creator: "@satis_aero"`. Automatisch von `buildMetadata()`.
 
 ### Open Graph
+
 - Statische Default-OG-Image über `src/app/opengraph-image.tsx`
   (Next.js File-Convention). Wird via `next/og` `ImageResponse`
   generiert, 1200×630, brand-coloured.
@@ -194,6 +208,7 @@ Zusätzlich global gesetzt für `/(.*)`:
   einem Kind explizit `display: flex` setzen (satori-Constraint).
 
 ### Generative Engine Optimization (GEO)
+
 - **`src/app/llms.txt/route.ts`** – statischer Markdown-Dump, erreichbar
   unter `/llms.txt`. Enthält Firmenprofil, alle 11 Services mit
   Canonical-URLs, Kontaktdaten und kurze Editorial-Guidance für
@@ -208,6 +223,7 @@ Zusätzlich global gesetzt für `/(.*)`:
   generativen Engines bei "Was macht SATIS Aero?"-Queries.
 
 ## Open Graph
+
 - Statische Default-OG-Image über `src/app/opengraph-image.tsx`
   (Next.js File-Convention). Wird via `next/og` `ImageResponse`
   generiert, 1200×630, brand-coloured.
@@ -217,11 +233,13 @@ Zusätzlich global gesetzt für `/(.*)`:
   einem Kind explizit `display: flex` setzen (satori-Constraint).
 
 ## Custom 404
+
 - `src/app/(de)/not-found.tsx` und `src/app/(en)/not-found.tsx`
 - Gemeinsame `NotFoundContent` Komponente, locale-aware
 - `robots: { index: false, follow: false }`
 
 ## i18n
+
 - Zweisprachig **DE / EN**, DE als Default am Root, EN unter `/en/`.
 - **Keine** `[locale]`-Route-Group, sondern Multi-Root-Layouts (siehe
   Architektur-Section oben).
@@ -234,6 +252,7 @@ Zusätzlich global gesetzt für `/(.*)`:
   (Deutschland / Union Jack), Inline-SVG, ohne Asset-Request.
 
 ## SEO
+
 - Jede Page setzt `alternates.canonical` (mit Trailing Slash) und
   `alternates.languages: { de: …, en: … }`.
 - Multilingual Sitemap: `src/app/sitemap.ts` – generiert je 1
@@ -244,6 +263,7 @@ Zusätzlich global gesetzt für `/(.*)`:
   aus `src/lib/i18n.ts`.
 
 ## Kontaktformular & Spam-Schutz
+
 - Spam-Schutz: **Cloudflare Turnstile** + **Honeypot** + **zod**-Validierung
   (volle Spec in `konzept.md` §9.1).
 - **Turnstile-Script** wird **nur** auf `/kontakt/` und `/en/contact/`
@@ -271,6 +291,7 @@ Zusätzlich global gesetzt für `/(.*)`:
     muss in der Resend-Domain verifiziert sein)
 
 ## Coding-Konventionen
+
 - TypeScript strict, keine `any`.
 - **Server Components als Default.** `"use client"` ist verboten im
   Layout-Shell und benötigt Begründung.

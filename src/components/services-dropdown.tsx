@@ -1,10 +1,6 @@
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
-import {
-  categoryLabels,
-  categoryOrder,
-  services,
-} from "@/lib/services";
+import { categoryLabels, categoryOrder, services } from "@/lib/services";
 import { routes, serviceUrl, t, type Locale } from "@/lib/i18n";
 
 // =============================================================================
@@ -31,7 +27,7 @@ export function ServicesDropdown({ locale }: { locale: Locale }) {
     <details className="group relative">
       <summary
         title={tr.nav.servicesTitle}
-        className="inline-flex cursor-pointer list-none items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-runway transition-colors hover:bg-sky hover:text-primary [&::-webkit-details-marker]:hidden"
+        className="text-runway hover:bg-sky hover:text-primary inline-flex cursor-pointer list-none items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors [&::-webkit-details-marker]:hidden"
       >
         {tr.nav.services}
         <ChevronDown
@@ -40,7 +36,7 @@ export function ServicesDropdown({ locale }: { locale: Locale }) {
         />
       </summary>
       <div
-        className="absolute left-1/2 z-50 mt-2 w-[22rem] -translate-x-1/2 overflow-hidden rounded-xl border border-sky bg-white shadow-xl ring-1 ring-black/5 sm:w-[26rem]"
+        className="border-sky absolute left-1/2 z-50 mt-2 w-[22rem] -translate-x-1/2 overflow-hidden rounded-xl border bg-white shadow-xl ring-1 ring-black/5 sm:w-[26rem]"
         role="menu"
         aria-label={tr.nav.servicesDropdownLabel}
       >
@@ -54,11 +50,11 @@ export function ServicesDropdown({ locale }: { locale: Locale }) {
             />
           ))}
         </div>
-        <div className="border-t border-sky bg-cloud px-4 py-3">
+        <div className="border-sky bg-cloud border-t px-4 py-3">
           <Link
             href={r.services}
             title={tr.nav.servicesTitle}
-            className="inline-flex items-center gap-1 text-xs font-semibold text-primary hover:text-primary-dark"
+            className="text-primary hover:text-primary-dark inline-flex items-center gap-1 text-xs font-semibold"
           >
             {tr.nav.servicesAll} →
           </Link>
@@ -79,7 +75,7 @@ function CategoryGroup({
 }) {
   return (
     <section className="px-2 py-1">
-      <h3 className="px-2 pb-1 pt-2 text-[10px] font-semibold uppercase tracking-wider text-runway-mute">
+      <h3 className="text-runway-mute px-2 pt-2 pb-1 text-[10px] font-semibold tracking-wider uppercase">
         {label}
       </h3>
       <ul role="none">
@@ -94,17 +90,15 @@ function CategoryGroup({
                 href={href}
                 title={fullTitle}
                 role="menuitem"
-                className="flex items-center gap-3 rounded-lg px-2 py-2 text-sm text-runway transition-colors hover:bg-sky hover:text-primary"
+                className="text-runway hover:bg-sky hover:text-primary flex items-center gap-3 rounded-lg px-2 py-2 text-sm transition-colors"
               >
                 <span
-                  className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-sky text-primary"
+                  className="bg-sky text-primary inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md"
                   aria-hidden="true"
                 >
                   <Icon className="h-4 w-4" />
                 </span>
-                <span className="truncate font-medium leading-tight">
-                  {menuTitle}
-                </span>
+                <span className="truncate leading-tight font-medium">{menuTitle}</span>
               </Link>
             </li>
           );

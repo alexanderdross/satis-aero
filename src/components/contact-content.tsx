@@ -28,15 +28,15 @@ export function ContactContent({ locale }: { locale: Locale }) {
     <>
       <Breadcrumbs items={breadcrumbs} locale={locale} />
 
-      <section className="bg-gradient-to-b from-sky to-cloud">
+      <section className="from-sky to-cloud bg-gradient-to-b">
         <div className="mx-auto max-w-4xl px-4 py-12 sm:px-6 sm:py-16 md:py-20">
-          <p className="text-xs font-semibold uppercase tracking-wider text-primary">
+          <p className="text-primary text-xs font-semibold tracking-wider uppercase">
             {tr.eyebrow}
           </p>
-          <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight text-runway sm:text-4xl md:text-5xl">
+          <h1 className="text-runway mt-3 text-3xl leading-tight font-bold tracking-tight sm:text-4xl md:text-5xl">
             {tr.title}
           </h1>
-          <p className="mt-5 max-w-2xl text-base leading-relaxed text-runway-soft sm:text-lg">
+          <p className="text-runway-soft mt-5 max-w-2xl text-base leading-relaxed sm:text-lg">
             {tr.sub}
           </p>
         </div>
@@ -46,21 +46,19 @@ export function ContactContent({ locale }: { locale: Locale }) {
         <div className="mx-auto grid max-w-6xl gap-12 px-4 py-12 sm:px-6 sm:py-16 md:py-20 lg:grid-cols-[2fr_1fr] lg:gap-16">
           {/* Form ====================================================== */}
           <div>
-            <h2 className="mb-6 text-xl font-bold text-runway sm:text-2xl">
-              {tr.formHeading}
-            </h2>
+            <h2 className="text-runway mb-6 text-xl font-bold sm:text-2xl">{tr.formHeading}</h2>
             <ContactForm locale={locale} />
           </div>
 
           {/* Address ================================================== */}
           <aside className="space-y-8">
             <div>
-              <h2 className="flex items-center gap-2 text-xl font-bold text-runway sm:text-2xl">
-                <MapPin className="h-5 w-5 text-primary" aria-hidden="true" />
+              <h2 className="text-runway flex items-center gap-2 text-xl font-bold sm:text-2xl">
+                <MapPin className="text-primary h-5 w-5" aria-hidden="true" />
                 {tr.addressHeading}
               </h2>
-              <address className="mt-4 space-y-1 text-sm not-italic leading-relaxed text-runway-soft sm:text-base">
-                <p className="font-semibold text-runway">{tr.addressName}</p>
+              <address className="text-runway-soft mt-4 space-y-1 text-sm leading-relaxed not-italic sm:text-base">
+                <p className="text-runway font-semibold">{tr.addressName}</p>
                 <p>{tr.addressStreet}</p>
                 <p>{tr.addressCity}</p>
                 <p>{tr.addressCountry}</p>
@@ -68,15 +66,15 @@ export function ContactContent({ locale }: { locale: Locale }) {
             </div>
 
             <div>
-              <h2 className="flex items-center gap-2 text-xl font-bold text-runway sm:text-2xl">
-                <Mail className="h-5 w-5 text-primary" aria-hidden="true" />
+              <h2 className="text-runway flex items-center gap-2 text-xl font-bold sm:text-2xl">
+                <Mail className="text-primary h-5 w-5" aria-hidden="true" />
                 {tr.mailHeading}
               </h2>
               <p className="mt-4 text-sm sm:text-base">
                 <a
                   href={`mailto:${tr.mailValue}`}
                   title={tr.mailTitle}
-                  className="font-semibold text-primary underline-offset-4 hover:underline"
+                  className="text-primary font-semibold underline-offset-4 hover:underline"
                 >
                   {tr.mailValue}
                 </a>

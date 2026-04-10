@@ -1,0 +1,113 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # Static analysis & unit tests
+  # ---------------------------------------------------------------------------
+  # Both jobs run in parallel and each performs its own `next build`.
+  # We deliberately do NOT share a build artifact between jobs, because
+  # the artifact upload step is brittle (it is skipped whenever an
+  # earlier step in the same job fails, which left `lighthouse` trying
+  # to download an artifact that was never uploaded). Independent jobs
+  # are slightly slower but dramatically more robust.
+  # ---------------------------------------------------------------------------
+  verify:
+    name: Lint · Typecheck · Unit tests · Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Prettier check
+        run: npm run format:check
+
+      - name: ESLint
+        run: npm run lint
+
+      # `next build` must run before the standalone `tsc --noEmit`.
+      # It (re-)generates `next-env.d.ts` and `.next/types/routes.d.ts`
+      # which the typecheck depends on to resolve typed routes and the
+      # PNG module declarations.
+      - name: Next.js build
+        run: npm run build
+        env:
+          # Silence the cosmetic metadataBase warning – Vercel sets this
+          # automatically in the real deployment.
+          VERCEL: "1"
+          VERCEL_URL: "satis.aero"
+
+      - name: TypeScript
+        run: npm run typecheck
+
+      - name: Unit tests
+        run: npm run test
+
+  # ---------------------------------------------------------------------------
+  # Lighthouse CI – performance, accessibility, SEO and best-practice budgets
+  # ---------------------------------------------------------------------------
+  lighthouse:
+    name: Lighthouse CI
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Next.js build
+        run: npm run build
+        env:
+          VERCEL: "1"
+          VERCEL_URL: "satis.aero"
+
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          # Boot `next start` on the runner and point Lighthouse at the
+          # canonical set of public routes. The budgets and assertions
+          # live in `.github/lighthouserc.json`.
+          urls: |
+            http://localhost:3000/
+            http://localhost:3000/en/
+            http://localhost:3000/leistungen/cat9-mockup-training/
+            http://localhost:3000/en/services/cat9-mockup-training/
+            http://localhost:3000/kontakt/
+            http://localhost:3000/en/contact/
+            http://localhost:3000/impressum/
+            http://localhost:3000/datenschutz/
+          configPath: ./.github/lighthouserc.json
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+          runs: 1
+        env:
+          VERCEL: "1"
+          VERCEL_URL: "satis.aero"

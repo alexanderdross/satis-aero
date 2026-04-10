@@ -15,13 +15,7 @@ import logo from "../../public/images/brand/satis-logo.png";
 // page).
 // =============================================================================
 
-export function Header({
-  locale,
-  alternates,
-}: {
-  locale: Locale;
-  alternates: PageAlternates;
-}) {
+export function Header({ locale, alternates }: { locale: Locale; alternates: PageAlternates }) {
   const tr = t[locale];
   const r = routes[locale];
 
@@ -37,7 +31,7 @@ export function Header({
   ];
 
   return (
-    <header className="satis-header sticky top-0 z-50 border-b border-sky bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
+    <header className="satis-header border-sky sticky top-0 z-50 border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
       <div className="relative mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:gap-6 sm:px-6 sm:py-4">
         <Link
           href={r.home}
@@ -68,7 +62,7 @@ export function Header({
                 <Link
                   href={item.href}
                   title={item.title}
-                  className="rounded-md px-3 py-2 text-runway transition-colors hover:bg-sky hover:text-primary focus-visible:bg-sky"
+                  className="text-runway hover:bg-sky hover:text-primary focus-visible:bg-sky rounded-md px-3 py-2 transition-colors"
                 >
                   {item.label}
                 </Link>
@@ -78,7 +72,7 @@ export function Header({
               <Link
                 href={r.contact}
                 title={tr.nav.ctaTitle}
-                className="inline-flex items-center rounded-full bg-primary px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition-colors hover:bg-primary-dark sm:px-5 sm:py-2 sm:text-sm"
+                className="bg-primary hover:bg-primary-dark inline-flex items-center rounded-full px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition-colors sm:px-5 sm:py-2 sm:text-sm"
               >
                 {tr.nav.cta}
               </Link>

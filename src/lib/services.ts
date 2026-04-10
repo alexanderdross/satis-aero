@@ -52,12 +52,7 @@ export const categoryLabels: Record<ServiceCategory, Localized<string>> = {
   tools: { de: "Tools & Innovation", en: "Tools & Innovation" },
 };
 
-export const categoryOrder: ServiceCategory[] = [
-  "coaching",
-  "compliance",
-  "practice",
-  "tools",
-];
+export const categoryOrder: ServiceCategory[] = ["coaching", "compliance", "practice", "tools"];
 
 export const services: Service[] = [
   {
@@ -406,11 +401,7 @@ export const services: Service[] = [
       en: "Theory matters, but in real incidents experience counts. Our CAT 9 mock-up trainings offer genuine live-fire training in a controlled environment. Crews practise interior attack, rescue, landing-gear fires and large-aircraft scenarios at a facility rated to Category 9 — the largest commercial aircraft.",
     },
     audience: {
-      de: [
-        "Flughafenfeuerwehrcrews",
-        "Einsatzleiter",
-        "Werkfeuerwehren mit Aviation-Bezug",
-      ],
+      de: ["Flughafenfeuerwehrcrews", "Einsatzleiter", "Werkfeuerwehren mit Aviation-Bezug"],
       en: [
         "Airport fire-service crews",
         "Incident commanders",
@@ -458,16 +449,8 @@ export const services: Service[] = [
       en: "Anyone who wants to train EASA-compliant needs complete documentation of every training, refresher and qualification. Our Training Management System (TMS) is purpose-built for airport fire services and replaces the spreadsheets most organisations are still juggling. Planning, delivery, evidence — all in one place.",
     },
     audience: {
-      de: [
-        "Leiter Flughafenfeuerwehr",
-        "Ausbildungsverantwortliche",
-        "Compliance Manager",
-      ],
-      en: [
-        "Airport fire service leadership",
-        "Training managers",
-        "Compliance managers",
-      ],
+      de: ["Leiter Flughafenfeuerwehr", "Ausbildungsverantwortliche", "Compliance Manager"],
+      en: ["Airport fire service leadership", "Training managers", "Compliance managers"],
     },
     outcomes: {
       de: [
@@ -506,16 +489,8 @@ export const services: Service[] = [
       en: "VR training adds a third dimension to classic training formats: crews practise in immersive, perfectly reproducible scenarios that would be too expensive or too dangerous in the real world. Our VR modules cover fire fighting, emergency communication and decision-making — location-independent and infinitely repeatable.",
     },
     audience: {
-      de: [
-        "Flughafenfeuerwehrcrews",
-        "Piloten und Crew-Trainer",
-        "Ausbildungsverantwortliche",
-      ],
-      en: [
-        "Airport fire-service crews",
-        "Pilots and crew trainers",
-        "Training managers",
-      ],
+      de: ["Flughafenfeuerwehrcrews", "Piloten und Crew-Trainer", "Ausbildungsverantwortliche"],
+      en: ["Airport fire-service crews", "Pilots and crew trainers", "Training managers"],
     },
     outcomes: {
       de: [
@@ -553,18 +528,8 @@ export const services: Service[] = [
       en: "Without ICAO Language Proficiency Level 4, pilots and controllers are not allowed to communicate internationally — Level 5 is valid several years longer and therefore the genuine comfort standard. Our preparation courses are tailored to aviation English and conclude with an official examination. We know the test formats and prepare candidates specifically for all six rating criteria.",
     },
     audience: {
-      de: [
-        "Linienpiloten",
-        "Business-Aviation-Piloten",
-        "Lotsen",
-        "Funkpersonal",
-      ],
-      en: [
-        "Airline pilots",
-        "Business aviation pilots",
-        "Controllers",
-        "Radio operators",
-      ],
+      de: ["Linienpiloten", "Business-Aviation-Piloten", "Lotsen", "Funkpersonal"],
+      en: ["Airline pilots", "Business aviation pilots", "Controllers", "Radio operators"],
     },
     outcomes: {
       de: [

@@ -17,7 +17,7 @@ export function Footer({ locale }: { locale: Locale }) {
   const copy = tr.footer.copy.replace("{year}", String(year));
 
   return (
-    <footer className="border-t border-sky bg-primary-dark text-on-primary">
+    <footer className="border-sky bg-primary-dark text-on-primary border-t">
       <div className="mx-auto grid max-w-6xl gap-10 px-6 py-12 sm:grid-cols-2 sm:px-8 lg:grid-cols-4 lg:gap-12 lg:py-16">
         <div>
           <Image
@@ -30,16 +30,14 @@ export function Footer({ locale }: { locale: Locale }) {
             sizes="95px"
             className="mb-4 h-8 w-auto brightness-0 invert"
           />
-          <p className="text-sm leading-relaxed text-on-primary-soft">
-            {tr.footer.tagline}
-          </p>
+          <p className="text-on-primary-soft text-sm leading-relaxed">{tr.footer.tagline}</p>
         </div>
 
         <nav aria-label={tr.footer.colServices}>
-          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-on-primary">
+          <h2 className="text-on-primary mb-3 text-sm font-semibold tracking-wider uppercase">
             {tr.footer.colServices}
           </h2>
-          <ul className="space-y-2 text-sm text-on-primary-soft">
+          <ul className="text-on-primary-soft space-y-2 text-sm">
             <li>
               <Link
                 href={r.services}
@@ -53,16 +51,12 @@ export function Footer({ locale }: { locale: Locale }) {
         </nav>
 
         <nav aria-label={tr.footer.colCompany}>
-          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-on-primary">
+          <h2 className="text-on-primary mb-3 text-sm font-semibold tracking-wider uppercase">
             {tr.footer.colCompany}
           </h2>
-          <ul className="space-y-2 text-sm text-on-primary-soft">
+          <ul className="text-on-primary-soft space-y-2 text-sm">
             <li>
-              <Link
-                href={r.about}
-                title={tr.footer.links.about}
-                className="hover:text-on-primary"
-              >
+              <Link href={r.about} title={tr.footer.links.about} className="hover:text-on-primary">
                 {tr.footer.links.about}
               </Link>
             </li>
@@ -97,10 +91,10 @@ export function Footer({ locale }: { locale: Locale }) {
         </nav>
 
         <div>
-          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-on-primary">
+          <h2 className="text-on-primary mb-3 text-sm font-semibold tracking-wider uppercase">
             {tr.footer.colContact}
           </h2>
-          <address className="space-y-2 text-sm not-italic leading-relaxed text-on-primary-soft">
+          <address className="text-on-primary-soft space-y-2 text-sm leading-relaxed not-italic">
             <p>Hans-Christoph Peter Grunwald</p>
             <p>
               Im Kranzfeld 39
@@ -121,7 +115,7 @@ export function Footer({ locale }: { locale: Locale }) {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-6 py-4 text-xs text-on-primary-mute sm:flex-row sm:px-8">
+        <div className="text-on-primary-mute mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-6 py-4 text-xs sm:flex-row sm:px-8">
           <p>{copy}</p>
           <p>{tr.footer.hosting}</p>
         </div>

@@ -24,16 +24,16 @@ serverseitig, **null Client-JavaScript** im Layout-Shell.
 
 ## Routen
 
-| URL | Locale | Inhalt |
-|---|---|---|
-| `/` | de | Homepage |
-| `/impressum/` | de | Impressum |
-| `/datenschutz/` | de | Datenschutz |
-| `/en/` | en | Homepage |
-| `/en/imprint/` | en | Imprint |
-| `/en/privacy/` | en | Privacy |
-| `/sitemap.xml` | – | Multilingual Sitemap mit hreflang |
-| `/robots.txt` | – | robots |
+| URL             | Locale | Inhalt                            |
+| --------------- | ------ | --------------------------------- |
+| `/`             | de     | Homepage                          |
+| `/impressum/`   | de     | Impressum                         |
+| `/datenschutz/` | de     | Datenschutz                       |
+| `/en/`          | en     | Homepage                          |
+| `/en/imprint/`  | en     | Imprint                           |
+| `/en/privacy/`  | en     | Privacy                           |
+| `/sitemap.xml`  | –      | Multilingual Sitemap mit hreflang |
+| `/robots.txt`   | –      | robots                            |
 
 URL-Policy: alle Pfade enden mit Trailing Slash (`trailingSlash: true`).
 

@@ -102,8 +102,7 @@ export const t = {
       ariaLabel: "Hauptnavigation",
       mobileMenuLabel: "Menü öffnen",
       mobileMenuClose: "Menü schließen",
-      logoTitle:
-        "SATIS Aero – Smart Aviation Training Innovative Solutions, Startseite",
+      logoTitle: "SATIS Aero – Smart Aviation Training Innovative Solutions, Startseite",
       langSwitch: "EN",
       langSwitchTitle: "Switch to English version",
     },
@@ -125,8 +124,7 @@ export const t = {
       formatHeading: "Format",
       complianceHeading: "Compliance & Regelwerke",
       ctaHeading: "Interesse an diesem Training?",
-      ctaText:
-        "Wir erstellen ein maßgeschneidertes Konzept für Ihr Team. Sprechen Sie uns an.",
+      ctaText: "Wir erstellen ein maßgeschneidertes Konzept für Ihr Team. Sprechen Sie uns an.",
       ctaButton: "Anfrage stellen",
       ctaButtonTitle: "Jetzt unverbindliche Anfrage stellen",
     },
@@ -156,14 +154,14 @@ export const t = {
       formSubmit: "Anfrage senden",
       formSubmitTitle: "Anfrage absenden",
       formSubmitting: "Wird gesendet …",
-      formSuccess:
-        "Vielen Dank! Wir haben Ihre Nachricht erhalten und melden uns in Kürze.",
+      formSuccess: "Vielen Dank! Wir haben Ihre Nachricht erhalten und melden uns in Kürze.",
       formError:
         "Beim Senden ist etwas schiefgelaufen. Bitte versuchen Sie es erneut oder schreiben Sie direkt an info@satis.aero.",
       formTurnstileError:
         "Spam-Schutz konnte nicht verifiziert werden. Bitte laden Sie die Seite neu.",
-      formPrivacyHint:
-        "Mit dem Absenden akzeptieren Sie unsere Datenschutzbestimmungen.",
+      formRateLimitError:
+        "Sie haben in kurzer Zeit zu viele Anfragen gesendet. Bitte warten Sie ein paar Minuten und versuchen Sie es erneut.",
+      formPrivacyHint: "Mit dem Absenden akzeptieren Sie unsere Datenschutzbestimmungen.",
       formPrivacyLinkLabel: "Datenschutzbestimmungen",
       formPrivacyLinkTitle: "Datenschutzbestimmungen ansehen",
       turnstileLabel: "Spam-Schutz",
@@ -178,8 +176,7 @@ export const t = {
       ctaPrimaryTitle: "Zu unseren Aviation Trainings und Services",
       ctaSecondary: "Kontakt aufnehmen",
       ctaSecondaryTitle: "Direkt mit SATIS Aero in Kontakt treten",
-      logoAlt:
-        "SATIS Aero Logo – Smart Aviation Training Innovative Solutions",
+      logoAlt: "SATIS Aero Logo – Smart Aviation Training Innovative Solutions",
     },
     usp: {
       heading: "Warum SATIS Aero?",
@@ -292,8 +289,7 @@ export const t = {
       ariaLabel: "Main navigation",
       mobileMenuLabel: "Open menu",
       mobileMenuClose: "Close menu",
-      logoTitle:
-        "SATIS Aero – Smart Aviation Training Innovative Solutions, home",
+      logoTitle: "SATIS Aero – Smart Aviation Training Innovative Solutions, home",
       langSwitch: "DE",
       langSwitchTitle: "Zur deutschen Version wechseln",
     },
@@ -315,8 +311,7 @@ export const t = {
       formatHeading: "Format",
       complianceHeading: "Compliance & frameworks",
       ctaHeading: "Interested in this training?",
-      ctaText:
-        "We design tailored programmes for your team. Get in touch with us.",
+      ctaText: "We design tailored programmes for your team. Get in touch with us.",
       ctaButton: "Send enquiry",
       ctaButtonTitle: "Send a non-binding enquiry",
     },
@@ -346,14 +341,13 @@ export const t = {
       formSubmit: "Send enquiry",
       formSubmitTitle: "Send the enquiry",
       formSubmitting: "Sending …",
-      formSuccess:
-        "Thank you! We have received your message and will be in touch shortly.",
+      formSuccess: "Thank you! We have received your message and will be in touch shortly.",
       formError:
         "Something went wrong while sending. Please try again or email us directly at info@satis.aero.",
-      formTurnstileError:
-        "Spam protection could not be verified. Please reload the page.",
-      formPrivacyHint:
-        "By sending this form you accept our privacy policy.",
+      formTurnstileError: "Spam protection could not be verified. Please reload the page.",
+      formRateLimitError:
+        "You have sent too many requests in a short period. Please wait a few minutes and try again.",
+      formPrivacyHint: "By sending this form you accept our privacy policy.",
       formPrivacyLinkLabel: "privacy policy",
       formPrivacyLinkTitle: "Read the privacy policy",
       turnstileLabel: "Spam protection",
@@ -368,8 +362,7 @@ export const t = {
       ctaPrimaryTitle: "View our aviation training and services",
       ctaSecondary: "Contact us",
       ctaSecondaryTitle: "Get in touch with SATIS Aero",
-      logoAlt:
-        "SATIS Aero logo – Smart Aviation Training Innovative Solutions",
+      logoAlt: "SATIS Aero logo – Smart Aviation Training Innovative Solutions",
     },
     usp: {
       heading: "Why SATIS Aero?",
@@ -436,8 +429,7 @@ export const t = {
       eyebrow: "Legal",
       sub: "Information according to § 5 TMG (German Telemedia Act)",
       providerHeading: "Service provider",
-      responsibleHeading:
-        "Responsible for the content according to § 18 Abs. 2 MStV",
+      responsibleHeading: "Responsible for the content according to § 18 Abs. 2 MStV",
       disclaimerHeading: "Disclaimer",
       disclaimerText:
         "The content of this website has been compiled with the greatest possible care. However, no guarantee can be given for the accuracy, completeness or timeliness of the content. As a service provider we are responsible for our own content on these pages according to general law (§ 7 paragraph 1 TMG).",
