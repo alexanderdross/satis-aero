@@ -167,7 +167,7 @@ export function HomeContent({ locale }: { locale: Locale }) {
               return (
                 <li
                   key={service.slug}
-                  className="group flex flex-col rounded-xl border border-sky bg-white transition-shadow hover:shadow-lg hover:shadow-primary/10"
+                  className="group flex flex-col rounded-xl border border-runway-mute/25 bg-white shadow-md shadow-primary/10 ring-1 ring-runway-mute/5 transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/15"
                 >
                   <Link
                     href={href}
@@ -234,7 +234,7 @@ export function HomeContent({ locale }: { locale: Locale }) {
             {tr.about.stats.map((stat) => (
               <li
                 key={stat.label}
-                className="rounded-xl border border-sky bg-cloud p-5 sm:p-6"
+                className="rounded-xl border border-runway-mute/25 bg-white p-5 shadow-md shadow-primary/10 ring-1 ring-runway-mute/5 sm:p-6"
               >
                 <div className="text-2xl font-bold text-primary sm:text-3xl">
                   {stat.number}
