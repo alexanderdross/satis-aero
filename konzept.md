@@ -173,15 +173,24 @@ der Website eine eigene Detailseite unter `/services/[slug]` angelegt.
 ## 5. Design-System
 
 ### 5.1 Logo
-- **Datei:** `public/images/brand/satis-logo.png` (Original vom Kunden)
-- **Primärfarbe:** `#255685` (extrahiert aus dem Logo)
-- **Schriftcharakter:** Modern, geometrisch, mit dynamischen Schrägen, die
-  an Cockpit-/Flugzeugsilhouetten erinnern.
-- **Verwendung:** Header (Höhe ~40 px), Footer (Höhe ~32 px),
-  Favicon, Open-Graph-Image
-- **Empfehlung:** SVG-Version für skalierbare Darstellung beim Kunden
-  anfragen. Bis dahin wird das PNG via `next/image` mit fester Größe
-  ausgeliefert.
+- **Datei:** `public/images/brand/satis-logo.png`
+- **Format:** PNG, 321 × 108 px, RGBA (transparenter Hintergrund), 10.2 KB
+- **Aspect Ratio:** ~2.97 : 1
+- **Primärfarbe:** `#255685` (Logo-Blau)
+- **Schriftcharakter:** Modern, geometrisch. Das „A" und „T" haben
+  charakteristische Schrägen, die an Flugzeug-Heckflossen / Winglets
+  erinnern – passender visueller Hook für die Aviation-Positionierung.
+- **Verwendung & Größen:**
+  | Kontext | Höhe | Breite |
+  |---|---|---|
+  | Header | 40 px | ~119 px |
+  | Footer | 32 px | ~95 px |
+  | Hero (mobil) | 64 px | ~190 px |
+  | Favicon (extrahiert) | 32 / 48 / 192 px | quadratisch |
+  | OG-Image | 200 px | ~595 px (zentriert auf 1200 × 630) |
+- **Einbindung:** Über `next/image` mit statischem Import, damit
+  `width`, `height` und `blurDataURL` automatisch gesetzt werden.
+- **Offen:** SVG-Version beim Kunden anfragen für verlustfreie Skalierung.
 
 ### 5.2 Farbpalette (Aviation)
 
