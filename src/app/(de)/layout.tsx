@@ -1,28 +1,27 @@
 import type { Metadata, Viewport } from "next";
-import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import "./globals.css";
+import "../globals.css";
 
 // =============================================================================
-// SATIS Aero – Root Layout
+// SATIS Aero – German Root Layout
 // =============================================================================
-// The root layout is intentionally minimal. Locale-specific metadata is set
-// per page (German pages at /, English pages under /en/). The <html lang="de">
-// attribute reflects the default locale; English pages override the lang on
-// their content wrapper via lang="en".
+// One of two root layouts (the other lives in src/app/(en)/layout.tsx).
+// Routes inside this group are rendered with <html lang="de"> and the
+// German Header/Footer. Both layouts share src/app/globals.css and the
+// same favicon/manifest set – they only differ in language and metadata.
 //
 // Font: Liberation Sans is the planned self-hosted font (konzept.md §5.3),
-// but the woff2 files are not yet in public/fonts/. Until they are added, we
-// fall back to the system Arial stack defined in globals.css. To wire
+// but the woff2 files are not yet in public/fonts/. Until they are added,
+// we fall back to the system Arial stack defined in globals.css. To wire
 // next/font/local later, replace the fallback with:
 //
 //   import localFont from "next/font/local";
 //   const liberationSans = localFont({
 //     src: [
-//       { path: "../../public/fonts/LiberationSans-Regular.woff2", weight: "400", style: "normal" },
-//       { path: "../../public/fonts/LiberationSans-Italic.woff2",  weight: "400", style: "italic" },
-//       { path: "../../public/fonts/LiberationSans-Bold.woff2",    weight: "700", style: "normal" },
-//       { path: "../../public/fonts/LiberationSans-BoldItalic.woff2", weight: "700", style: "italic" },
+//       { path: "../../../public/fonts/LiberationSans-Regular.woff2", weight: "400", style: "normal" },
+//       { path: "../../../public/fonts/LiberationSans-Italic.woff2",  weight: "400", style: "italic" },
+//       { path: "../../../public/fonts/LiberationSans-Bold.woff2",    weight: "700", style: "normal" },
+//       { path: "../../../public/fonts/LiberationSans-BoldItalic.woff2", weight: "700", style: "italic" },
 //     ],
 //     display: "swap",
 //     preload: true,
@@ -57,8 +56,8 @@ export const metadata: Metadata = {
     "VR Training Aviation",
   ],
   alternates: {
-    canonical: siteUrl,
-    languages: { de: "/", en: "/en" },
+    canonical: `${siteUrl}/`,
+    languages: { de: "/", en: "/en/" },
   },
   openGraph: {
     type: "website",
@@ -70,9 +69,6 @@ export const metadata: Metadata = {
       "Aviation Consultancy für Flughafenfeuerwehren, Piloten und Flughafenbetreiber. EASA-konforme Trainings, ICAO-Übungen, CAT 9 Mock-Up und VR.",
   },
   robots: { index: true, follow: true },
-  // Icons & manifest – all paths are absolute (start with /) so they
-  // resolve correctly from any URL on the site, including /en/* and
-  // /impressum etc.
   manifest: "/manifest.webmanifest",
   icons: {
     icon: [
@@ -125,8 +121,6 @@ export const metadata: Metadata = {
       },
     ],
   },
-  // Microsoft Tile config – Next.js Metadata API has no first-class
-  // field for browserconfig.xml, so we expose it via `other`.
   other: {
     "msapplication-TileColor": "#255685",
     "msapplication-TileImage": "/icons/ms-icon-144x144.png",
@@ -141,11 +135,9 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-export default function RootLayout({
+export default function GermanRootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="de" className="h-full antialiased">
       <body className="flex min-h-full flex-col bg-cloud font-sans text-runway">
@@ -153,13 +145,10 @@ export default function RootLayout({
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded focus:bg-primary focus:px-4 focus:py-2 focus:text-white"
         >
-          Skip to main content
+          Zum Hauptinhalt springen
         </a>
-        <Header />
-        <main id="main" className="flex-1">
-          {children}
-        </main>
-        <Footer />
+        {children}
+        <Footer locale="de" />
       </body>
     </html>
   );

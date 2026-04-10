@@ -1,18 +1,16 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { routes, t, type Locale } from "@/lib/i18n";
 import logo from "../../public/images/brand/satis-logo.png";
 
-function detectLocale(pathname: string | null): Locale {
-  return pathname?.startsWith("/en") ? "en" : "de";
-}
+// =============================================================================
+// SATIS Aero – Footer (Server Component)
+// =============================================================================
+// Pure server component, no JavaScript shipped to the client. The locale is
+// passed in by the route-group root layout (DE or EN).
+// =============================================================================
 
-export function Footer() {
-  const pathname = usePathname();
-  const locale = detectLocale(pathname);
+export function Footer({ locale }: { locale: Locale }) {
   const tr = t[locale];
   const r = routes[locale];
   const year = new Date().getFullYear();

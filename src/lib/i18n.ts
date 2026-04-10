@@ -10,26 +10,43 @@ export type Locale = "de" | "en";
 export const locales: Locale[] = ["de", "en"];
 export const defaultLocale: Locale = "de";
 
-// Route paths per locale. The German imprint lives at /impressum, the
-// German privacy at /datenschutz. The English equivalents live under /en/.
+// Route paths per locale. The German imprint lives at /impressum/, the
+// German privacy at /datenschutz/. The English equivalents live under
+// /en/. All routes end with a trailing slash so they match the
+// `trailingSlash: true` setting in next.config.ts and avoid 308
+// redirects on internal navigation.
 export const routes = {
   de: {
     home: "/",
-    imprint: "/impressum",
-    privacy: "/datenschutz",
+    imprint: "/impressum/",
+    privacy: "/datenschutz/",
     services: "/#leistungen",
     about: "/#ueber-uns",
     contact: "/#kontakt",
   },
   en: {
-    home: "/en",
-    imprint: "/en/imprint",
-    privacy: "/en/privacy",
-    services: "/en#services",
-    about: "/en#about",
-    contact: "/en#contact",
+    home: "/en/",
+    imprint: "/en/imprint/",
+    privacy: "/en/privacy/",
+    services: "/en/#services",
+    about: "/en/#about",
+    contact: "/en/#contact",
   },
 } as const;
+
+// Cross-locale page alternates. Each entry maps a logical page to its
+// concrete URL in every locale, so the language switcher can take you
+// from /impressum/ directly to /en/imprint/ instead of dropping you on
+// the home page. Add a new entry whenever a new translatable page is
+// introduced.
+export const pageAlternates = {
+  home: { de: "/", en: "/en/" },
+  imprint: { de: "/impressum/", en: "/en/imprint/" },
+  privacy: { de: "/datenschutz/", en: "/en/privacy/" },
+} as const;
+
+export type PageKey = keyof typeof pageAlternates;
+export type PageAlternates = (typeof pageAlternates)[PageKey];
 
 // Section IDs used as in-page anchors. German page uses German slugs,
 // English page uses English slugs.
