@@ -99,13 +99,13 @@ body {
   border-radius: 2px;
 }
 
-/* Sticky header containment – avoids forced reflows when scrolling.
-   `contain: layout paint` lets the browser skip large parts of the
-   layout pipeline whenever only header internals change. */
+/* Sticky header optimisation. We hint the browser that the header will
+   be transformed (sticky scroll) so it can promote it to its own
+   compositor layer, but we MUST NOT use `contain: paint` here – that
+   clips any descendant that paints outside the header box, which would
+   hide the language dropdown popup. */
 .satis-header {
-  contain: layout paint;
   will-change: transform;
-  transform: translateZ(0);
 }
 
 @media (prefers-reduced-motion: reduce) {
