@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import "./globals.css";
@@ -6,10 +6,15 @@ import "./globals.css";
 // =============================================================================
 // SATIS Aero – Root Layout
 // =============================================================================
+// The root layout is intentionally minimal. Locale-specific metadata is set
+// per page (German pages at /, English pages under /en/). The <html lang="de">
+// attribute reflects the default locale; English pages override the lang on
+// their content wrapper via lang="en".
+//
 // Font: Liberation Sans is the planned self-hosted font (konzept.md §5.3),
-// but the woff2 files are not yet in public/fonts/. Until they are added,
-// we fall back to the system Arial stack defined in globals.css.
-// To wire next/font/local later, replace the fallback with:
+// but the woff2 files are not yet in public/fonts/. Until they are added, we
+// fall back to the system Arial stack defined in globals.css. To wire
+// next/font/local later, replace the fallback with:
 //
 //   import localFont from "next/font/local";
 //   const liberationSans = localFont({
@@ -25,10 +30,9 @@ import "./globals.css";
 //     variable: "--font-sans",
 //   });
 //
-// And add `liberationSans.variable` to the html className.
 // =============================================================================
 
-const siteUrl = "https://www.satis-aero.com";
+const siteUrl = "https://satis.aero";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -38,6 +42,8 @@ export const metadata: Metadata = {
   },
   description:
     "Aviation Consultancy für Flughafenfeuerwehren, Piloten und Flughafenbetreiber. EASA-konforme Trainings, ICAO-Übungs-Coaching, CAT 9 Mock-Up und Virtual Reality Trainings.",
+  applicationName: "SATIS Aero",
+  authors: [{ name: "SATIS Aero" }],
   keywords: [
     "Aviation Consultancy",
     "Flughafenfeuerwehr",
@@ -50,7 +56,10 @@ export const metadata: Metadata = {
     "ICAO Language Proficiency",
     "VR Training Aviation",
   ],
-  authors: [{ name: "SATIS Aero" }],
+  alternates: {
+    canonical: siteUrl,
+    languages: { de: "/", en: "/en" },
+  },
   openGraph: {
     type: "website",
     locale: "de_DE",
@@ -60,10 +69,14 @@ export const metadata: Metadata = {
     description:
       "Aviation Consultancy für Flughafenfeuerwehren, Piloten und Flughafenbetreiber. EASA-konforme Trainings, ICAO-Übungen, CAT 9 Mock-Up und VR.",
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  robots: { index: true, follow: true },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#255685",
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
@@ -73,7 +86,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="de" className="h-full antialiased">
-      <body className="bg-cloud text-runway flex min-h-full flex-col font-sans">
+      <body className="flex min-h-full flex-col bg-cloud font-sans text-runway">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded focus:bg-primary focus:px-4 focus:py-2 focus:text-white"
+        >
+          Skip to main content
+        </a>
         <Header />
         <main id="main" className="flex-1">
           {children}
