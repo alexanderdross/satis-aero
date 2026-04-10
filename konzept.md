@@ -170,22 +170,48 @@ hardcoded, sodass keine Redirect-Latenz entsteht.
 - `/references` / `/en/references`
 - `/contact` / `/en/contact`
 
-**i18n-Ansatz:** DE liegt am Root, EN unter `/en/`. Das Root-Layout hält
-`<html lang="de">`; der EN-Content wird in `<div lang="en">` gewrappt
-(valide HTML, von Google und Screenreadern respektiert). Header und
-Footer sind Client-Components und lesen die Locale via `usePathname()`
-aus dem Pfadprefix `/en`. Alle UI-Strings, Routen und In-Page-Anker
-liegen zentral in `src/lib/i18n.ts`.
+**i18n-Ansatz – Multi-Root-Layout (server-only):**
 
-**Sprachumschalter:** Eigenständige Client-Component
-`src/components/language-switcher.tsx` als echtes Dropdown mit
-Listbox-Semantik (`role="listbox"`, `aria-haspopup`, `aria-expanded`,
-`aria-controls`, ESC-/Outside-Click-Handling). Beide Sprachen werden
-mit nativer Bezeichnung („Deutsch" / „English") **und** SVG-Flagge
-(Deutschland / Union Jack) dargestellt; die aktive Sprache ist
-hervorgehoben und mit `aria-selected="true"` markiert. Inline-SVG ohne
-Asset-Request, ~600 Bytes – keine Dependency, perfekte Schärfe auf
-Retina.
+DE und EN sind über zwei separate Root-Layouts via Route Groups
+realisiert. Es gibt kein zentrales `src/app/layout.tsx` mehr.
+
+```
+src/app/
+├── (de)/
+│   ├── layout.tsx              # <html lang="de"> + Header(de) + Footer(de)
+│   ├── page.tsx                # /
+│   ├── impressum/page.tsx
+│   └── datenschutz/page.tsx
+├── (en)/
+│   ├── layout.tsx              # <html lang="en"> + Header(en) + Footer(en)
+│   └── en/
+│       ├── page.tsx            # /en/
+│       ├── imprint/page.tsx
+│       └── privacy/page.tsx
+├── globals.css                 # geteilt, von beiden Layouts importiert
+├── sitemap.ts
+└── robots.ts
+```
+
+- Beide Layouts setzen `<html lang>` direkt – keine
+  `<div lang="en">`-Wrapper mehr nötig.
+- Header und Footer sind **Server Components**, akzeptieren
+  `locale: Locale` als Prop und enthalten **null** Client-JavaScript.
+- Sprachwechsel = Full-Page-Reload (gewollt: andere Sprache → anderer
+  Root-Layout-Tree).
+- Alle UI-Strings, Routen und In-Page-Anker liegen zentral in
+  `src/lib/i18n.ts`.
+
+**Sprachumschalter (server-only):**
+`src/components/language-switcher.tsx` ist eine **Server Component**
+und nutzt das native HTML `<details>`/`<summary>`-Disclosure-Widget.
+Browser-natives Open/Close per Klick und Tastatur (Enter/Space). Ein
+Klick auf eine Sprache navigiert zum entsprechenden Root und schließt
+das Dropdown automatisch durch den Page-Reload. **Null JavaScript**
+geht an den Client. Beide Sprachen werden mit nativer Bezeichnung
+(„Deutsch" / „English") **und** Inline-SVG-Flagge (Deutschland / Union
+Jack, ~600 Bytes total) dargestellt; die aktive Sprache ist
+hervorgehoben und mit `aria-current="page"` markiert.
 
 **In-Page-Anker (deutsch vs englisch):**
 
@@ -295,6 +321,60 @@ einschätzt.
 - `Cta` (Section mit Kontakt-Aufruf)
 - `LocaleSwitcher`
 - `ContactForm`
+
+---
+
+## 6a. Performance & Edge
+
+**Strict server-only Architektur.**
+
+- **Statisches Prerendering** für **alle** Routen. `npm run build` muss
+  alle Routen als `○ (Static)` ausweisen. Vercel serviert die
+  generierten HTML-Files direkt vom globalen Edge-Cache. Keine
+  Runtime-Berechnung pro Request.
+- **Null Client-JavaScript im Layout-Shell.** Keine `"use client"`-
+  Dateien in: `(de)/layout`, `(en)/layout`, `header`, `footer`,
+  `language-switcher`, `home-content`, `imprint-content`,
+  `privacy-content`, `flag`. Stand der Säuberung: **0** Treffer im
+  `src/`-Tree.
+- **Sprachwechsel server-only** über `<details>`/`<summary>`-Disclosure
+  – keine `useState`, kein Outside-Click-Handler-JS.
+- **Multi-Root-Layouts** statt Client-side Locale-Detection: jede
+  Sprache hat ihren eigenen `<html lang>`-Wurzelbaum.
+- **`next/image` mit `priority` + `placeholder="blur"`** für
+  Above-the-fold-Bilder, Lazy-Default für alles darunter.
+- **AVIF / WebP** via `next.config.ts` (`minimumCacheTTL: 30 Tage` auf
+  Vercel CDN).
+- **Tailwind v4 ohne Tailwind-Config-Datei** – Tokens als CSS-Variablen
+  via `@theme inline`, kleinerer CSS-Output.
+- **Sticky-Header** mit `contain: layout paint` und
+  `transform: translateZ(0)` → eigener Compositor-Layer, kein
+  Forced-Reflow während des Scrollens.
+
+### 6a.1 Cache- und Security-Header (`vercel.json`)
+
+| Pfad | Cache-Control |
+|---|---|
+| `/icons/*` | `public, max-age=31536000, immutable` |
+| `/images/*` | `public, max-age=31536000, immutable` |
+| `/fonts/*` | `public, max-age=31536000, immutable` |
+| `/favicon.ico` | `public, max-age=86400, must-revalidate` |
+| `/manifest.webmanifest` | `public, max-age=86400, must-revalidate` |
+| `/browserconfig.xml` | `public, max-age=86400, must-revalidate` |
+
+Globale Security-Header für `/(.*)`:
+- `X-Content-Type-Options: nosniff`
+- `X-Frame-Options: SAMEORIGIN`
+- `Referrer-Policy: strict-origin-when-cross-origin`
+- `Permissions-Policy: camera=(), microphone=(), geolocation=(), browsing-topics=()`
+
+### 6a.2 Performance-Budgets
+
+- HTML pro Page: < 50 KB gzip
+- JS pro Page: < 100 KB gzip (Framework only, keine Layout-Inseln)
+- LCP: < 1.5 s (statisches HTML aus Edge-Cache)
+- CLS: < 0.05 (statische Image-Dimensionen, `scroll-padding-top` für
+  Sticky-Header, `min-height` reservierte Slots)
 
 ---
 

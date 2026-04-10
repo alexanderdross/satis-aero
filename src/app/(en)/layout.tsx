@@ -1,35 +1,14 @@
 import type { Metadata, Viewport } from "next";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import "./globals.css";
+import "../globals.css";
 
 // =============================================================================
-// SATIS Aero – Root Layout
+// SATIS Aero – English Root Layout
 // =============================================================================
-// The root layout is intentionally minimal. Locale-specific metadata is set
-// per page (German pages at /, English pages under /en/). The <html lang="de">
-// attribute reflects the default locale; English pages override the lang on
-// their content wrapper via lang="en".
-//
-// Font: Liberation Sans is the planned self-hosted font (konzept.md §5.3),
-// but the woff2 files are not yet in public/fonts/. Until they are added, we
-// fall back to the system Arial stack defined in globals.css. To wire
-// next/font/local later, replace the fallback with:
-//
-//   import localFont from "next/font/local";
-//   const liberationSans = localFont({
-//     src: [
-//       { path: "../../public/fonts/LiberationSans-Regular.woff2", weight: "400", style: "normal" },
-//       { path: "../../public/fonts/LiberationSans-Italic.woff2",  weight: "400", style: "italic" },
-//       { path: "../../public/fonts/LiberationSans-Bold.woff2",    weight: "700", style: "normal" },
-//       { path: "../../public/fonts/LiberationSans-BoldItalic.woff2", weight: "700", style: "italic" },
-//     ],
-//     display: "swap",
-//     preload: true,
-//     adjustFontFallback: "Arial",
-//     variable: "--font-sans",
-//   });
-//
+// Sister of src/app/(de)/layout.tsx. Routes inside this group live under
+// /en/* and are rendered with <html lang="en"> and the English Header /
+// Footer. Both root layouts share src/app/globals.css.
 // =============================================================================
 
 const siteUrl = "https://satis.aero";
@@ -41,12 +20,12 @@ export const metadata: Metadata = {
     template: "%s | SATIS Aero",
   },
   description:
-    "Aviation Consultancy für Flughafenfeuerwehren, Piloten und Flughafenbetreiber. EASA-konforme Trainings, ICAO-Übungs-Coaching, CAT 9 Mock-Up und Virtual Reality Trainings.",
+    "Aviation consultancy for airport fire services, pilots and airport operators. EASA-compliant training, ICAO exercise coaching, CAT 9 mock-up and Virtual Reality training.",
   applicationName: "SATIS Aero",
   authors: [{ name: "SATIS Aero" }],
   keywords: [
     "Aviation Consultancy",
-    "Flughafenfeuerwehr",
+    "Airport Fire Service",
     "EASA Compliance",
     "ICAO Training",
     "CAT 9 Mock-Up",
@@ -57,22 +36,19 @@ export const metadata: Metadata = {
     "VR Training Aviation",
   ],
   alternates: {
-    canonical: `${siteUrl}/`,
+    canonical: `${siteUrl}/en/`,
     languages: { de: "/", en: "/en/" },
   },
   openGraph: {
     type: "website",
-    locale: "de_DE",
-    url: siteUrl,
+    locale: "en_US",
+    url: `${siteUrl}/en/`,
     siteName: "SATIS Aero",
     title: "SATIS Aero – Smart Aviation Training Innovative Solutions",
     description:
-      "Aviation Consultancy für Flughafenfeuerwehren, Piloten und Flughafenbetreiber. EASA-konforme Trainings, ICAO-Übungen, CAT 9 Mock-Up und VR.",
+      "Aviation consultancy for airport fire services, pilots and airport operators. EASA-compliant training, ICAO exercises, CAT 9 mock-up and VR.",
   },
   robots: { index: true, follow: true },
-  // Icons & manifest – all paths are absolute (start with /) so they
-  // resolve correctly from any URL on the site, including /en/* and
-  // /impressum etc.
   manifest: "/manifest.webmanifest",
   icons: {
     icon: [
@@ -125,8 +101,6 @@ export const metadata: Metadata = {
       },
     ],
   },
-  // Microsoft Tile config – Next.js Metadata API has no first-class
-  // field for browserconfig.xml, so we expose it via `other`.
   other: {
     "msapplication-TileColor": "#255685",
     "msapplication-TileImage": "/icons/ms-icon-144x144.png",
@@ -141,13 +115,11 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-export default function RootLayout({
+export default function EnglishRootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="de" className="h-full antialiased">
+    <html lang="en" className="h-full antialiased">
       <body className="flex min-h-full flex-col bg-cloud font-sans text-runway">
         <a
           href="#main"
@@ -155,11 +127,11 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
-        <Header />
+        <Header locale="en" />
         <main id="main" className="flex-1">
           {children}
         </main>
-        <Footer />
+        <Footer locale="en" />
       </body>
     </html>
   );

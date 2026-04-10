@@ -21,9 +21,11 @@ export function HomeContent({ locale }: { locale: Locale }) {
   const r = routes[locale];
 
   // Tailwind sees only fully-spelled class strings, so we keep static
-  // class lists rather than building them dynamically.
+  // class lists rather than building them dynamically. The html lang
+  // attribute is set by the surrounding root layout (/(de) or /(en)),
+  // so no extra <div lang> wrapper is needed.
   return (
-    <div lang={locale}>
+    <>
       {/* ===================================================================
        *  HERO
        * =================================================================== */}
@@ -276,6 +278,6 @@ export function HomeContent({ locale }: { locale: Locale }) {
           </div>
         </div>
       </section>
-    </div>
+    </>
   );
 }
