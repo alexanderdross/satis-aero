@@ -65,9 +65,6 @@ export function Header({
               </li>
             ))}
             <li>
-              <LanguageSwitcher current={locale} alternates={alternates} />
-            </li>
-            <li>
               <Link
                 href={r.contact}
                 title={tr.nav.ctaTitle}
@@ -75,6 +72,9 @@ export function Header({
               >
                 {tr.nav.cta}
               </Link>
+            </li>
+            <li>
+              <LanguageSwitcher current={locale} alternates={alternates} />
             </li>
           </ul>
         </nav>
