@@ -144,23 +144,41 @@ der Website eine eigene Detailseite unter `/services/[slug]` angelegt.
 
 ---
 
-## 4. Sitemap
+## 4. Sitemap & i18n
 
-```
-/[locale]/
-├── /                              # Home
-├── /services                      # Übersicht aller Services
-├── /services/[slug]               # 11 Service-Detailseiten
-├── /about                         # Über uns / Team / Mission
-├── /references                    # Referenzen / Kunden
-├── /contact                       # Kontaktformular + Adresse
-├── /legal/imprint                 # Impressum
-└── /legal/privacy                 # Datenschutz
-```
+**Domain (Production):** `https://satis.aero`
 
-**Locales:**
-- `de` (Default)
-- `en`
+**URL-Struktur (kein `[locale]` Route-Group):**
+
+| URL | Locale | Inhalt |
+|---|---|---|
+| `/` | `de` | Homepage Deutsch |
+| `/impressum` | `de` | Impressum |
+| `/datenschutz` | `de` | Datenschutz |
+| `/en` | `en` | Homepage English |
+| `/en/imprint` | `en` | Imprint |
+| `/en/privacy` | `en` | Privacy |
+
+**Geplant (Folge-Iterationen):**
+- `/services/[slug]` bzw. `/en/services/[slug]` – Detailseiten je Service
+- `/about` / `/en/about`
+- `/references` / `/en/references`
+- `/contact` / `/en/contact`
+
+**i18n-Ansatz:** DE liegt am Root, EN unter `/en/`. Das Root-Layout hält
+`<html lang="de">`; der EN-Content wird in `<div lang="en">` gewrappt
+(valide HTML, von Google und Screenreadern respektiert). Header und
+Footer sind Client-Components und lesen die Locale via `usePathname()`
+aus dem Pfadprefix `/en`. Alle UI-Strings, Routen und In-Page-Anker
+liegen zentral in `src/lib/i18n.ts`.
+
+**In-Page-Anker (deutsch vs englisch):**
+
+| Section | DE-Hash | EN-Hash |
+|---|---|---|
+| Services | `#leistungen` | `#services` |
+| About | `#ueber-uns` | `#about` |
+| Contact | `#kontakt` | `#contact` |
 
 **Service-Slugs:**
 `coaching-crm-ccc`, `just-culture-awareness`, `easa-compliance-training`,
@@ -200,10 +218,22 @@ der Website eine eigene Detailseite unter `/services/[slug]` angelegt.
 | `primary-dark` | `#173a5c` | Hover, Footer-BG |
 | `primary-light` | `#3d7bb3` | Links, Akzente |
 | `sky` | `#e8f1f9` | Section-Backgrounds |
-| `runway` | `#1a1a1a` | Body-Text dark mode |
-| `cloud` | `#f8fafc` | Page-Background |
-| `signal` | `#e63946` | Alerts, Emergency-Bezug |
-| `success` | `#2a9d8f` | Bestätigungen |
+| `cloud` | `#f7f9fc` | Page-Background |
+| `runway` | `#0f172a` | Body-Text (slate-900) |
+| `runway-soft` | `#334155` | Sekundär-Text (≥ 7 : 1 auf Cloud, AAA) |
+| `runway-mute` | `#475569` | Tertiär-Text (≥ 6.5 : 1 auf Cloud, AAA) |
+| `on-primary` | `#ffffff` | Text auf primary / primary-dark |
+| `on-primary-soft` | `#e6edf5` | Sekundär-Text auf primary-dark (≥ 12 : 1) |
+| `on-primary-mute` | `#c7d4e3` | Tertiär-Text auf primary-dark (≥ 7.5 : 1) |
+| `signal` | `#c1272d` | Alerts, Emergency-Bezug |
+| `success` | `#1f8a7a` | Bestätigungen |
+
+**Kontrast:** Alle Muted-Text-Tokens sind auf WCAG AA (mind. 4.5 : 1) bzw.
+AAA (≥ 7 : 1) ausgelegt. Statt Opacity-basierter Abdunkelung
+(`text-runway/70`) werden solide Tokens (`text-runway-soft`,
+`text-runway-mute`, `text-on-primary-soft`, `text-on-primary-mute`)
+verwendet, da Lighthouse / axe Opacity-Berechnungen häufig falsch
+einschätzt.
 
 **Begründung:**
 - **Cockpit-Blau** (Primary) – direkt aus dem Logo

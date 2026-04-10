@@ -1,41 +1,60 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Globe } from "lucide-react";
+import { routes, t, type Locale } from "@/lib/i18n";
 import logo from "../../public/images/brand/satis-logo.png";
 
-const navItems = [
-  { href: "/#services", label: "Leistungen" },
-  { href: "/#about", label: "Über uns" },
-  { href: "/#contact", label: "Kontakt" },
-];
+function detectLocale(pathname: string | null): Locale {
+  return pathname?.startsWith("/en") ? "en" : "de";
+}
 
 export function Header() {
+  const pathname = usePathname();
+  const locale = detectLocale(pathname);
+  const tr = t[locale];
+  const r = routes[locale];
+  const otherLocale: Locale = locale === "de" ? "en" : "de";
+  const otherHome = routes[otherLocale].home;
+
+  const navItems = [
+    { href: r.services, label: tr.nav.services, title: tr.nav.services },
+    { href: r.about, label: tr.nav.about, title: tr.nav.about },
+    { href: r.contact, label: tr.nav.contact, title: tr.nav.contact },
+  ];
+
   return (
-    <header className="sticky top-0 z-50 border-b border-sky bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/75">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-4">
+    <header className="satis-header sticky top-0 z-50 border-b border-sky bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:gap-6 sm:px-6 sm:py-4">
         <Link
-          href="/"
-          aria-label="SATIS Aero – Startseite"
-          className="flex items-center"
+          href={r.home}
+          aria-label={`${tr.siteName} – ${tr.nav.home}`}
+          title={tr.nav.logoTitle}
+          className="flex shrink-0 items-center"
         >
           <Image
             src={logo}
-            alt="SATIS Aero Logo"
-            title="SATIS Aero – Smart Aviation Training Innovative Solutions"
+            alt={`${tr.siteName} ${tr.siteTagline} Logo`}
+            title={tr.nav.logoTitle}
             height={40}
             width={119}
             placeholder="blur"
             priority
-            className="h-10 w-auto"
+            sizes="(max-width: 640px) 96px, 119px"
+            className="h-8 w-auto sm:h-10"
           />
         </Link>
 
-        <nav aria-label="Hauptnavigation">
-          <ul className="flex items-center gap-2 text-sm font-medium sm:gap-6 sm:text-base">
+        <nav aria-label={tr.nav.ariaLabel} className="flex items-center">
+          <ul className="flex items-center gap-1 text-sm font-medium md:gap-4 lg:gap-6">
             {navItems.map((item) => (
-              <li key={item.href}>
+              <li key={item.href} className="hidden md:block">
                 <Link
                   href={item.href}
-                  className="rounded-md px-2 py-1 text-runway transition-colors hover:text-primary"
+                  title={item.title}
+                  className="rounded-md px-3 py-2 text-runway transition-colors hover:bg-sky hover:text-primary focus-visible:bg-sky"
                 >
                   {item.label}
                 </Link>
@@ -43,10 +62,23 @@ export function Header() {
             ))}
             <li>
               <Link
-                href="/#contact"
-                className="ml-2 inline-flex items-center rounded-full bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+                href={otherHome}
+                title={tr.nav.langSwitchTitle}
+                hrefLang={otherLocale}
+                aria-label={tr.nav.langSwitchTitle}
+                className="ml-1 inline-flex items-center gap-1 rounded-full border border-primary/30 px-3 py-1.5 text-xs font-semibold text-primary transition-colors hover:bg-sky sm:px-4 sm:py-2 sm:text-sm"
               >
-                Anfrage
+                <Globe className="h-3.5 w-3.5" aria-hidden="true" />
+                {tr.nav.langSwitch}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={r.contact}
+                title={tr.nav.ctaTitle}
+                className="ml-1 inline-flex items-center rounded-full bg-primary px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition-colors hover:bg-primary-dark sm:px-5 sm:py-2 sm:text-sm"
+              >
+                {tr.nav.cta}
               </Link>
             </li>
           </ul>

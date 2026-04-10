@@ -1,104 +1,131 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { routes, t, type Locale } from "@/lib/i18n";
 import logo from "../../public/images/brand/satis-logo.png";
 
+function detectLocale(pathname: string | null): Locale {
+  return pathname?.startsWith("/en") ? "en" : "de";
+}
+
 export function Footer() {
+  const pathname = usePathname();
+  const locale = detectLocale(pathname);
+  const tr = t[locale];
+  const r = routes[locale];
   const year = new Date().getFullYear();
+  const copy = tr.footer.copy.replace("{year}", String(year));
 
   return (
-    <footer className="border-t border-sky bg-primary-dark text-white">
-      <div className="mx-auto grid max-w-6xl gap-10 px-6 py-12 sm:grid-cols-2 lg:grid-cols-4">
+    <footer className="border-t border-sky bg-primary-dark text-on-primary">
+      <div className="mx-auto grid max-w-6xl gap-10 px-6 py-12 sm:grid-cols-2 sm:px-8 lg:grid-cols-4 lg:gap-12 lg:py-16">
         <div>
           <Image
             src={logo}
-            alt="SATIS Aero Logo"
-            title="SATIS Aero"
+            alt={`${tr.siteName} ${tr.siteTagline} Logo`}
+            title={tr.siteName}
             height={32}
             width={95}
             placeholder="blur"
+            sizes="95px"
             className="mb-4 h-8 w-auto brightness-0 invert"
           />
-          <p className="text-sm text-white/70">
-            Smart Aviation Training Innovative Solutions. Aviation Consultancy
-            für Flughafenfeuerwehren, Piloten und Flughafenbetreiber.
+          <p className="text-sm leading-relaxed text-on-primary-soft">
+            {tr.footer.tagline}
           </p>
         </div>
 
-        <div>
-          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-white">
-            Leistungen
+        <nav aria-label={tr.footer.colServices}>
+          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-on-primary">
+            {tr.footer.colServices}
           </h2>
-          <ul className="space-y-2 text-sm text-white/80">
+          <ul className="space-y-2 text-sm text-on-primary-soft">
             <li>
-              <Link href="/#services" className="hover:text-white">
-                EASA Compliance Training
-              </Link>
-            </li>
-            <li>
-              <Link href="/#services" className="hover:text-white">
-                ICAO-Übungen
-              </Link>
-            </li>
-            <li>
-              <Link href="/#services" className="hover:text-white">
-                CAT 9 Mock-Up Training
-              </Link>
-            </li>
-            <li>
-              <Link href="/#services" className="hover:text-white">
-                Virtual Reality Trainings
+              <Link
+                href={r.services}
+                title={tr.footer.links.services}
+                className="hover:text-on-primary"
+              >
+                {tr.footer.links.services}
               </Link>
             </li>
           </ul>
-        </div>
+        </nav>
 
-        <div>
-          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-white">
-            Unternehmen
+        <nav aria-label={tr.footer.colCompany}>
+          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-on-primary">
+            {tr.footer.colCompany}
           </h2>
-          <ul className="space-y-2 text-sm text-white/80">
+          <ul className="space-y-2 text-sm text-on-primary-soft">
             <li>
-              <Link href="/#about" className="hover:text-white">
-                Über uns
+              <Link
+                href={r.about}
+                title={tr.footer.links.about}
+                className="hover:text-on-primary"
+              >
+                {tr.footer.links.about}
               </Link>
             </li>
             <li>
-              <Link href="/#contact" className="hover:text-white">
-                Kontakt
+              <Link
+                href={r.contact}
+                title={tr.footer.links.contact}
+                className="hover:text-on-primary"
+              >
+                {tr.footer.links.contact}
               </Link>
             </li>
             <li>
-              <Link href="/legal/imprint" className="hover:text-white">
-                Impressum
+              <Link
+                href={r.imprint}
+                title={tr.footer.links.imprint}
+                className="hover:text-on-primary"
+              >
+                {tr.footer.links.imprint}
               </Link>
             </li>
             <li>
-              <Link href="/legal/privacy" className="hover:text-white">
-                Datenschutz
+              <Link
+                href={r.privacy}
+                title={tr.footer.links.privacy}
+                className="hover:text-on-primary"
+              >
+                {tr.footer.links.privacy}
               </Link>
             </li>
           </ul>
-        </div>
+        </nav>
 
         <div>
-          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-white">
-            Kontakt
+          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-on-primary">
+            {tr.footer.colContact}
           </h2>
-          <address className="space-y-2 text-sm not-italic text-white/80">
+          <address className="space-y-2 text-sm not-italic leading-relaxed text-on-primary-soft">
             <p>Hans-Christoph Peter Grunwald</p>
             <p>
               Im Kranzfeld 39
               <br />
               52538 Gangelt
             </p>
+            <p>
+              <a
+                href="mailto:info@satis.aero"
+                title={tr.contact.mailTitle}
+                className="hover:text-on-primary"
+              >
+                info@satis.aero
+              </a>
+            </p>
           </address>
         </div>
       </div>
 
       <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-6 py-4 text-xs text-white/60 sm:flex-row">
-          <p>© {year} SATIS Aero – Hans-Christoph Peter Grunwald</p>
-          <p>Hosted on Vercel · Made in Germany</p>
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-6 py-4 text-xs text-on-primary-mute sm:flex-row sm:px-8">
+          <p>{copy}</p>
+          <p>{tr.footer.hosting}</p>
         </div>
       </div>
     </footer>
