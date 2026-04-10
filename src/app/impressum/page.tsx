@@ -6,8 +6,8 @@ export const metadata: Metadata = {
   description:
     "Impressum von SATIS Aero – Smart Aviation Training Innovative Solutions. Inhaber: Hans-Christoph Peter Grunwald, Im Kranzfeld 39, 52538 Gangelt.",
   alternates: {
-    canonical: "/impressum",
-    languages: { de: "/impressum", en: "/en/imprint" },
+    canonical: "/impressum/",
+    languages: { de: "/impressum/", en: "/en/imprint/" },
   },
   robots: { index: true, follow: false },
 };

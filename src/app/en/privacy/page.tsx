@@ -6,8 +6,8 @@ export const metadata: Metadata = {
   description:
     "Privacy information for SATIS Aero – Smart Aviation Training Innovative Solutions.",
   alternates: {
-    canonical: "/en/privacy",
-    languages: { de: "/datenschutz", en: "/en/privacy" },
+    canonical: "/en/privacy/",
+    languages: { de: "/datenschutz/", en: "/en/privacy/" },
   },
   robots: { index: true, follow: false },
 };

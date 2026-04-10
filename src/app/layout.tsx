@@ -57,8 +57,8 @@ export const metadata: Metadata = {
     "VR Training Aviation",
   ],
   alternates: {
-    canonical: siteUrl,
-    languages: { de: "/", en: "/en" },
+    canonical: `${siteUrl}/`,
+    languages: { de: "/", en: "/en/" },
   },
   openGraph: {
     type: "website",

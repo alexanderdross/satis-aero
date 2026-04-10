@@ -148,16 +148,21 @@ der Website eine eigene Detailseite unter `/services/[slug]` angelegt.
 
 **Domain (Production):** `https://satis.aero`
 
+**Trailing-Slash-Policy:** Alle URLs enden mit `/`. Konfiguriert über
+`trailingSlash: true` in `next.config.ts`. Variante ohne Slash → 308
+Redirect. Alle internen Links und Canonical-URLs sind mit Slash am Ende
+hardcoded, sodass keine Redirect-Latenz entsteht.
+
 **URL-Struktur (kein `[locale]` Route-Group):**
 
 | URL | Locale | Inhalt |
 |---|---|---|
 | `/` | `de` | Homepage Deutsch |
-| `/impressum` | `de` | Impressum |
-| `/datenschutz` | `de` | Datenschutz |
-| `/en` | `en` | Homepage English |
-| `/en/imprint` | `en` | Imprint |
-| `/en/privacy` | `en` | Privacy |
+| `/impressum/` | `de` | Impressum |
+| `/datenschutz/` | `de` | Datenschutz |
+| `/en/` | `en` | Homepage English |
+| `/en/imprint/` | `en` | Imprint |
+| `/en/privacy/` | `en` | Privacy |
 
 **Geplant (Folge-Iterationen):**
 - `/services/[slug]` bzw. `/en/services/[slug]` – Detailseiten je Service
@@ -171,6 +176,16 @@ der Website eine eigene Detailseite unter `/services/[slug]` angelegt.
 Footer sind Client-Components und lesen die Locale via `usePathname()`
 aus dem Pfadprefix `/en`. Alle UI-Strings, Routen und In-Page-Anker
 liegen zentral in `src/lib/i18n.ts`.
+
+**Sprachumschalter:** Eigenständige Client-Component
+`src/components/language-switcher.tsx` als echtes Dropdown mit
+Listbox-Semantik (`role="listbox"`, `aria-haspopup`, `aria-expanded`,
+`aria-controls`, ESC-/Outside-Click-Handling). Beide Sprachen werden
+mit nativer Bezeichnung („Deutsch" / „English") **und** SVG-Flagge
+(Deutschland / Union Jack) dargestellt; die aktive Sprache ist
+hervorgehoben und mit `aria-selected="true"` markiert. Inline-SVG ohne
+Asset-Request, ~600 Bytes – keine Dependency, perfekte Schärfe auf
+Retina.
 
 **In-Page-Anker (deutsch vs englisch):**
 
@@ -346,12 +361,19 @@ public/
 
 ## 8. SEO & Metadaten
 
-- **Metadata API** (`export const metadata`) pro Route
-- **`generateMetadata`** für dynamische Service-Seiten
+- **Metadata API** (`export const metadata`) pro Route, jede Page setzt
+  ihre eigene `alternates.canonical` und `alternates.languages` mit
+  Trailing-Slash
+- **`generateMetadata`** für spätere dynamische Service-Seiten
 - **`openGraph`** mit Standard-OG-Image (1200×630)
-- **`sitemap.ts`** und **`robots.ts`** in `src/app/`
-- **Hreflang-Tags** für DE/EN
-- **Strukturierte Daten** (JSON-LD):
+- **`src/app/sitemap.ts`** – multilingual XML-Sitemap. Erzeugt aus einer
+  zentralen `pages`-Liste je einen `<url>`-Eintrag für DE und EN, beide
+  enthalten `xhtml:link rel="alternate"` mit `hreflang="de"`,
+  `hreflang="en"` und `hreflang="x-default"` (DE als Default).
+- **`src/app/robots.ts`** – `User-agent: *` allow `/`, plus
+  `Sitemap: https://satis.aero/sitemap.xml`
+- **Hreflang-Tags** zusätzlich auf jeder Page über `alternates.languages`
+- **Strukturierte Daten** (JSON-LD): geplant für Folge-Iterationen
   - `Organization` (global im RootLayout)
   - `Service` (pro Service-Detailseite)
   - `BreadcrumbList`

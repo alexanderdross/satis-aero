@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Globe } from "lucide-react";
+import { LanguageSwitcher } from "@/components/language-switcher";
 import { routes, t, type Locale } from "@/lib/i18n";
 import logo from "../../public/images/brand/satis-logo.png";
 
@@ -16,8 +16,6 @@ export function Header() {
   const locale = detectLocale(pathname);
   const tr = t[locale];
   const r = routes[locale];
-  const otherLocale: Locale = locale === "de" ? "en" : "de";
-  const otherHome = routes[otherLocale].home;
 
   const navItems = [
     { href: r.services, label: tr.nav.services, title: tr.nav.services },
@@ -27,7 +25,7 @@ export function Header() {
 
   return (
     <header className="satis-header sticky top-0 z-50 border-b border-sky bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:gap-6 sm:px-6 sm:py-4">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:gap-6 sm:px-6 sm:py-4">
         <Link
           href={r.home}
           aria-label={`${tr.siteName} – ${tr.nav.home}`}
@@ -48,7 +46,7 @@ export function Header() {
         </Link>
 
         <nav aria-label={tr.nav.ariaLabel} className="flex items-center">
-          <ul className="flex items-center gap-1 text-sm font-medium md:gap-4 lg:gap-6">
+          <ul className="flex items-center gap-1.5 text-sm font-medium sm:gap-2 md:gap-4 lg:gap-6">
             {navItems.map((item) => (
               <li key={item.href} className="hidden md:block">
                 <Link
@@ -61,22 +59,13 @@ export function Header() {
               </li>
             ))}
             <li>
-              <Link
-                href={otherHome}
-                title={tr.nav.langSwitchTitle}
-                hrefLang={otherLocale}
-                aria-label={tr.nav.langSwitchTitle}
-                className="ml-1 inline-flex items-center gap-1 rounded-full border border-primary/30 px-3 py-1.5 text-xs font-semibold text-primary transition-colors hover:bg-sky sm:px-4 sm:py-2 sm:text-sm"
-              >
-                <Globe className="h-3.5 w-3.5" aria-hidden="true" />
-                {tr.nav.langSwitch}
-              </Link>
+              <LanguageSwitcher current={locale} />
             </li>
             <li>
               <Link
                 href={r.contact}
                 title={tr.nav.ctaTitle}
-                className="ml-1 inline-flex items-center rounded-full bg-primary px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition-colors hover:bg-primary-dark sm:px-5 sm:py-2 sm:text-sm"
+                className="inline-flex items-center rounded-full bg-primary px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition-colors hover:bg-primary-dark sm:px-5 sm:py-2 sm:text-sm"
               >
                 {tr.nav.cta}
               </Link>

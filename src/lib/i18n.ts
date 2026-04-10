@@ -10,24 +10,27 @@ export type Locale = "de" | "en";
 export const locales: Locale[] = ["de", "en"];
 export const defaultLocale: Locale = "de";
 
-// Route paths per locale. The German imprint lives at /impressum, the
-// German privacy at /datenschutz. The English equivalents live under /en/.
+// Route paths per locale. The German imprint lives at /impressum/, the
+// German privacy at /datenschutz/. The English equivalents live under
+// /en/. All routes end with a trailing slash so they match the
+// `trailingSlash: true` setting in next.config.ts and avoid 308
+// redirects on internal navigation.
 export const routes = {
   de: {
     home: "/",
-    imprint: "/impressum",
-    privacy: "/datenschutz",
+    imprint: "/impressum/",
+    privacy: "/datenschutz/",
     services: "/#leistungen",
     about: "/#ueber-uns",
     contact: "/#kontakt",
   },
   en: {
-    home: "/en",
-    imprint: "/en/imprint",
-    privacy: "/en/privacy",
-    services: "/en#services",
-    about: "/en#about",
-    contact: "/en#contact",
+    home: "/en/",
+    imprint: "/en/imprint/",
+    privacy: "/en/privacy/",
+    services: "/en/#services",
+    about: "/en/#about",
+    contact: "/en/#contact",
   },
 } as const;
 

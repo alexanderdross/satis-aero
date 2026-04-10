@@ -9,6 +9,9 @@ const nextConfig: NextConfig = {
   },
   // Strict mode for catching React issues early.
   reactStrictMode: true,
+  // Every URL ends with a trailing slash. Vercel + Next.js redirect
+  // non-slash variants to the slashed version with a 308.
+  trailingSlash: true,
 };
 
 export default nextConfig;

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     "Aviation Consultancy für Flughafenfeuerwehren, Piloten und Flughafenbetreiber. EASA-konforme Trainings, ICAO-Übungs-Coaching, CAT 9 Mock-Up und Virtual Reality.",
   alternates: {
     canonical: "/",
-    languages: { de: "/", en: "/en" },
+    languages: { de: "/", en: "/en/" },
   },
   openGraph: {
     type: "website",
