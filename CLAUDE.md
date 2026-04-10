@@ -78,6 +78,22 @@ definiert und sind dann als Tailwind-Klassen verfügbar (z. B. `bg-primary`).
 - `params.locale` ist in Next.js 16 ein Promise → `await params`.
 - Hreflang-Tags in `layout.tsx` setzen.
 
+## Spam-Schutz / Cloudflare Turnstile
+- Spam-Schutz für das Kontaktformular: **Cloudflare Turnstile**
+  (Begründung & volle Implementierungs-Skizze siehe `konzept.md` §9.1)
+- **Niemals** das Turnstile-Script global im Root-Layout laden – nur
+  in `src/app/[locale]/contact/page.tsx`.
+- Loading: `next/script` mit `strategy="lazyOnload"` + `render=explicit`.
+- Widget-Render erst beim ersten `onFocus` eines Form-Felds (Lazy Mount).
+- `<link rel="preconnect" href="https://challenges.cloudflare.com">` über
+  Metadata API auf der Contact-Seite.
+- Reservierter Platz `min-height: 65px` für den Widget-Container (CLS).
+- Server-seitige Verifikation gegen `siteverify` ist **Pflicht** – Token
+  niemals nur clientseitig vertrauen.
+- Env-Vars: `NEXT_PUBLIC_TURNSTILE_SITE_KEY` (client),
+  `TURNSTILE_SECRET_KEY` (server-only). In `.env.example` listen,
+  niemals committen.
+
 ## Coding-Konventionen
 - TypeScript strict, keine `any`.
 - Klassen-Komposition über `cn()` aus `src/lib/utils.ts`.
