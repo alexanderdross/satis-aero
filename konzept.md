@@ -480,24 +480,67 @@ public/
 
 ---
 
-## 8. SEO & Metadaten
+## 8. SEO & Generative Engine Optimization (GEO)
 
-- **Metadata API** (`export const metadata`) pro Route, jede Page setzt
-  ihre eigene `alternates.canonical` und `alternates.languages` mit
-  Trailing-Slash
-- **`generateMetadata`** für spätere dynamische Service-Seiten
-- **`openGraph`** mit Standard-OG-Image (1200×630)
-- **`src/app/sitemap.ts`** – multilingual XML-Sitemap. Erzeugt aus einer
-  zentralen `pages`-Liste je einen `<url>`-Eintrag für DE und EN, beide
-  enthalten `xhtml:link rel="alternate"` mit `hreflang="de"`,
+### 8.1 Metadata-Pipeline
+Alle Pages laufen über den zentralen `buildMetadata()`-Helper
+(`src/lib/seo.ts`). Dieser liefert automatisch:
+
+- `title` (unique pro Page) + `title.template` (`"%s | SATIS Aero"`)
+- `description` (unique pro Page, 140–200 Zeichen)
+- `keywords` (8–12 Begriffe: Brand + Topic + Geo + Modifier)
+- `alternates.canonical` (mit Trailing-Slash) und
+  `alternates.languages` (hreflang `de`, `en`, `x-default`)
+- `openGraph.type/url/locale/alternateLocale/images` (1200×630)
+- `twitter.card = summary_large_image` + `site/creator: @satis_aero`
+- `robots` + `googleBot.max-image-preview/snippet/video-preview`
+- `authors`, `creator`, `publisher`, `applicationName`
+
+Per-Page-Copy steht in `src/lib/seo-copy.ts` (Home, Contact, Imprint,
+Privacy) bzw. wird für Service-Detailseiten dynamisch aus dem
+Service-Eintrag generiert.
+
+### 8.2 JSON-LD Coverage
+
+| Schema | Wo gerendert | Zweck |
+|---|---|---|
+| `Organization` + `ProfessionalService` | Beide Root-Layouts | Haupt-Entität (`@id: #organization`) mit Adresse, Logo, Contact, `knowsAbout`, `hasOfferCatalog` |
+| `WebSite` | Home-Pages | Website-Entität mit Publisher-Referenz |
+| `WebPage` (bzw. `ContactPage`) | Jede Page | Page-spezifische Metadata, referenziert Organization + WebSite |
+| `BreadcrumbList` | Jede Nicht-Home-Page | Navigation Trail, automatisch aus `Breadcrumbs`-Component |
+| `Service` | Jede Service-Detailseite | Service mit `provider`-Referenz, Audience, `hasCredential` für Compliance |
+| `ItemList` | Home-Pages | Vollständiger Service-Katalog |
+
+### 8.3 Sitemap & robots
+- **`src/app/sitemap.ts`** – multilingual XML-Sitemap. Generiert aus
+  einer zentralen `pages`-Liste je einen `<url>`-Eintrag für DE und EN,
+  beide enthalten `xhtml:link rel="alternate"` mit `hreflang="de"`,
   `hreflang="en"` und `hreflang="x-default"` (DE als Default).
-- **`src/app/robots.ts`** – `User-agent: *` allow `/`, plus
-  `Sitemap: https://satis.aero/sitemap.xml`
-- **Hreflang-Tags** zusätzlich auf jeder Page über `alternates.languages`
-- **Strukturierte Daten** (JSON-LD): geplant für Folge-Iterationen
-  - `Organization` (global im RootLayout)
-  - `Service` (pro Service-Detailseite)
-  - `BreadcrumbList`
+- **`src/app/robots.ts`** – erlaubt `*` global plus explizite
+  `allow`-Regeln für alle bekannten AI/LLM-Crawler (GPTBot,
+  ChatGPT-User, anthropic-ai, ClaudeBot, PerplexityBot,
+  Google-Extended, Applebot-Extended, …). Disallow nur `/_next/`.
+  Sitemap-Pointer auf `/sitemap.xml`.
+
+### 8.4 Generative Engine Optimization (GEO)
+- **`src/app/llms.txt/route.ts`** – Markdown-Zusammenfassung nach
+  llmstxt.org Spec, erreichbar unter `/llms.txt`. Enthält:
+  - Firmenprofil und Adresse
+  - Key Facts (11 Services, EASA/ICAO, CAT 9 Mock-Up, …)
+  - Vollständiger Service-Katalog gruppiert nach Kategorie mit DE-
+    und EN-URLs
+  - Primary URLs (Home, Contact, Sitemap, Robots)
+  - Editorial Guidance für AI-Assistants
+- `OrganizationJsonLd.knowsAbout` listet alle Fachgebiete explizit auf,
+  damit generative Engines korrekt antworten können
+- Explizite `allow`-Regeln für AI-Crawler in robots.txt signalisieren,
+  dass wir Citations willkommen heißen
+
+### 8.5 Performance-Impact
+Alle SEO-Elemente sind statisch zur Build-Zeit generiert. Keine
+Runtime-Metadaten, kein zusätzlicher Client-JS-Bundle. JSON-LD wird
+als Inline-`<script type="application/ld+json">` eingebettet, das
+sind unter 2 KB zusätzliches HTML pro Page.
 
 ---
 

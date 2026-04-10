@@ -1,30 +1,37 @@
 import type { Metadata } from "next";
 import { HomeContent } from "@/components/home-content";
 import { PageShell } from "@/components/page-shell";
+import {
+  ServiceItemListJsonLd,
+  WebPageJsonLd,
+  WebSiteJsonLd,
+} from "@/components/json-ld";
 import { pageAlternates } from "@/lib/i18n";
+import { buildMetadata } from "@/lib/seo";
+import { pageSeo } from "@/lib/seo-copy";
 
-export const metadata: Metadata = {
-  title: "SATIS Aero – Smart Aviation Training Innovative Solutions",
-  description:
-    "Aviation consultancy for airport fire services, pilots and airport operators. EASA-compliant training, ICAO exercise coaching, CAT 9 mock-up and Virtual Reality training.",
-  alternates: {
-    canonical: "/en/",
-    languages: { de: "/", en: "/en/" },
-  },
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://satis.aero/en/",
-    siteName: "SATIS Aero",
-    title: "SATIS Aero – Smart Aviation Training Innovative Solutions",
-    description:
-      "Aviation consultancy for airport fire services, pilots and airport operators. EASA-compliant training, ICAO exercise coaching, CAT 9 mock-up and VR.",
-  },
-};
+const seo = pageSeo.home.en;
+
+export const metadata: Metadata = buildMetadata({
+  locale: "en",
+  path: "/en/",
+  title: seo.title,
+  description: seo.description,
+  keywords: seo.keywords,
+  alternates: pageAlternates.home,
+});
 
 export default function EnglishHomePage() {
   return (
     <PageShell locale="en" alternates={pageAlternates.home}>
+      <WebSiteJsonLd locale="en" />
+      <WebPageJsonLd
+        locale="en"
+        path="/en/"
+        title={seo.title}
+        description={seo.description}
+      />
+      <ServiceItemListJsonLd locale="en" />
       <HomeContent locale="en" />
     </PageShell>
   );
