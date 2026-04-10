@@ -309,6 +309,8 @@ public/
 - `zod` (Validierung Kontaktformular)
 - `react-hook-form`
 - `resend` oder vergleichbar (Mail-Versand)
+- **Cloudflare Turnstile** – kein npm-Package nötig, nur Inline-Script
+  (siehe §9.1)
 
 ---
 
@@ -330,8 +332,135 @@ public/
 
 - **DSGVO:** Impressum + Datenschutzerklärung Pflicht (DE)
 - **Cookie-Banner:** Nur falls Tracking aktiv (Plausible/Posthog → cookieless)
-- **Kontaktformular:** Honeypot oder hCaptcha gegen Spam, kein Tracking
+- **Kontaktformular:** Cloudflare Turnstile (siehe §9.1) statt klassisches
+  CAPTCHA – DSGVO-freundlich, keine Cookies, keine Tracking-Pixel
 - **Hosting in EU-Region** über Vercel (Frankfurt fra1)
+
+### 9.1 Cloudflare Turnstile (Spam-Schutz Kontaktformular)
+
+**Warum Turnstile statt reCAPTCHA / hCaptcha:**
+- Keine Cookies, keine personenbezogenen Daten an Dritte → DSGVO-konform
+  ohne Cookie-Banner
+- Privacy-First-Ansatz von Cloudflare (keine Datenverkauf)
+- Unsichtbar / nicht-interaktiv im Best Case (managed challenge)
+- Kostenlos, kein Vendor-Lock-in beim Mail-Provider
+
+**Loading-Strategie (Performance-Vorgabe):**
+
+> **Critical:** Das Turnstile-Script darf **NUR auf der Kontakt-Seite**
+> geladen werden, **nicht** im Root-Layout. Andernfalls trifft die
+> ~80 KB `api.js` jede Seite und blockiert LCP.
+
+Konkrete Umsetzung:
+
+1. **Page-scoped Script:** `next/script` mit `strategy="lazyOnload"`
+   ausschließlich in `src/app/[locale]/contact/page.tsx`. Das Script lädt
+   erst nach `window.load`, also nach LCP/FCP.
+2. **Explicit Rendering:** Turnstile mit `render=explicit` initialisieren,
+   damit das Widget erst gemountet wird, wenn es tatsächlich gebraucht wird.
+3. **Lazy Mount on Intent:** Das Widget rendert erst, wenn der User mit dem
+   Formular interagiert (`onFocus` auf erstes Input-Feld) – das spart die
+   Challenge-Berechnung für Bots, die nie ein Feld fokussieren, und
+   verhindert Layout-Shifts beim Initial-Render.
+4. **Preconnect:** `<link rel="preconnect" href="https://challenges.cloudflare.com">`
+   im Contact-Page `<head>` über Next.js Metadata API für schnellere
+   Verbindung beim Lazy-Load.
+5. **Reserved Space:** `min-height: 65px` für den Widget-Container, um CLS
+   zu vermeiden, wenn das Widget nachträglich rendert.
+6. **Async Token Refresh:** Token läuft nach 5 Min ab → bei langen
+   Formular-Sessions vor Submit neu anfordern.
+
+**Implementierungs-Skizze (Pseudocode für spätere Session):**
+
+```tsx
+// src/app/[locale]/contact/page.tsx
+export const metadata = {
+  // preconnect zur Cloudflare-Domain
+  other: { "link": "<https://challenges.cloudflare.com>; rel=preconnect" },
+};
+
+// Client-Component für das Formular
+"use client";
+import Script from "next/script";
+import { useState, useRef } from "react";
+
+export function ContactForm() {
+  const [tsLoaded, setTsLoaded] = useState(false);
+  const [tsRendered, setTsRendered] = useState(false);
+  const widgetRef = useRef<HTMLDivElement>(null);
+
+  // Widget erst mounten, wenn User Formular fokussiert
+  const handleFirstFocus = () => {
+    if (tsLoaded && !tsRendered && widgetRef.current) {
+      window.turnstile.render(widgetRef.current, {
+        sitekey: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!,
+        theme: "light",
+      });
+      setTsRendered(true);
+    }
+  };
+
+  return (
+    <>
+      <Script
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
+        strategy="lazyOnload"
+        onLoad={() => setTsLoaded(true)}
+      />
+      <form action={submitContact}>
+        <input name="name" onFocus={handleFirstFocus} />
+        {/* … weitere Felder … */}
+        <div ref={widgetRef} style={{ minHeight: 65 }} />
+        <button type="submit">Senden</button>
+      </form>
+    </>
+  );
+}
+```
+
+**Server-Verifikation (PFLICHT):**
+
+Token darf **niemals** nur clientseitig vertraut werden. Server Action
+oder Route Handler muss gegen Cloudflares siteverify-Endpoint prüfen:
+
+```ts
+// Server Action
+"use server";
+async function submitContact(formData: FormData) {
+  const token = formData.get("cf-turnstile-response");
+  const verify = await fetch(
+    "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        secret: process.env.TURNSTILE_SECRET_KEY!,
+        response: String(token),
+      }),
+    },
+  ).then((r) => r.json());
+
+  if (!verify.success) throw new Error("Turnstile verification failed");
+  // … Mail via Resend versenden …
+}
+```
+
+**Environment-Variablen:**
+
+| Variable | Scope | Quelle |
+|---|---|---|
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Client (public) | Cloudflare Dashboard |
+| `TURNSTILE_SECRET_KEY` | Server only | Cloudflare Dashboard |
+
+In Vercel als Environment Variables für Production / Preview / Development
+hinterlegen. Nie ins Repo committen. `.env.example` mit den Keys (ohne
+Werte) ablegen.
+
+**Performance-Budget:**
+- Initial-Load Kontakt-Seite: < 50 KB JS (ohne Turnstile)
+- Turnstile-Script (~80 KB) lädt erst nach `window.load` und nur auf
+  `/contact` → 0 Impact auf alle anderen Routen
+- Widget-Render erst on-focus → 0 Impact auf TTFB / LCP der Contact-Seite
 
 ---
 
@@ -346,6 +475,7 @@ public/
 | 5 | Kontaktdaten (Adresse, Telefon, E-Mail) | Kunde | offen |
 | 6 | Liberation Sans woff2-Files in `public/fonts/` | Dev | offen |
 | 7 | Referenzen / Kundenliste | Kunde | offen |
+| 8 | Cloudflare Turnstile Site- & Secret-Key | Kunde / Dev | offen |
 
 ---
 
