@@ -38,12 +38,10 @@ jobs:
       - name: ESLint
         run: npm run lint
 
-      - name: TypeScript
-        run: npm run typecheck
-
-      - name: Unit tests
-        run: npm run test
-
+      # Next.js build must run before `tsc --noEmit`. The build step
+      # (re-)generates `next-env.d.ts` and `.next/types/routes.d.ts`
+      # which the standalone typecheck depends on to resolve typed
+      # routes and the PNG module declarations.
       - name: Next.js build
         run: npm run build
         env:
@@ -51,6 +49,12 @@ jobs:
           # automatically in the real deployment.
           VERCEL: "1"
           VERCEL_URL: "satis.aero"
+
+      - name: TypeScript
+        run: npm run typecheck
+
+      - name: Unit tests
+        run: npm run test
 
       - name: Upload Next.js build artifacts
         uses: actions/upload-artifact@v4
