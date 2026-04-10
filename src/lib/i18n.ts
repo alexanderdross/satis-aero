@@ -93,12 +93,15 @@ export const t = {
       servicesDropdownLabel: "Leistungen-Untermenü",
       servicesAll: "Alle Leistungen ansehen",
       about: "Über uns",
+      aboutTitle: "Mehr über SATIS Aero erfahren",
       contact: "Kontakt",
       contactTitle: "Zum Kontaktformular",
       cta: "Anfrage",
       ctaTitle: "Jetzt unverbindliche Anfrage stellen",
       home: "Startseite",
       ariaLabel: "Hauptnavigation",
+      mobileMenuLabel: "Menü öffnen",
+      mobileMenuClose: "Menü schließen",
       logoTitle:
         "SATIS Aero – Smart Aviation Training Innovative Solutions, Startseite",
       langSwitch: "EN",
@@ -254,12 +257,19 @@ export const t = {
     privacy: {
       title: "Datenschutz",
       eyebrow: "Rechtliches",
-      sub: "Informationen zum Datenschutz",
-      pendingHeading: "Datenschutzerklärung in Vorbereitung",
-      pendingText:
-        "Die ausführliche Datenschutzerklärung wird in Kürze hier veröffentlicht. Bei dringenden Fragen zum Datenschutz wenden Sie sich bitte direkt an uns.",
+      sub: "Informationen zur Verarbeitung personenbezogener Daten",
       contactLabel: "info@satis.aero",
       contactTitle: "Datenschutzanfrage per E-Mail",
+    },
+    notFound: {
+      eyebrow: "Fehler 404",
+      title: "Seite nicht gefunden",
+      message:
+        "Die angeforderte Seite existiert nicht oder wurde verschoben. Bitte prüfen Sie die URL oder kehren Sie zur Startseite zurück.",
+      backHome: "Zur Startseite",
+      backHomeTitle: "Zurück zur Startseite",
+      browseServices: "Leistungen ansehen",
+      browseServicesTitle: "Zur Übersicht aller Leistungen",
     },
   },
   en: {
@@ -273,12 +283,15 @@ export const t = {
       servicesDropdownLabel: "Services submenu",
       servicesAll: "View all services",
       about: "About",
+      aboutTitle: "Learn more about SATIS Aero",
       contact: "Contact",
       contactTitle: "Open the contact form",
       cta: "Enquiry",
       ctaTitle: "Send us a non-binding enquiry",
       home: "Home",
       ariaLabel: "Main navigation",
+      mobileMenuLabel: "Open menu",
+      mobileMenuClose: "Close menu",
       logoTitle:
         "SATIS Aero – Smart Aviation Training Innovative Solutions, home",
       langSwitch: "DE",
@@ -435,12 +448,19 @@ export const t = {
     privacy: {
       title: "Privacy",
       eyebrow: "Legal",
-      sub: "Privacy information",
-      pendingHeading: "Privacy notice in preparation",
-      pendingText:
-        "The detailed privacy notice will be published here shortly. For urgent privacy questions please contact us directly.",
+      sub: "Information on the processing of personal data",
       contactLabel: "info@satis.aero",
       contactTitle: "Privacy request via email",
+    },
+    notFound: {
+      eyebrow: "Error 404",
+      title: "Page not found",
+      message:
+        "The requested page does not exist or has been moved. Please check the URL or return to the home page.",
+      backHome: "Back to home",
+      backHomeTitle: "Return to the home page",
+      browseServices: "View services",
+      browseServicesTitle: "Browse all services",
     },
   },
 } as const;

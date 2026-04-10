@@ -136,6 +136,29 @@ export function ContactForm({ locale }: { locale: Locale }) {
           required
         />
 
+        {/*
+          Honeypot field – invisible to real users (off-screen + tab-stop
+          removed + autocomplete disabled), but most form-fillers fill it
+          in. submitContact() rejects the submission with reason "honeypot"
+          if anything ends up in here.
+        */}
+        <div
+          aria-hidden="true"
+          className="absolute left-[-10000px] top-auto h-px w-px overflow-hidden"
+        >
+          <label htmlFor="website">
+            Website (do not fill in)
+            <input
+              id="website"
+              name="website"
+              type="text"
+              tabIndex={-1}
+              autoComplete="off"
+              defaultValue=""
+            />
+          </label>
+        </div>
+
         <div>
           <label
             htmlFor="message"

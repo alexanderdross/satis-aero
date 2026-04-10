@@ -25,8 +25,11 @@ import type { Locale } from "@/lib/i18n";
 
 type Localized<T> = Record<Locale, T>;
 
+export type ServiceCategory = "coaching" | "compliance" | "practice" | "tools";
+
 export type Service = {
   slug: string;
+  category: ServiceCategory;
   title: Localized<string>;
   excerpt: Localized<string>;
   description: Localized<string>;
@@ -37,9 +40,24 @@ export type Service = {
   compliance?: string[];
 };
 
+export const categoryLabels: Record<ServiceCategory, Localized<string>> = {
+  coaching: { de: "Coaching & Kommunikation", en: "Coaching & Communication" },
+  compliance: { de: "Compliance & Audit", en: "Compliance & Audit" },
+  practice: { de: "Praxis & Ausbildung", en: "Practice & Training" },
+  tools: { de: "Tools & Innovation", en: "Tools & Innovation" },
+};
+
+export const categoryOrder: ServiceCategory[] = [
+  "coaching",
+  "compliance",
+  "practice",
+  "tools",
+];
+
 export const services: Service[] = [
   {
     slug: "coaching-crm-ccc",
+    category: "coaching",
     title: {
       de: "Coaching, CRM & Crisis Communication",
       en: "Coaching, CRM & Crisis Communication",
@@ -79,6 +97,7 @@ export const services: Service[] = [
   },
   {
     slug: "just-culture-awareness",
+    category: "coaching",
     title: {
       de: "Just Culture Awareness",
       en: "Just Culture Awareness",
@@ -128,6 +147,7 @@ export const services: Service[] = [
   },
   {
     slug: "easa-compliance-training",
+    category: "compliance",
     title: {
       de: "EASA Compliance Training für Flughafenfeuerwehren",
       en: "EASA Compliance Training for Airport Fire Services",
@@ -173,6 +193,7 @@ export const services: Service[] = [
   },
   {
     slug: "icao-uebungen-coaching",
+    category: "compliance",
     title: {
       de: "ICAO-Übungen – Coaching, Vorbereitung & Durchführung",
       en: "ICAO Exercises – Coaching, Preparation & Delivery",
@@ -222,6 +243,7 @@ export const services: Service[] = [
   },
   {
     slug: "communication-training-fire-services",
+    category: "coaching",
     title: {
       de: "Communication Training für Flughafenfeuerwehren (121.555)",
       en: "Communication Training for Airport Fire Services (121.555)",
@@ -257,6 +279,7 @@ export const services: Service[] = [
   },
   {
     slug: "communication-training-pilots",
+    category: "coaching",
     title: {
       de: "Communication Training für Piloten (121.555)",
       en: "Communication Training for Pilots (121.555)",
@@ -292,6 +315,7 @@ export const services: Service[] = [
   },
   {
     slug: "grundausbildung",
+    category: "practice",
     title: {
       de: "Flughafenfeuerwehr Grundausbildung",
       en: "Airport Fire Service Basic Training",
@@ -331,6 +355,7 @@ export const services: Service[] = [
   },
   {
     slug: "cat9-mockup-training",
+    category: "practice",
     title: {
       de: "Training am CAT 9 Mock-Up (Brandübungsanlage)",
       en: "CAT 9 Mock-Up Training (Live-Fire Facility)",
@@ -378,6 +403,7 @@ export const services: Service[] = [
   },
   {
     slug: "training-management-system",
+    category: "tools",
     title: {
       de: "Training Management System",
       en: "Training Management System",
@@ -421,6 +447,7 @@ export const services: Service[] = [
   },
   {
     slug: "vr-training",
+    category: "tools",
     title: {
       de: "Virtual Reality Trainings",
       en: "Virtual Reality Training",
@@ -463,6 +490,7 @@ export const services: Service[] = [
   },
   {
     slug: "icao-language-proficiency",
+    category: "practice",
     title: {
       de: "ICAO Language Proficiency 4/5 inkl. Prüfung",
       en: "ICAO Language Proficiency 4/5 incl. Examination",
