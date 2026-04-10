@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { HomeContent } from "@/components/home-content";
 import { PageShell } from "@/components/page-shell";
+import { pageAlternates } from "@/lib/i18n";
 
 export const metadata: Metadata = {
   title: "SATIS Aero – Smart Aviation Training Innovative Solutions",
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
 
 export default function EnglishHomePage() {
   return (
-    <PageShell locale="en" pageKey="home">
+    <PageShell locale="en" alternates={pageAlternates.home}>
       <HomeContent locale="en" />
     </PageShell>
   );

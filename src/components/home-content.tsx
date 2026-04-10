@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Plane, ShieldCheck, Award, Sparkles, ArrowRight, Mail } from "lucide-react";
 import { services } from "@/lib/services";
-import { anchors, routes, t, type Locale } from "@/lib/i18n";
+import { anchors, routes, serviceUrl, t, type Locale } from "@/lib/i18n";
 import logo from "../../public/images/brand/satis-logo.png";
 
 // =============================================================================
@@ -163,15 +163,21 @@ export function HomeContent({ locale }: { locale: Locale }) {
               const Icon = service.icon;
               const title = service.title[locale];
               const excerpt = service.excerpt[locale];
+              const href = serviceUrl(locale, service.slug);
               return (
                 <li
                   key={service.slug}
-                  className="group flex flex-col rounded-xl border border-sky bg-white p-5 transition-shadow hover:shadow-lg hover:shadow-primary/10 sm:p-6"
+                  className="group flex flex-col rounded-xl border border-sky bg-white transition-shadow hover:shadow-lg hover:shadow-primary/10"
                 >
+                  <Link
+                    href={href}
+                    title={title}
+                    className="flex h-full flex-col p-5 sm:p-6"
+                  >
                   <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-lg bg-sky text-primary transition-colors group-hover:bg-primary group-hover:text-white">
                     <Icon className="h-5 w-5" aria-hidden="true" />
                   </div>
-                  <h3 className="text-base font-semibold leading-snug text-runway sm:text-lg">
+                  <h3 className="text-base font-semibold leading-snug text-runway transition-colors group-hover:text-primary sm:text-lg">
                     {title}
                   </h3>
                   <p className="mt-2 flex-1 text-sm leading-relaxed text-runway-soft">
@@ -189,6 +195,7 @@ export function HomeContent({ locale }: { locale: Locale }) {
                       ))}
                     </ul>
                   )}
+                  </Link>
                 </li>
               );
             })}
@@ -260,14 +267,14 @@ export function HomeContent({ locale }: { locale: Locale }) {
             {tr.contact.sub}
           </p>
           <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:mt-8 sm:flex-row sm:gap-4">
-            <a
-              href="mailto:info@satis.aero"
-              title={tr.contact.mailTitle}
+            <Link
+              href={r.contact}
+              title={tr.nav.contactTitle}
               className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-primary transition-colors hover:bg-sky sm:text-base"
             >
               <Mail className="h-4 w-4" aria-hidden="true" />
-              {tr.contact.mailLabel}
-            </a>
+              {tr.nav.contact}
+            </Link>
             <Link
               href={r.imprint}
               title={tr.contact.imprintTitle}

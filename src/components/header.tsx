@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { ServicesDropdown } from "@/components/services-dropdown";
 import { routes, t, type Locale, type PageAlternates } from "@/lib/i18n";
 import logo from "../../public/images/brand/satis-logo.png";
 
@@ -23,10 +24,15 @@ export function Header({
   const tr = t[locale];
   const r = routes[locale];
 
+  // Trailing nav items (after the Services dropdown). The Services menu is
+  // a server-side <details> dropdown rendered separately below.
   const navItems = [
-    { href: r.services, label: tr.nav.services, title: tr.nav.services },
     { href: r.about, label: tr.nav.about, title: tr.nav.about },
-    { href: r.contact, label: tr.nav.contact, title: tr.nav.contact },
+    {
+      href: r.contact,
+      label: tr.nav.contact,
+      title: tr.nav.contactTitle,
+    },
   ];
 
   return (
@@ -52,7 +58,10 @@ export function Header({
         </Link>
 
         <nav aria-label={tr.nav.ariaLabel} className="flex items-center">
-          <ul className="flex items-center gap-1.5 text-sm font-medium sm:gap-2 md:gap-4 lg:gap-6">
+          <ul className="flex items-center gap-1.5 text-sm font-medium sm:gap-2 md:gap-2 lg:gap-4">
+            <li className="hidden md:block">
+              <ServicesDropdown locale={locale} />
+            </li>
             {navItems.map((item) => (
               <li key={item.href} className="hidden md:block">
                 <Link
