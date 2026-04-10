@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PrivacyContent } from "@/components/privacy-content";
+import { PageShell } from "@/components/page-shell";
 
 export const metadata: Metadata = {
   title: "Privacy",
@@ -13,5 +14,9 @@ export const metadata: Metadata = {
 };
 
 export default function PrivacyPage() {
-  return <PrivacyContent locale="en" />;
+  return (
+    <PageShell locale="en" pageKey="privacy">
+      <PrivacyContent locale="en" />
+    </PageShell>
+  );
 }

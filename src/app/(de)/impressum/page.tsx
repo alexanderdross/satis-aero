@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ImprintContent } from "@/components/imprint-content";
+import { PageShell } from "@/components/page-shell";
 
 export const metadata: Metadata = {
   title: "Impressum",
@@ -13,5 +14,9 @@ export const metadata: Metadata = {
 };
 
 export default function ImpressumPage() {
-  return <ImprintContent locale="de" />;
+  return (
+    <PageShell locale="de" pageKey="imprint">
+      <ImprintContent locale="de" />
+    </PageShell>
+  );
 }

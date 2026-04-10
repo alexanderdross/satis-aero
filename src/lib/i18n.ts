@@ -34,6 +34,20 @@ export const routes = {
   },
 } as const;
 
+// Cross-locale page alternates. Each entry maps a logical page to its
+// concrete URL in every locale, so the language switcher can take you
+// from /impressum/ directly to /en/imprint/ instead of dropping you on
+// the home page. Add a new entry whenever a new translatable page is
+// introduced.
+export const pageAlternates = {
+  home: { de: "/", en: "/en/" },
+  imprint: { de: "/impressum/", en: "/en/imprint/" },
+  privacy: { de: "/datenschutz/", en: "/en/privacy/" },
+} as const;
+
+export type PageKey = keyof typeof pageAlternates;
+export type PageAlternates = (typeof pageAlternates)[PageKey];
+
 // Section IDs used as in-page anchors. German page uses German slugs,
 // English page uses English slugs.
 export const anchors = {

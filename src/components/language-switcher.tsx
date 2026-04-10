@@ -1,20 +1,17 @@
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import { Flag } from "@/components/flag";
-import { locales, routes, t, type Locale } from "@/lib/i18n";
+import { locales, t, type Locale, type PageAlternates } from "@/lib/i18n";
 
 // =============================================================================
 // SATIS Aero – Language Switcher (Server Component, JS-free)
 // =============================================================================
 // Built on the native HTML <details>/<summary> disclosure widget. The browser
 // handles open/close on click and keyboard (Enter/Space). No JavaScript is
-// shipped to the client. Once the user picks a language, navigation to the
-// other locale closes the dropdown automatically because the page reloads
-// (multi-root-layout pattern: /en/* lives under a different root layout
-// than /, so React unmounts the entire tree).
+// shipped to the client.
 //
-// Native <details> does not support outside-click closing without JS, but
-// for a 2-item dropdown that always navigates away the trade-off is fine.
+// The dropdown is page-aware: each page passes its own `alternates` map so
+// clicking "English" on /impressum/ goes to /en/imprint/, not to /en/.
 // =============================================================================
 
 const labels: Record<Locale, { native: string; flagTitle: string }> = {
@@ -22,7 +19,13 @@ const labels: Record<Locale, { native: string; flagTitle: string }> = {
   en: { native: "English", flagTitle: "Flag of the United Kingdom" },
 };
 
-export function LanguageSwitcher({ current }: { current: Locale }) {
+export function LanguageSwitcher({
+  current,
+  alternates,
+}: {
+  current: Locale;
+  alternates: PageAlternates;
+}) {
   const tr = t[current];
 
   return (
@@ -49,7 +52,7 @@ export function LanguageSwitcher({ current }: { current: Locale }) {
       >
         {locales.map((locale) => {
           const isCurrent = locale === current;
-          const href = routes[locale].home;
+          const href = alternates[locale];
           return (
             <li key={locale}>
               <Link

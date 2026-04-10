@@ -1,19 +1,25 @@
 import Image from "next/image";
 import Link from "next/link";
 import { LanguageSwitcher } from "@/components/language-switcher";
-import { routes, t, type Locale } from "@/lib/i18n";
+import { routes, t, type Locale, type PageAlternates } from "@/lib/i18n";
 import logo from "../../public/images/brand/satis-logo.png";
 
 // =============================================================================
 // SATIS Aero – Header (Server Component)
 // =============================================================================
-// Pure server component, no JavaScript shipped to the client. The locale is
-// passed in by the route-group root layout (DE or EN). The dropdown inside
-// LanguageSwitcher is a native HTML <details> element, so even that ships
-// zero JS.
+// Pure server component, no JavaScript shipped to the client. The page that
+// renders the header passes its own `alternates` map so the language
+// dropdown links to the equivalent page in the other locale (not the home
+// page).
 // =============================================================================
 
-export function Header({ locale }: { locale: Locale }) {
+export function Header({
+  locale,
+  alternates,
+}: {
+  locale: Locale;
+  alternates: PageAlternates;
+}) {
   const tr = t[locale];
   const r = routes[locale];
 
@@ -59,7 +65,7 @@ export function Header({ locale }: { locale: Locale }) {
               </li>
             ))}
             <li>
-              <LanguageSwitcher current={locale} />
+              <LanguageSwitcher current={locale} alternates={alternates} />
             </li>
             <li>
               <Link

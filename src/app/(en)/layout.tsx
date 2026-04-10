@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import "../globals.css";
 
@@ -127,10 +126,7 @@ export default function EnglishRootLayout({
         >
           Skip to main content
         </a>
-        <Header locale="en" />
-        <main id="main" className="flex-1">
-          {children}
-        </main>
+        {children}
         <Footer locale="en" />
       </body>
     </html>
