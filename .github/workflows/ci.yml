@@ -15,6 +15,13 @@ jobs:
   # ---------------------------------------------------------------------------
   # Static analysis & unit tests
   # ---------------------------------------------------------------------------
+  # Both jobs run in parallel and each performs its own `next build`.
+  # We deliberately do NOT share a build artifact between jobs, because
+  # the artifact upload step is brittle (it is skipped whenever an
+  # earlier step in the same job fails, which left `lighthouse` trying
+  # to download an artifact that was never uploaded). Independent jobs
+  # are slightly slower but dramatically more robust.
+  # ---------------------------------------------------------------------------
   verify:
     name: Lint · Typecheck · Unit tests · Build
     runs-on: ubuntu-latest
@@ -38,10 +45,10 @@ jobs:
       - name: ESLint
         run: npm run lint
 
-      # Next.js build must run before `tsc --noEmit`. The build step
-      # (re-)generates `next-env.d.ts` and `.next/types/routes.d.ts`
-      # which the standalone typecheck depends on to resolve typed
-      # routes and the PNG module declarations.
+      # `next build` must run before the standalone `tsc --noEmit`.
+      # It (re-)generates `next-env.d.ts` and `.next/types/routes.d.ts`
+      # which the typecheck depends on to resolve typed routes and the
+      # PNG module declarations.
       - name: Next.js build
         run: npm run build
         env:
@@ -56,19 +63,11 @@ jobs:
       - name: Unit tests
         run: npm run test
 
-      - name: Upload Next.js build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: next-build
-          path: .next
-          retention-days: 1
-
   # ---------------------------------------------------------------------------
   # Lighthouse CI – performance, accessibility, SEO and best-practice budgets
   # ---------------------------------------------------------------------------
   lighthouse:
     name: Lighthouse CI
-    needs: verify
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -84,11 +83,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Restore Next.js build
-        uses: actions/download-artifact@v4
-        with:
-          name: next-build
-          path: .next
+      - name: Next.js build
+        run: npm run build
+        env:
+          VERCEL: "1"
+          VERCEL_URL: "satis.aero"
 
       - name: Run Lighthouse CI
         uses: treosh/lighthouse-ci-action@v12
