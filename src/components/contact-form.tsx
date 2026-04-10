@@ -175,7 +175,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
             rows={6}
             placeholder={tr.formMessagePlaceholder}
             required
-            className="w-full rounded-lg border border-sky bg-white px-4 py-3 text-sm text-runway placeholder:text-runway-mute/70 focus:border-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+            className="w-full rounded-lg border border-primary/30 bg-white px-4 py-3 text-sm text-runway shadow-sm placeholder:text-runway-mute hover:border-primary/50 focus:border-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
           />
         </div>
 
@@ -202,7 +202,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
           </p>
         )}
 
-        <p className="text-xs text-runway-mute">{tr.formPrivacyHint}</p>
+        <p className="text-xs text-runway-soft">{tr.formPrivacyHint}</p>
 
         <button
           type="submit"
@@ -252,7 +252,7 @@ function Field({
         placeholder={placeholder}
         required={required}
         autoComplete={autoComplete}
-        className="w-full rounded-lg border border-sky bg-white px-4 py-3 text-sm text-runway placeholder:text-runway-mute/70 focus:border-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+        className="w-full rounded-lg border border-primary/30 bg-white px-4 py-3 text-sm text-runway shadow-sm placeholder:text-runway-mute hover:border-primary/50 focus:border-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
       />
     </div>
   );
