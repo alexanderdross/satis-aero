@@ -696,18 +696,38 @@ Werte) ablegen.
 
 ---
 
-## 10. Offene Punkte
+## 10. Offene Punkte (Content / DevOps)
+
+Technisch ist die Site produktionsreif. Folgende Punkte blockieren
+ausschließlich Content, externe Services oder juristische Freigabe:
 
 | # | Thema | Owner | Status |
 |---|---|---|---|
-| 1 | SVG-Version des Logos vom Kunden | Kunde | offen |
-| 2 | Bildmaterial: Trainings, CAT 9 Mock-Up, Team | Kunde | offen |
-| 3 | Englische Übersetzungen Service-Beschreibungen | Translation | Entwurf vorhanden |
-| 4 | Datenschutzerklärung Inhalt | Kunde / Anwalt | offen |
+| 1 | SVG-Version des Logos | Kunde | offen |
+| 2 | Bildmaterial (Trainings, CAT 9 Mock-Up, Team, Referenzen) | Kunde | offen |
+| 3 | Englische Übersetzungen final reviewen | Translation / Kunde | Entwurf ausgeliefert |
+| 4 | Anwaltliche Freigabe der Datenschutzerklärung | Kunde / Anwalt | Text liegt vor, muss geprüft werden |
 | 5 | Telefonnummer & offizielle E-Mail | Kunde | offen |
-| 6 | Liberation Sans woff2-Files in `public/fonts/` | Dev | offen |
-| 7 | Referenzen / Kundenliste | Kunde | offen |
-| 8 | Cloudflare Turnstile Site- & Secret-Key | Kunde / Dev | offen |
+| 6 | Liberation Sans woff2-Files in `public/fonts/` | Dev | `next/font/local`-Snippet liegt als Kommentar in beiden Layouts |
+| 7 | About-Seite Inhalt | Kunde | offen (Route nicht gebaut) |
+| 8 | Referenzen / Kundenlogos | Kunde | offen (Route nicht gebaut) |
+| 9 | `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL` in Vercel | DevOps | muss vor Go-Live gesetzt werden |
+| 10 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` in Vercel | DevOps | muss vor Go-Live gesetzt werden |
+| 11 | Resend-Domain `satis.aero` verifizieren (SPF/DKIM/DMARC) | DevOps | muss vor Go-Live erfolgen |
+| 12 | Domain `satis.aero` auf Vercel verbinden | DevOps | Preview läuft aktuell auf `satis-aero.vercel.app` |
+
+**Code-seitige Hinweise:**
+
+- Die `metadataBase`-Warnung beim lokalen `npm run build` ist kosmetisch
+  – Next.js unterdrückt sie automatisch, sobald `VERCEL=1` (Standard auf
+  Vercel) gesetzt ist. Die Production-URLs werden nach wie vor korrekt
+  aufgelöst, weil jeder Page-Title und jedes OG-Bild absolute URLs
+  (`https://satis.aero/…`) enthält.
+- Rate-Limit auf `submitContact` ist In-Memory und damit instance-local.
+  Für produktions-harten Schutz → Upstash Redis (`@upstash/ratelimit`)
+  oder Vercel KV nachrüsten, der aktuelle Stand ist als erste
+  Verteidigungslinie gemeinsam mit Turnstile + Honeypot + zod
+  ausreichend.
 
 ---
 

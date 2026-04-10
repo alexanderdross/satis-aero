@@ -1,29 +1,81 @@
 "use server";
 
+import { headers } from "next/headers";
 import { Resend } from "resend";
 import { z } from "zod";
 
 // =============================================================================
 // SATIS Aero – submitContact Server Action
 // =============================================================================
-// 1. Honeypot field check    (instant reject if filled)
-// 2. zod validation          (typed schema with localised error reasons)
-// 3. Cloudflare Turnstile    (server-side verification, never trust client)
-// 4. Resend mail dispatch    (with graceful fallback when no API key)
+// Defence in depth for the contact form:
+//
+// 1. Rate limit                (per-IP, sliding window – best effort)
+// 2. Honeypot field check      (instant reject if filled)
+// 3. zod validation            (typed schema with length caps)
+// 4. Cloudflare Turnstile      (server-side verification, never trust client)
+// 5. Resend mail dispatch      (with graceful fallback when no API key)
 //
 // IMPORTANT: never trust the client token alone. The siteverify call is
 // the only authoritative spam check. See konzept.md §9.1.
+//
+// About the rate limit: this is an in-memory sliding window that is
+// scoped to a single serverless invocation instance. On Vercel that
+// means the limit is reset whenever the underlying function is cold-
+// started, so a determined attacker can still slip past. For real
+// production-grade rate limiting, swap the implementation below for
+// Upstash Redis (`@upstash/ratelimit`) or Vercel KV. The current
+// implementation nevertheless catches naive flooding from a single
+// warm instance and raises the cost of scripted abuse, which is
+// enough in combination with Turnstile + honeypot + zod.
 // =============================================================================
 
 const TURNSTILE_VERIFY_URL =
   "https://challenges.cloudflare.com/turnstile/v0/siteverify";
+
+const RATE_LIMIT_MAX = 5; // submissions allowed
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // per 10 minutes
+
+// Per-IP submission timestamps, pruned on every check. Module-level
+// state is fine here because it lives as long as the warm instance.
+const rateLimitStore = new Map<string, number[]>();
+
+function getClientIp(h: Headers): string {
+  // Vercel sets x-real-ip and x-forwarded-for, in that order of
+  // precedence. Fall back to "unknown" so the limiter still groups
+  // anonymous callers together.
+  return (
+    h.get("x-real-ip") ??
+    h.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+    "unknown"
+  );
+}
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const cutoff = now - RATE_LIMIT_WINDOW_MS;
+  const history = rateLimitStore.get(ip) ?? [];
+  // Drop timestamps outside the window.
+  const recent = history.filter((ts) => ts > cutoff);
+  if (recent.length >= RATE_LIMIT_MAX) {
+    rateLimitStore.set(ip, recent);
+    return true;
+  }
+  recent.push(now);
+  rateLimitStore.set(ip, recent);
+  return false;
+}
 
 export type ContactFormState =
   | { status: "idle" }
   | { status: "success" }
   | {
       status: "error";
-      reason: "validation" | "turnstile" | "honeypot" | "server";
+      reason:
+        | "validation"
+        | "turnstile"
+        | "honeypot"
+        | "server"
+        | "rate-limit";
     };
 
 const ContactSchema = z.object({
@@ -138,6 +190,14 @@ export async function submitContact(
   _prev: ContactFormState,
   formData: FormData,
 ): Promise<ContactFormState> {
+  // 1) Rate limit – cheap first-line defence before any parsing or
+  // network calls.
+  const h = await headers();
+  const ip = getClientIp(h);
+  if (isRateLimited(ip)) {
+    return { status: "error", reason: "rate-limit" };
+  }
+
   const parsed = readPayload(formData);
   if (!parsed.success) {
     // The honeypot validator emits a literal "honeypot" message, so we

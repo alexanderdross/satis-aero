@@ -198,7 +198,11 @@ export function ContactForm({ locale }: { locale: Locale }) {
             role="alert"
             className="rounded-lg border border-signal/30 bg-signal/10 px-4 py-3 text-sm text-signal"
           >
-            {state.reason === "turnstile" ? tr.formTurnstileError : tr.formError}
+            {state.reason === "turnstile"
+              ? tr.formTurnstileError
+              : state.reason === "rate-limit"
+                ? tr.formRateLimitError
+                : tr.formError}
           </p>
         )}
 

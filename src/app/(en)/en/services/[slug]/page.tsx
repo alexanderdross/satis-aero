@@ -56,7 +56,14 @@ export default async function ServicePage({ params }: Props) {
   const description = service.excerpt.en;
 
   return (
-    <PageShell locale="en" alternates={serviceAlternates(slug)}>
+    <PageShell
+      locale="en"
+      alternates={serviceAlternates(slug)}
+      path={path}
+      productName={service.title.en}
+      productDescription={service.description.en}
+      productSeed={service.slug}
+    >
       <WebPageJsonLd
         locale="en"
         path={path}

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { HomeContent } from "@/components/home-content";
 import { PageShell } from "@/components/page-shell";
 import {
+  SISTER_BRAND_MENTIONS,
   ServiceItemListJsonLd,
   WebPageJsonLd,
   WebSiteJsonLd,
@@ -30,6 +31,7 @@ export default function EnglishHomePage() {
         path="/en/"
         title={seo.title}
         description={seo.description}
+        mentions={SISTER_BRAND_MENTIONS}
       />
       <ServiceItemListJsonLd locale="en" />
       <HomeContent locale="en" />

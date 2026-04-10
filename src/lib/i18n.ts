@@ -162,6 +162,8 @@ export const t = {
         "Beim Senden ist etwas schiefgelaufen. Bitte versuchen Sie es erneut oder schreiben Sie direkt an info@satis.aero.",
       formTurnstileError:
         "Spam-Schutz konnte nicht verifiziert werden. Bitte laden Sie die Seite neu.",
+      formRateLimitError:
+        "Sie haben in kurzer Zeit zu viele Anfragen gesendet. Bitte warten Sie ein paar Minuten und versuchen Sie es erneut.",
       formPrivacyHint:
         "Mit dem Absenden akzeptieren Sie unsere Datenschutzbestimmungen.",
       formPrivacyLinkLabel: "Datenschutzbestimmungen",
@@ -352,6 +354,8 @@ export const t = {
         "Something went wrong while sending. Please try again or email us directly at info@satis.aero.",
       formTurnstileError:
         "Spam protection could not be verified. Please reload the page.",
+      formRateLimitError:
+        "You have sent too many requests in a short period. Please wait a few minutes and try again.",
       formPrivacyHint:
         "By sending this form you accept our privacy policy.",
       formPrivacyLinkLabel: "privacy policy",
