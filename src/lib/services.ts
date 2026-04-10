@@ -30,7 +30,12 @@ export type ServiceCategory = "coaching" | "compliance" | "practice" | "tools";
 export type Service = {
   slug: string;
   category: ServiceCategory;
+  /** Full, SEO-relevant title used on detail pages and service cards. */
   title: Localized<string>;
+  /** Short title used in the navigation dropdown and mobile menu.
+   *  Kept intentionally short (≤ ~30 chars) so the dropdown stays
+   *  scannable. Falls back to `title` when rendering detail pages. */
+  menuTitle: Localized<string>;
   excerpt: Localized<string>;
   description: Localized<string>;
   audience: Localized<string[]>;
@@ -61,6 +66,10 @@ export const services: Service[] = [
     title: {
       de: "Coaching, CRM & Crisis Communication",
       en: "Coaching, CRM & Crisis Communication",
+    },
+    menuTitle: {
+      de: "Coaching & CRM",
+      en: "Coaching & CRM",
     },
     excerpt: {
       de: "Crew Resource Management und Crisis & Communication Coaching für Cockpit- und Bodenpersonal. Verbessert Teamarbeit, Entscheidungsfindung und Kommunikation in Stresssituationen.",
@@ -101,6 +110,10 @@ export const services: Service[] = [
     title: {
       de: "Just Culture Awareness",
       en: "Just Culture Awareness",
+    },
+    menuTitle: {
+      de: "Just Culture",
+      en: "Just Culture",
     },
     excerpt: {
       de: "Sensibilisierungs- und Schulungsprogramm zu Just Culture als Grundlage einer offenen Sicherheitskultur. Für Führungskräfte und operatives Personal.",
@@ -152,6 +165,10 @@ export const services: Service[] = [
       de: "EASA Compliance Training für Flughafenfeuerwehren",
       en: "EASA Compliance Training for Airport Fire Services",
     },
+    menuTitle: {
+      de: "EASA Compliance",
+      en: "EASA Compliance",
+    },
     excerpt: {
       de: "Strukturierte EASA-Compliance-Schulung für Flughafenfeuerwehren inklusive Dokumentation, Auditvorbereitung und Refresher-Konzepten.",
       en: "Structured EASA compliance training for airport fire services including documentation, audit preparation and refresher concepts.",
@@ -197,6 +214,10 @@ export const services: Service[] = [
     title: {
       de: "ICAO-Übungen – Coaching, Vorbereitung & Durchführung",
       en: "ICAO Exercises – Coaching, Preparation & Delivery",
+    },
+    menuTitle: {
+      de: "ICAO-Übungen",
+      en: "ICAO Exercises",
     },
     excerpt: {
       de: "Coaching, Vorbereitung und Durchführungsunterstützung der 2-jährlichen ICAO-Notfallübungen am Flughafen. Von Szenario-Entwicklung bis Debriefing.",
@@ -248,6 +269,10 @@ export const services: Service[] = [
       de: "Communication Training für Flughafenfeuerwehren (121.555)",
       en: "Communication Training for Airport Fire Services (121.555)",
     },
+    menuTitle: {
+      de: "Funk Feuerwehr (121.555)",
+      en: "Radio Fire Service (121.555)",
+    },
     excerpt: {
       de: "Funk- und Phraseologie-Training für Flughafenfeuerwehren auf der Notfrequenz 121.555 MHz. Standardphrasen, Englischkompetenz, Crew-Coordination.",
       en: "Radio and phraseology training for airport fire services on the 121.555 MHz emergency frequency. Standard phrases, English proficiency and crew coordination.",
@@ -284,6 +309,10 @@ export const services: Service[] = [
       de: "Communication Training für Piloten (121.555)",
       en: "Communication Training for Pilots (121.555)",
     },
+    menuTitle: {
+      de: "Funk Piloten (121.555)",
+      en: "Radio Pilots (121.555)",
+    },
     excerpt: {
       de: "Funktraining für Piloten auf der Emergency-Frequenz 121.555 MHz. Realistische Szenarien, Phraseologie, Stress-Communication.",
       en: "Radio communication training for pilots on the 121.555 MHz emergency frequency. Realistic scenarios, phraseology, stress communication.",
@@ -319,6 +348,10 @@ export const services: Service[] = [
     title: {
       de: "Flughafenfeuerwehr Grundausbildung",
       en: "Airport Fire Service Basic Training",
+    },
+    menuTitle: {
+      de: "Grundausbildung",
+      en: "Basic Training",
     },
     excerpt: {
       de: "Modulare Grundausbildung für neue Mitglieder von Flughafenfeuerwehren. Theorie, Praxis und Examen nach EASA-Vorgaben.",
@@ -359,6 +392,10 @@ export const services: Service[] = [
     title: {
       de: "Training am CAT 9 Mock-Up (Brandübungsanlage)",
       en: "CAT 9 Mock-Up Training (Live-Fire Facility)",
+    },
+    menuTitle: {
+      de: "CAT 9 Mock-Up",
+      en: "CAT 9 Mock-Up",
     },
     excerpt: {
       de: "Praktisches Live-Fire-Training an einem Mock-Up der Kategorie 9. Realistische Szenarien für Großflugzeug-Brände, Innenangriff und Rescue.",
@@ -408,6 +445,10 @@ export const services: Service[] = [
       de: "Training Management System",
       en: "Training Management System",
     },
+    menuTitle: {
+      de: "Training Management",
+      en: "Training Management",
+    },
     excerpt: {
       de: "Software-gestütztes Trainingsmanagement zur Planung, Dokumentation und Audit-Nachweisführung aller Schulungen einer Flughafenfeuerwehr.",
       en: "Software-supported training management for planning, documentation and audit evidence of all airport fire service training.",
@@ -452,6 +493,10 @@ export const services: Service[] = [
       de: "Virtual Reality Trainings",
       en: "Virtual Reality Training",
     },
+    menuTitle: {
+      de: "VR Training",
+      en: "VR Training",
+    },
     excerpt: {
       de: "Immersive VR-Szenarien für sicherheitskritische Trainings – Brandbekämpfung, Notfallkommunikation, Entscheidungsfindung. Skalierbar und reproduzierbar.",
       en: "Immersive VR scenarios for safety-critical training – fire fighting, emergency communication, decision-making. Scalable and reproducible.",
@@ -494,6 +539,10 @@ export const services: Service[] = [
     title: {
       de: "ICAO Language Proficiency 4/5 inkl. Prüfung",
       en: "ICAO Language Proficiency 4/5 incl. Examination",
+    },
+    menuTitle: {
+      de: "ICAO Language 4/5",
+      en: "ICAO Language 4/5",
     },
     excerpt: {
       de: "Vorbereitungskurse für ICAO Language Proficiency Level 4 und 5 mit anschließender Prüfung. Speziell für Piloten, Lotsen und Funkpersonal.",

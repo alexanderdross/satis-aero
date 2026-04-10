@@ -13,6 +13,16 @@ const nextConfig: NextConfig = {
   // non-slash variants to the slashed version with a 308.
   trailingSlash: true,
 
+  // Opt-in to the file-convention `global-not-found.tsx`, which Next.js
+  // renders for any URL that does not match a route. This is the
+  // recommended way to ship a custom 404 in apps that use multiple root
+  // layouts (Route Groups) – in our case `(de)/` and `(en)/` – because
+  // there is no single layout that can compose a global 404 otherwise.
+  // See node_modules/next/dist/docs/01-app/03-api-reference/03-file-conventions/not-found.md
+  experimental: {
+    globalNotFound: true,
+  },
+
   // Redirects
   // ---------------------------------------------------------------------------
   // The services "index" URLs /leistungen/ and /en/services/ are not

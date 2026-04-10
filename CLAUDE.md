@@ -153,16 +153,59 @@ Zusätzlich global gesetzt für `/(.*)`:
 - `Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' challenges.cloudflare.com; frame-src challenges.cloudflare.com; …`
   (Turnstile-Whitelist; sonst restriktiv)
 
-## Strukturierte Daten (JSON-LD)
-- `OrganizationJsonLd` wird in beiden Root-Layouts gerendert (DE+EN).
-  Liefert `Organization` mit Adresse, Logo, Sprachen und ContactPoint.
-- `ServiceJsonLd` wird auf jeder Service-Detailseite gerendert. Liefert
-  `Service` mit Provider-Referenz auf die Organization, Audience,
-  Description und Sprache.
-- `BreadcrumbList` Mikrodaten sind direkt im `Breadcrumbs`-Component.
-- Helfer in `src/components/json-ld.tsx`. Bei neuen translatablen Pages
-  immer prüfen, ob ein passender JSON-LD-Typ (Service, Course, Event,
-  Article, …) ergänzt werden sollte.
+## SEO, GEO & strukturierte Daten
+
+### Zentrale Helpers
+- **`src/lib/seo.ts`** – `buildMetadata()` baut einheitliche `Metadata`-
+  Objekte inkl. Title-Template, Description, Keywords, hreflang-
+  Alternates, OpenGraph (mit alternate Locale), Twitter Cards und
+  Robots-Flags. **Jede Page** ruft das auf.
+- **`src/lib/seo-copy.ts`** – Per-Page-SEO-Wörterbuch (Title,
+  Description, Keywords) pro Locale. Einzige Quelle für
+  Home/Contact/Imprint/Privacy.
+- **`src/components/json-ld.tsx`** – alle JSON-LD-Helpers:
+  - `OrganizationJsonLd` – `Organization` + `ProfessionalService`,
+    inkl. `knowsAbout`, `hasOfferCatalog` (referenziert alle Services),
+    `contactPoint`, `areaServed`. Gerendert in beiden Root-Layouts.
+  - `WebSiteJsonLd` – `WebSite` mit Publisher-Referenz. Auf den
+    Home-Pages.
+  - `WebPageJsonLd` – `WebPage` / `ContactPage` / `AboutPage`
+    per Route. Auf **jeder** Page.
+  - `BreadcrumbListJsonLd` – auf jeder Nicht-Home-Page (gerendert via
+    `Breadcrumbs`-Component).
+  - `ServiceJsonLd` – auf jeder Service-Detailseite, inkl.
+    `hasCredential` für Compliance-Referenzen und
+    `provider`-Referenz zum Organization-`@id`.
+  - `ServiceItemListJsonLd` – auf den Home-Pages mit allen 11 Services.
+
+### Twitter Cards
+- Alle Pages setzen `twitter.card: "summary_large_image"` mit
+  `site`/`creator: "@satis_aero"`. Automatisch von `buildMetadata()`.
+
+### Open Graph
+- Statische Default-OG-Image über `src/app/opengraph-image.tsx`
+  (Next.js File-Convention). Wird via `next/og` `ImageResponse`
+  generiert, 1200×630, brand-coloured.
+- `buildMetadata()` setzt `openGraph.locale` + `alternateLocale`
+  (z. B. `de_DE` + `en_US`) automatisch pro Locale.
+- **Wichtig:** In ImageResponse keine Emoji verwenden – `@vercel/og`
+  versucht sonst, Twemoji-SVGs von cdn.jsdelivr.net zu laden, was im
+  Build fehlschlagen kann. Außerdem muss jeder `<div>` mit mehr als
+  einem Kind explizit `display: flex` setzen (satori-Constraint).
+
+### Generative Engine Optimization (GEO)
+- **`src/app/llms.txt/route.ts`** – statischer Markdown-Dump, erreichbar
+  unter `/llms.txt`. Enthält Firmenprofil, alle 11 Services mit
+  Canonical-URLs, Kontaktdaten und kurze Editorial-Guidance für
+  LLM-Assistants. Spec: https://llmstxt.org/
+- **`src/app/robots.ts`** – erlaubt explizit alle bekannten AI-Crawler:
+  `GPTBot`, `ChatGPT-User`, `OAI-SearchBot`, `anthropic-ai`,
+  `ClaudeBot`, `Claude-Web`, `PerplexityBot`, `Google-Extended`,
+  `Amazonbot`, `Applebot-Extended`, `YouBot` u. a. Das ist der
+  positive Opt-in für GEO.
+- `OrganizationJsonLd.knowsAbout` listet explizit unsere Fachgebiete
+  (Flughafenfeuerwehr, EASA, ICAO Annex 14, CAT 9, …) – hilft
+  generativen Engines bei "Was macht SATIS Aero?"-Queries.
 
 ## Open Graph
 - Statische Default-OG-Image über `src/app/opengraph-image.tsx`
