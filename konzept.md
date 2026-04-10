@@ -330,6 +330,22 @@ public/
 
 ## 9. Compliance & Recht
 
+### Diensteanbieter / Impressum
+
+| Feld | Wert |
+|---|---|
+| Inhaber | Hans-Christoph Peter Grunwald |
+| Straße | Im Kranzfeld 39 |
+| PLZ / Ort | 52538 Gangelt |
+| Land | Deutschland |
+| Verantwortlich (§ 18 Abs. 2 MStV) | Hans-Christoph Peter Grunwald |
+
+Diese Daten werden auf `/legal/imprint` ausgegeben (Komponente:
+`src/app/legal/imprint/page.tsx`). Beim Hinzufügen oder Ändern dieser
+Daten sind beide Stellen synchron zu halten.
+
+### DSGVO / Tracking
+
 - **DSGVO:** Impressum + Datenschutzerklärung Pflicht (DE)
 - **Cookie-Banner:** Nur falls Tracking aktiv (Plausible/Posthog → cookieless)
 - **Kontaktformular:** Cloudflare Turnstile (siehe §9.1) statt klassisches
@@ -471,8 +487,8 @@ Werte) ablegen.
 | 1 | SVG-Version des Logos vom Kunden | Kunde | offen |
 | 2 | Bildmaterial: Trainings, CAT 9 Mock-Up, Team | Kunde | offen |
 | 3 | Englische Übersetzungen Service-Beschreibungen | Translation | Entwurf vorhanden |
-| 4 | Impressum & Datenschutz Inhalt | Kunde / Anwalt | offen |
-| 5 | Kontaktdaten (Adresse, Telefon, E-Mail) | Kunde | offen |
+| 4 | Datenschutzerklärung Inhalt | Kunde / Anwalt | offen |
+| 5 | Telefonnummer & offizielle E-Mail | Kunde | offen |
 | 6 | Liberation Sans woff2-Files in `public/fonts/` | Dev | offen |
 | 7 | Referenzen / Kundenliste | Kunde | offen |
 | 8 | Cloudflare Turnstile Site- & Secret-Key | Kunde / Dev | offen |
