@@ -52,11 +52,11 @@ export const viewport: Viewport = {
 export default function GlobalNotFound() {
   return (
     <html lang="de" className="h-full antialiased">
-      <body className="flex min-h-full flex-col bg-cloud font-sans text-runway">
+      <body className="bg-cloud text-runway flex min-h-full flex-col font-sans">
         {/* Standalone minimal header. The full Header component lives in
             the route-group root layouts which are NOT applied to
             global-not-found, so we render a stripped-down variant here. */}
-        <header className="border-b border-sky bg-white/95">
+        <header className="border-sky border-b bg-white/95">
           <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
             <Link
               href="/"
@@ -78,17 +78,14 @@ export default function GlobalNotFound() {
           </div>
         </header>
 
-        <main
-          id="main"
-          className="flex flex-1 items-center bg-gradient-to-b from-sky to-cloud"
-        >
+        <main id="main" className="from-sky to-cloud flex flex-1 items-center bg-gradient-to-b">
           <div className="mx-auto max-w-2xl px-4 py-20 text-center sm:px-6 sm:py-24">
-            <span className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-white px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary">
+            <span className="border-primary/25 text-primary inline-flex items-center gap-2 rounded-full border bg-white px-4 py-1.5 text-xs font-semibold tracking-wider uppercase">
               <Plane className="h-3.5 w-3.5" aria-hidden="true" />
               Fehler 404 · Error 404
             </span>
 
-            <h1 className="mt-6 text-4xl font-bold tracking-tight text-runway sm:text-5xl md:text-6xl">
+            <h1 className="text-runway mt-6 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
               <span lang="de">Seite nicht gefunden</span>
               <br />
               <span lang="en" className="text-primary">
@@ -98,17 +95,17 @@ export default function GlobalNotFound() {
 
             <p
               lang="de"
-              className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-runway-soft sm:text-lg"
+              className="text-runway-soft mx-auto mt-5 max-w-xl text-base leading-relaxed sm:text-lg"
             >
-              Die angeforderte Seite existiert nicht oder wurde verschoben.
-              Bitte prüfen Sie die URL oder kehren Sie zur Startseite zurück.
+              Die angeforderte Seite existiert nicht oder wurde verschoben. Bitte prüfen Sie die URL
+              oder kehren Sie zur Startseite zurück.
             </p>
             <p
               lang="en"
-              className="mx-auto mt-3 max-w-xl text-base leading-relaxed text-runway-soft sm:text-lg"
+              className="text-runway-soft mx-auto mt-3 max-w-xl text-base leading-relaxed sm:text-lg"
             >
-              The requested page does not exist or has been moved. Please
-              check the URL or return to the home page.
+              The requested page does not exist or has been moved. Please check the URL or return to
+              the home page.
             </p>
 
             <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
@@ -116,7 +113,7 @@ export default function GlobalNotFound() {
                 href="/"
                 hrefLang="de"
                 title="Zur deutschen Startseite"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary-dark sm:text-base"
+                className="bg-primary hover:bg-primary-dark inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors sm:text-base"
               >
                 <Flag
                   locale="de"
@@ -130,7 +127,7 @@ export default function GlobalNotFound() {
                 href="/en/"
                 hrefLang="en"
                 title="Go to the English home page"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-primary/30 bg-white px-6 py-3 text-sm font-semibold text-primary transition-colors hover:bg-sky sm:text-base"
+                className="border-primary/30 text-primary hover:bg-sky inline-flex items-center justify-center gap-2 rounded-full border bg-white px-6 py-3 text-sm font-semibold transition-colors sm:text-base"
               >
                 <Flag
                   locale="en"
@@ -144,7 +141,7 @@ export default function GlobalNotFound() {
           </div>
         </main>
 
-        <footer className="border-t border-sky bg-primary-dark py-6 text-center text-xs text-on-primary-soft">
+        <footer className="border-sky bg-primary-dark text-on-primary-soft border-t py-6 text-center text-xs">
           © {new Date().getFullYear()} SATIS Aero – Hans-Christoph Peter Grunwald
         </footer>
       </body>

@@ -27,12 +27,8 @@ describe("sitemap()", () => {
   it("lists every service in both locales", () => {
     const urls = entries.map((e) => e.url);
     for (const service of services) {
-      expect(urls).toContain(
-        `https://satis.aero/leistungen/${service.slug}/`,
-      );
-      expect(urls).toContain(
-        `https://satis.aero/en/services/${service.slug}/`,
-      );
+      expect(urls).toContain(`https://satis.aero/leistungen/${service.slug}/`);
+      expect(urls).toContain(`https://satis.aero/en/services/${service.slug}/`);
     }
   });
 
@@ -66,13 +62,9 @@ describe("sitemap()", () => {
   it("uses matching cross-references between the DE and EN entries of the same page", () => {
     // Find a German service page and its English counterpart and assert
     // that both list each other in their `languages` alternates.
-    const de = entries.find(
-      (e) =>
-        e.url === "https://satis.aero/leistungen/cat9-mockup-training/",
-    );
+    const de = entries.find((e) => e.url === "https://satis.aero/leistungen/cat9-mockup-training/");
     const en = entries.find(
-      (e) =>
-        e.url === "https://satis.aero/en/services/cat9-mockup-training/",
+      (e) => e.url === "https://satis.aero/en/services/cat9-mockup-training/",
     );
     expect(de).toBeDefined();
     expect(en).toBeDefined();
@@ -86,8 +78,6 @@ describe("sitemap()", () => {
     expect(byUrl("https://satis.aero/kontakt/")?.priority).toBe(0.7);
     expect(byUrl("https://satis.aero/impressum/")?.priority).toBe(0.3);
     expect(byUrl("https://satis.aero/datenschutz/")?.priority).toBe(0.3);
-    expect(
-      byUrl("https://satis.aero/leistungen/vr-training/")?.priority,
-    ).toBe(0.8);
+    expect(byUrl("https://satis.aero/leistungen/vr-training/")?.priority).toBe(0.8);
   });
 });

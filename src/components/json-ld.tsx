@@ -105,7 +105,7 @@ function seededRating(seed: string): { value: string; count: number } {
     hash = (hash * 0x01000193) >>> 0;
   }
   // Rating 4.80–4.90 in 0.01 steps → 11 possible values
-  const stars = 4.8 + ((hash % 11) / 100);
+  const stars = 4.8 + (hash % 11) / 100;
   // Count 19–51 inclusive → 33 possible values
   const count = 19 + ((hash >>> 5) % 33);
   return { value: stars.toFixed(2), count };
@@ -245,9 +245,7 @@ export function ProfessionalServiceJsonLd({ locale }: { locale: Locale }) {
       { "@type": "Place", name: "Europe" },
     ],
     serviceType:
-      locale === "de"
-        ? "Aviation Training und Consulting"
-        : "Aviation training and consulting",
+      locale === "de" ? "Aviation Training und Consulting" : "Aviation training and consulting",
     inLanguage: langTag(locale),
     knowsAbout: knowsAboutFor(locale),
     parentOrganization: { "@id": `${SITE_URL}/#organization` },
@@ -270,8 +268,7 @@ export function ProfessionalServiceJsonLd({ locale }: { locale: Locale }) {
 export function WebSiteJsonLd({ locale }: { locale: Locale }) {
   const url = locale === "de" ? `${SITE_URL}/` : `${SITE_URL}/en/`;
   const name = "SATIS Aero";
-  const description =
-    "Aviation Consultancy – Smart Aviation Training Innovative Solutions";
+  const description = "Aviation Consultancy – Smart Aviation Training Innovative Solutions";
 
   const payload = {
     "@context": "https://schema.org",
@@ -352,8 +349,7 @@ export const SISTER_BRAND_MENTIONS: WebPageMention[] = [
     "@type": "Organization",
     name: "Dross:Aviation",
     url: "https://dross.net/aviation/",
-    description:
-      "The low-cost open-source anti-collision system for general aviation and gliders.",
+    description: "The low-cost open-source anti-collision system for general aviation and gliders.",
   },
   {
     "@type": "Organization",
@@ -480,15 +476,14 @@ export function SiteNavigationJsonLd({ locale }: { locale: Locale }) {
 // -----------------------------------------------------------------------------
 // Breadcrumb list
 // -----------------------------------------------------------------------------
-export function BreadcrumbListJsonLd({
-  items,
-}: {
-  items: { name: string; url: string }[];
-}) {
+export function BreadcrumbListJsonLd({ items }: { items: { name: string; url: string }[] }) {
   const payload = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "@id": `${SITE_URL}/#breadcrumbs-${items.map((i) => i.name).join("/").replace(/\s+/g, "-")}`,
+    "@id": `${SITE_URL}/#breadcrumbs-${items
+      .map((i) => i.name)
+      .join("/")
+      .replace(/\s+/g, "-")}`,
     itemListElement: items.map((item, index) => ({
       "@type": "ListItem",
       position: index + 1,
@@ -503,13 +498,7 @@ export function BreadcrumbListJsonLd({
 // -----------------------------------------------------------------------------
 // Service – detail page
 // -----------------------------------------------------------------------------
-export function ServiceJsonLd({
-  service,
-  locale,
-}: {
-  service: Service;
-  locale: Locale;
-}) {
+export function ServiceJsonLd({ service, locale }: { service: Service; locale: Locale }) {
   const path = serviceUrl(locale, service.slug);
   const url = `${SITE_URL}${path}`;
 
@@ -521,9 +510,7 @@ export function ServiceJsonLd({
     alternateName: service.menuTitle[locale],
     description: service.description[locale],
     serviceType:
-      locale === "de"
-        ? "Aviation Training und Beratung"
-        : "Aviation training and consulting",
+      locale === "de" ? "Aviation Training und Beratung" : "Aviation training and consulting",
     category: "Aviation Consultancy",
     provider: { "@id": `${SITE_URL}/#organization` },
     areaServed: [
@@ -559,8 +546,7 @@ export function ServiceItemListJsonLd({ locale }: { locale: Locale }) {
     "@context": "https://schema.org",
     "@type": "ItemList",
     "@id": `${SITE_URL}/#services-list-${locale}`,
-    name:
-      locale === "de" ? "SATIS Aero Leistungen" : "SATIS Aero Services",
+    name: locale === "de" ? "SATIS Aero Leistungen" : "SATIS Aero Services",
     description:
       locale === "de"
         ? "Alle 11 Aviation-Trainings und Consulting-Leistungen von SATIS Aero."

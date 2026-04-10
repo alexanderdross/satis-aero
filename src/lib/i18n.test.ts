@@ -44,15 +44,11 @@ describe("pageAlternates", () => {
 
 describe("serviceUrl()", () => {
   it("returns the German leistungen URL with trailing slash", () => {
-    expect(serviceUrl("de", "coaching-crm-ccc")).toBe(
-      "/leistungen/coaching-crm-ccc/",
-    );
+    expect(serviceUrl("de", "coaching-crm-ccc")).toBe("/leistungen/coaching-crm-ccc/");
   });
 
   it("returns the English services URL with trailing slash", () => {
-    expect(serviceUrl("en", "coaching-crm-ccc")).toBe(
-      "/en/services/coaching-crm-ccc/",
-    );
+    expect(serviceUrl("en", "coaching-crm-ccc")).toBe("/en/services/coaching-crm-ccc/");
   });
 });
 
@@ -97,12 +93,7 @@ describe("t (translations)", () => {
     // sides. Catches "forgot to translate a string" regressions.
     const walk = (a: unknown, b: unknown, path: string[]): string[] => {
       const missing: string[] = [];
-      if (
-        typeof a !== "object" ||
-        typeof b !== "object" ||
-        a === null ||
-        b === null
-      ) {
+      if (typeof a !== "object" || typeof b !== "object" || a === null || b === null) {
         return missing;
       }
       const aKeys = Object.keys(a as Record<string, unknown>);

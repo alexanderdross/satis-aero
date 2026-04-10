@@ -38,9 +38,7 @@ describe("buildMetadata()", () => {
     expect(meta.keywords).toEqual(["Impressum", "SATIS Aero"]);
 
     // Canonical and alternates with trailing slash.
-    expect(meta.alternates?.canonical).toBe(
-      "https://satis.aero/impressum/",
-    );
+    expect(meta.alternates?.canonical).toBe("https://satis.aero/impressum/");
     expect(meta.alternates?.languages).toEqual({
       de: "https://satis.aero/impressum/",
       en: "https://satis.aero/en/imprint/",
@@ -77,9 +75,7 @@ describe("buildMetadata()", () => {
     const og = meta.openGraph as LooseOg;
     expect(og.locale).toBe("en_US");
     expect(og.alternateLocale).toBe("de_DE");
-    expect(meta.alternates?.canonical).toBe(
-      "https://satis.aero/en/imprint/",
-    );
+    expect(meta.alternates?.canonical).toBe("https://satis.aero/en/imprint/");
   });
 
   it("honours noindex for legal pages", () => {

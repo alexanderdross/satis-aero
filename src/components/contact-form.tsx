@@ -2,10 +2,7 @@
 
 import Script from "next/script";
 import { useActionState, useEffect, useRef, useState } from "react";
-import {
-  submitContact,
-  type ContactFormState,
-} from "@/app/actions/submit-contact";
+import { submitContact, type ContactFormState } from "@/app/actions/submit-contact";
 import { t, type Locale } from "@/lib/i18n";
 
 // =============================================================================
@@ -47,10 +44,7 @@ declare global {
 
 export function ContactForm({ locale }: { locale: Locale }) {
   const tr = t[locale].contactPage;
-  const [state, formAction, pending] = useActionState(
-    submitContact,
-    initialState,
-  );
+  const [state, formAction, pending] = useActionState(submitContact, initialState);
 
   const [scriptLoaded, setScriptLoaded] = useState(false);
   const [widgetMounted, setWidgetMounted] = useState(false);
@@ -61,13 +55,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
   // Mount Turnstile on the first interaction with the form. We listen for
   // a focusin once instead of binding to every input.
   const handleFirstFocus = () => {
-    if (
-      !widgetMounted &&
-      scriptLoaded &&
-      widgetRef.current &&
-      window.turnstile &&
-      siteKey
-    ) {
+    if (!widgetMounted && scriptLoaded && widgetRef.current && window.turnstile && siteKey) {
       widgetIdRef.current = window.turnstile.render(widgetRef.current, {
         sitekey: siteKey,
         theme: "light",
@@ -79,12 +67,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
   // Reset the widget after a successful submission so the user can submit
   // again if they want to.
   useEffect(() => {
-    if (
-      state.status === "success" &&
-      widgetMounted &&
-      widgetIdRef.current &&
-      window.turnstile
-    ) {
+    if (state.status === "success" && widgetMounted && widgetIdRef.current && window.turnstile) {
       window.turnstile.reset(widgetIdRef.current);
     }
   }, [state.status, widgetMounted]);
@@ -97,12 +80,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
         onLoad={() => setScriptLoaded(true)}
       />
 
-      <form
-        action={formAction}
-        onFocusCapture={handleFirstFocus}
-        noValidate
-        className="space-y-5"
-      >
+      <form action={formAction} onFocusCapture={handleFirstFocus} noValidate className="space-y-5">
         <div className="grid gap-5 sm:grid-cols-2">
           <Field
             id="name"
@@ -144,7 +122,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
         */}
         <div
           aria-hidden="true"
-          className="absolute left-[-10000px] top-auto h-px w-px overflow-hidden"
+          className="absolute top-auto left-[-10000px] h-px w-px overflow-hidden"
         >
           <label htmlFor="website">
             Website (do not fill in)
@@ -160,12 +138,9 @@ export function ContactForm({ locale }: { locale: Locale }) {
         </div>
 
         <div>
-          <label
-            htmlFor="message"
-            className="mb-1.5 block text-sm font-medium text-runway"
-          >
+          <label htmlFor="message" className="text-runway mb-1.5 block text-sm font-medium">
             {tr.formMessageLabel}
-            <span aria-hidden="true" className="ml-0.5 text-signal">
+            <span aria-hidden="true" className="text-signal ml-0.5">
               *
             </span>
           </label>
@@ -175,7 +150,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
             rows={6}
             placeholder={tr.formMessagePlaceholder}
             required
-            className="w-full rounded-lg border border-primary/30 bg-white px-4 py-3 text-sm text-runway shadow-sm placeholder:text-runway-mute hover:border-primary/50 focus:border-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+            className="border-primary/30 text-runway placeholder:text-runway-mute hover:border-primary/50 focus:border-primary focus-visible:ring-primary/40 w-full rounded-lg border bg-white px-4 py-3 text-sm shadow-sm focus:outline-none focus-visible:ring-2"
           />
         </div>
 
@@ -188,7 +163,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
         {state.status === "success" && (
           <p
             role="status"
-            className="rounded-lg border border-success/30 bg-success/10 px-4 py-3 text-sm text-success"
+            className="border-success/30 bg-success/10 text-success rounded-lg border px-4 py-3 text-sm"
           >
             {tr.formSuccess}
           </p>
@@ -196,7 +171,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
         {state.status === "error" && (
           <p
             role="alert"
-            className="rounded-lg border border-signal/30 bg-signal/10 px-4 py-3 text-sm text-signal"
+            className="border-signal/30 bg-signal/10 text-signal rounded-lg border px-4 py-3 text-sm"
           >
             {state.reason === "turnstile"
               ? tr.formTurnstileError
@@ -206,13 +181,13 @@ export function ContactForm({ locale }: { locale: Locale }) {
           </p>
         )}
 
-        <p className="text-xs text-runway-soft">{tr.formPrivacyHint}</p>
+        <p className="text-runway-soft text-xs">{tr.formPrivacyHint}</p>
 
         <button
           type="submit"
           disabled={pending}
           title={tr.formSubmitTitle}
-          className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary-dark disabled:cursor-wait disabled:opacity-70 sm:text-base"
+          className="bg-primary hover:bg-primary-dark inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors disabled:cursor-wait disabled:opacity-70 sm:text-base"
         >
           {pending ? tr.formSubmitting : tr.formSubmit}
         </button>
@@ -238,13 +213,10 @@ function Field({
 }) {
   return (
     <div>
-      <label
-        htmlFor={id}
-        className="mb-1.5 block text-sm font-medium text-runway"
-      >
+      <label htmlFor={id} className="text-runway mb-1.5 block text-sm font-medium">
         {label}
         {required && (
-          <span aria-hidden="true" className="ml-0.5 text-signal">
+          <span aria-hidden="true" className="text-signal ml-0.5">
             *
           </span>
         )}
@@ -256,7 +228,7 @@ function Field({
         placeholder={placeholder}
         required={required}
         autoComplete={autoComplete}
-        className="w-full rounded-lg border border-primary/30 bg-white px-4 py-3 text-sm text-runway shadow-sm placeholder:text-runway-mute hover:border-primary/50 focus:border-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+        className="border-primary/30 text-runway placeholder:text-runway-mute hover:border-primary/50 focus:border-primary focus-visible:ring-primary/40 w-full rounded-lg border bg-white px-4 py-3 text-sm shadow-sm focus:outline-none focus-visible:ring-2"
       />
     </div>
   );

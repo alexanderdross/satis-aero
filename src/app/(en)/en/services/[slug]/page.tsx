@@ -64,12 +64,7 @@ export default async function ServicePage({ params }: Props) {
       productDescription={service.description.en}
       productSeed={service.slug}
     >
-      <WebPageJsonLd
-        locale="en"
-        path={path}
-        title={title}
-        description={description}
-      />
+      <WebPageJsonLd locale="en" path={path} title={title} description={description} />
       <ServiceDetail service={service} locale="en" />
     </PageShell>
   );

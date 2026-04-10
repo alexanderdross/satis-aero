@@ -29,8 +29,7 @@ import { z } from "zod";
 // enough in combination with Turnstile + honeypot + zod.
 // =============================================================================
 
-const TURNSTILE_VERIFY_URL =
-  "https://challenges.cloudflare.com/turnstile/v0/siteverify";
+const TURNSTILE_VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
 
 const RATE_LIMIT_MAX = 5; // submissions allowed
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // per 10 minutes
@@ -43,11 +42,7 @@ function getClientIp(h: Headers): string {
   // Vercel sets x-real-ip and x-forwarded-for, in that order of
   // precedence. Fall back to "unknown" so the limiter still groups
   // anonymous callers together.
-  return (
-    h.get("x-real-ip") ??
-    h.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-    "unknown"
-  );
+  return h.get("x-real-ip") ?? h.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
 }
 
 function isRateLimited(ip: string): boolean {
@@ -70,12 +65,7 @@ export type ContactFormState =
   | { status: "success" }
   | {
       status: "error";
-      reason:
-        | "validation"
-        | "turnstile"
-        | "honeypot"
-        | "server"
-        | "rate-limit";
+      reason: "validation" | "turnstile" | "honeypot" | "server" | "rate-limit";
     };
 
 const ContactSchema = z.object({
@@ -143,15 +133,12 @@ async function dispatchMail(payload: ContactPayload): Promise<boolean> {
     // No key configured yet → log on the server so the submission is not
     // lost in dev / preview environments. Production should always set
     // RESEND_API_KEY in Vercel.
-    console.warn(
-      "[contact] RESEND_API_KEY missing, logging submission instead",
-      {
-        from: payload.email,
-        name: payload.name,
-        company: payload.company,
-        subject: payload.subject,
-      },
-    );
+    console.warn("[contact] RESEND_API_KEY missing, logging submission instead", {
+      from: payload.email,
+      name: payload.name,
+      company: payload.company,
+      subject: payload.subject,
+    });
     return true;
   }
 
@@ -202,9 +189,7 @@ export async function submitContact(
   if (!parsed.success) {
     // The honeypot validator emits a literal "honeypot" message, so we
     // can distinguish that from regular validation issues.
-    const isHoneypot = parsed.error.issues.some(
-      (issue) => issue.message === "honeypot",
-    );
+    const isHoneypot = parsed.error.issues.some((issue) => issue.message === "honeypot");
     return {
       status: "error",
       reason: isHoneypot ? "honeypot" : "validation",

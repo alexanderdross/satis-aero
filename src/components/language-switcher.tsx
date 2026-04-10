@@ -32,7 +32,7 @@ export function LanguageSwitcher({
     <details className="lang-switcher group relative">
       <summary
         title={tr.nav.langSwitchTitle}
-        className="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-full border border-primary/30 bg-white px-2.5 py-1.5 text-xs font-semibold text-primary transition-colors hover:bg-sky [&::-webkit-details-marker]:hidden sm:gap-2 sm:px-3 sm:py-2 sm:text-sm"
+        className="border-primary/30 text-primary hover:bg-sky inline-flex cursor-pointer list-none items-center gap-1.5 rounded-full border bg-white px-2.5 py-1.5 text-xs font-semibold transition-colors sm:gap-2 sm:px-3 sm:py-2 sm:text-sm [&::-webkit-details-marker]:hidden"
       >
         <Flag
           locale={current}
@@ -48,7 +48,7 @@ export function LanguageSwitcher({
       <ul
         role="list"
         aria-label={tr.nav.langSwitchTitle}
-        className="absolute right-0 z-50 mt-2 w-44 overflow-hidden rounded-xl border border-sky bg-white shadow-lg ring-1 ring-black/5"
+        className="border-sky absolute right-0 z-50 mt-2 w-44 overflow-hidden rounded-xl border bg-white shadow-lg ring-1 ring-black/5"
       >
         {locales.map((locale) => {
           const isCurrent = locale === current;
@@ -61,9 +61,7 @@ export function LanguageSwitcher({
                 title={t[locale].nav.langSwitchTitle}
                 aria-current={isCurrent ? "page" : undefined}
                 className={`flex items-center gap-3 px-4 py-2.5 text-sm transition-colors ${
-                  isCurrent
-                    ? "bg-sky font-semibold text-primary"
-                    : "text-runway hover:bg-sky"
+                  isCurrent ? "bg-sky text-primary font-semibold" : "text-runway hover:bg-sky"
                 }`}
               >
                 <Flag
@@ -73,7 +71,7 @@ export function LanguageSwitcher({
                 />
                 <span className="flex-1">{labels[locale].native}</span>
                 {isCurrent && (
-                  <span className="text-xs text-primary" aria-hidden="true">
+                  <span className="text-primary text-xs" aria-hidden="true">
                     ●
                   </span>
                 )}

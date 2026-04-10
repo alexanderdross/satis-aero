@@ -19,17 +19,12 @@ export type PageSeo = {
   keywords: readonly string[];
 };
 
-export type PageSeoKey =
-  | "home"
-  | "contact"
-  | "imprint"
-  | "privacy";
+export type PageSeoKey = "home" | "contact" | "imprint" | "privacy";
 
 export const pageSeo: Record<PageSeoKey, Record<Locale, PageSeo>> = {
   home: {
     de: {
-      title:
-        "SATIS Aero | Aviation Consultancy & Training für Flughäfen, Piloten und Feuerwehren",
+      title: "SATIS Aero | Aviation Consultancy & Training für Flughäfen, Piloten und Feuerwehren",
       description:
         "SATIS Aero – Smart Aviation Training Innovative Solutions. Aviation Consultancy mit EASA-konformen Trainings, ICAO-Übungs-Coaching, CAT 9 Mock-Up und Virtual Reality für Flughafenfeuerwehren, Piloten und Flughafenbetreiber in Deutschland und Europa.",
       keywords: [
@@ -47,8 +42,7 @@ export const pageSeo: Record<PageSeoKey, Record<Locale, PageSeo>> = {
       ],
     },
     en: {
-      title:
-        "SATIS Aero | Aviation Consultancy & Training for Airports, Pilots and Fire Services",
+      title: "SATIS Aero | Aviation Consultancy & Training for Airports, Pilots and Fire Services",
       description:
         "SATIS Aero – Smart Aviation Training Innovative Solutions. Aviation consultancy offering EASA-compliant training, ICAO exercise coaching, CAT 9 mock-up and Virtual Reality training for airport fire services, pilots and airport operators in Germany and Europe.",
       keywords: [
@@ -69,8 +63,7 @@ export const pageSeo: Record<PageSeoKey, Record<Locale, PageSeo>> = {
 
   contact: {
     de: {
-      title:
-        "Kontakt | SATIS Aero – Anfrage für Aviation Training & Consultancy",
+      title: "Kontakt | SATIS Aero – Anfrage für Aviation Training & Consultancy",
       description:
         "Kontaktieren Sie SATIS Aero für eine unverbindliche Beratung zu Flughafenfeuerwehr-Trainings, EASA Compliance, ICAO-Übungen, CAT 9 Mock-Up und VR-Training. Hans-Christoph Peter Grunwald, Im Kranzfeld 39, 52538 Gangelt.",
       keywords: [

@@ -57,9 +57,7 @@ export function PageShell({
   const tr = t[locale];
   const resolvedPath = path ?? alternates[locale];
   const defaultProductName =
-    locale === "de"
-      ? "SATIS Aero Aviation Consultancy"
-      : "SATIS Aero Aviation Consultancy";
+    locale === "de" ? "SATIS Aero Aviation Consultancy" : "SATIS Aero Aviation Consultancy";
   const defaultProductDescription =
     locale === "de"
       ? "Aviation Consultancy mit EASA-konformen Trainings, ICAO-Übungs-Coaching, CAT 9 Mock-Up und Virtual Reality für Flughafenfeuerwehren, Piloten und Flughafenbetreiber."

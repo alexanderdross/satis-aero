@@ -38,9 +38,7 @@ export function GET() {
   lines.push("");
   lines.push("- **Legal name:** Hans-Christoph Peter Grunwald");
   lines.push("- **Brand:** SATIS Aero");
-  lines.push(
-    "- **Address:** Im Kranzfeld 39, 52538 Gangelt, Germany",
-  );
+  lines.push("- **Address:** Im Kranzfeld 39, 52538 Gangelt, Germany");
   lines.push("- **Email:** info@satis.aero");
   lines.push("- **Website:** https://satis.aero/");
   lines.push("- **Languages:** German (de), English (en)");
@@ -49,21 +47,15 @@ export function GET() {
 
   lines.push("## Key facts");
   lines.push("");
-  lines.push(
-    "- 11 specialised aviation training and consulting services (see catalogue below).",
-  );
+  lines.push("- 11 specialised aviation training and consulting services (see catalogue below).");
   lines.push(
     "- All training is aligned with EASA (European Union Aviation Safety Agency) and ICAO (International Civil Aviation Organization) requirements.",
   );
-  lines.push(
-    "- Audit-ready documentation is included with every training.",
-  );
+  lines.push("- Audit-ready documentation is included with every training.");
   lines.push(
     "- Practical live-fire training is delivered at a Category 9 aircraft rescue and fire-fighting mock-up.",
   );
-  lines.push(
-    "- We coach and support airports for the biennial ICAO emergency exercises.",
-  );
+  lines.push("- We coach and support airports for the biennial ICAO emergency exercises.");
   lines.push(
     "- We deliver ICAO Language Proficiency Level 4/5 preparation and the final examination.",
   );

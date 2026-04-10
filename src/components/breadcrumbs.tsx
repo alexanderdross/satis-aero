@@ -18,15 +18,8 @@ export type BreadcrumbItem = {
   title?: string;
 };
 
-export function Breadcrumbs({
-  items,
-  locale,
-}: {
-  items: BreadcrumbItem[];
-  locale: Locale;
-}) {
-  const ariaLabel =
-    locale === "de" ? "Brotkrumen-Navigation" : "Breadcrumb navigation";
+export function Breadcrumbs({ items, locale }: { items: BreadcrumbItem[]; locale: Locale }) {
+  const ariaLabel = locale === "de" ? "Brotkrumen-Navigation" : "Breadcrumb navigation";
 
   // Emit a structured BreadcrumbList. Skip items without an href (e.g.
   // the current page) from the JSON-LD because they'd need the full URL
@@ -39,11 +32,12 @@ export function Breadcrumbs({
       // suffix. Since the current page is always the last entry we
       // just reuse an empty string and let BreadcrumbListJsonLd prefix
       // the SITE_URL.
-      (items[index - 1]?.href ?? "/"),
+      items[index - 1]?.href ??
+      "/",
   }));
 
   return (
-    <nav aria-label={ariaLabel} className="border-b border-sky bg-white/60">
+    <nav aria-label={ariaLabel} className="border-sky border-b bg-white/60">
       <BreadcrumbListJsonLd items={jsonLdItems} />
       {/*
         Horizontal-scroll container. On narrow viewports the trail stays
@@ -59,7 +53,7 @@ export function Breadcrumbs({
         - `scroll-smooth` for a snappier interaction.
       */}
       <ol
-        className="mx-auto flex max-w-6xl items-center gap-1.5 overflow-x-auto scroll-smooth px-4 py-3 text-xs text-runway-mute [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:gap-2 sm:px-6 sm:text-sm"
+        className="text-runway-mute mx-auto flex max-w-6xl items-center gap-1.5 overflow-x-auto scroll-smooth px-4 py-3 text-xs [-ms-overflow-style:none] [scrollbar-width:none] sm:gap-2 sm:px-6 sm:text-sm [&::-webkit-scrollbar]:hidden"
         itemScope
         itemType="https://schema.org/BreadcrumbList"
       >
@@ -75,7 +69,7 @@ export function Breadcrumbs({
             >
               {index > 0 && (
                 <ChevronRight
-                  className="h-3.5 w-3.5 shrink-0 text-runway-mute/60"
+                  className="text-runway-mute/60 h-3.5 w-3.5 shrink-0"
                   aria-hidden="true"
                 />
               )}
@@ -84,7 +78,7 @@ export function Breadcrumbs({
                   href={item.href}
                   title={item.title ?? item.label}
                   itemProp="item"
-                  className="rounded transition-colors hover:text-primary"
+                  className="hover:text-primary rounded transition-colors"
                 >
                   <span itemProp="name">{item.label}</span>
                 </Link>
@@ -92,7 +86,7 @@ export function Breadcrumbs({
                 <span
                   aria-current={isLast ? "page" : undefined}
                   itemProp="name"
-                  className={isLast ? "font-medium text-runway" : undefined}
+                  className={isLast ? "text-runway font-medium" : undefined}
                 >
                   {item.label}
                 </span>

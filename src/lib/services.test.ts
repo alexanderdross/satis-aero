@@ -23,18 +23,9 @@ describe("service catalogue", () => {
     for (const service of services) {
       for (const locale of locales) {
         expect(service.title[locale], `${service.slug}.title.${locale}`).toBeTruthy();
-        expect(
-          service.menuTitle[locale],
-          `${service.slug}.menuTitle.${locale}`,
-        ).toBeTruthy();
-        expect(
-          service.excerpt[locale],
-          `${service.slug}.excerpt.${locale}`,
-        ).toBeTruthy();
-        expect(
-          service.description[locale],
-          `${service.slug}.description.${locale}`,
-        ).toBeTruthy();
+        expect(service.menuTitle[locale], `${service.slug}.menuTitle.${locale}`).toBeTruthy();
+        expect(service.excerpt[locale], `${service.slug}.excerpt.${locale}`).toBeTruthy();
+        expect(service.description[locale], `${service.slug}.description.${locale}`).toBeTruthy();
         expect(
           service.audience[locale].length,
           `${service.slug}.audience.${locale}`,
@@ -59,12 +50,7 @@ describe("service catalogue", () => {
   });
 
   it("assigns each service to a known category", () => {
-    const valid: ServiceCategory[] = [
-      "coaching",
-      "compliance",
-      "practice",
-      "tools",
-    ];
+    const valid: ServiceCategory[] = ["coaching", "compliance", "practice", "tools"];
     for (const service of services) {
       expect(valid).toContain(service.category);
     }

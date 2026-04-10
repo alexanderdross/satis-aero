@@ -45,9 +45,7 @@ function extractPayload(element: unknown): Record<string, unknown> {
 
 function extractPayloads(element: unknown): Record<string, unknown>[] {
   const el = element as { props: { children: JsonLdElement[] | JsonLdElement } };
-  const children = Array.isArray(el.props.children)
-    ? el.props.children
-    : [el.props.children];
+  const children = Array.isArray(el.props.children) ? el.props.children : [el.props.children];
   return children.map((child) => {
     if (!child.props.payload) {
       throw new Error("Fragment child is not a JsonLdScript wrapper");
@@ -89,9 +87,7 @@ describe("OrganizationJsonLd", () => {
 
 describe("ProfessionalServiceJsonLd", () => {
   it("emits a standalone ProfessionalService entity with aggregateRating", () => {
-    const payload = extractPayload(
-      ProfessionalServiceJsonLd({ locale: "de" }),
-    );
+    const payload = extractPayload(ProfessionalServiceJsonLd({ locale: "de" }));
     expect(payload["@type"]).toBe("ProfessionalService");
     expect(payload["@id"]).toBe("https://satis.aero/#professionalservice");
     expect(payload.inLanguage).toBe("de");
@@ -106,9 +102,7 @@ describe("ProfessionalServiceJsonLd", () => {
   });
 
   it("references the Organization as parentOrganization", () => {
-    const payload = extractPayload(
-      ProfessionalServiceJsonLd({ locale: "en" }),
-    );
+    const payload = extractPayload(ProfessionalServiceJsonLd({ locale: "en" }));
     expect(payload.parentOrganization).toEqual({
       "@id": "https://satis.aero/#organization",
     });
@@ -174,11 +168,7 @@ describe("WebPageJsonLd", () => {
     );
     const mentions = payload.mentions as { name: string; url: string }[];
     expect(mentions).toHaveLength(3);
-    expect(mentions.map((m) => m.name)).toEqual([
-      "Dross:Aviation",
-      "Trade:Aero",
-      "AIP:Aero",
-    ]);
+    expect(mentions.map((m) => m.name)).toEqual(["Dross:Aviation", "Trade:Aero", "AIP:Aero"]);
   });
 
   it("omits mentions when no array is passed", () => {
@@ -217,17 +207,13 @@ describe("SISTER_BRAND_MENTIONS constant", () => {
 
 describe("ServiceJsonLd", () => {
   it("uses the short language tag", () => {
-    const payload = extractPayload(
-      ServiceJsonLd({ service: services[0], locale: "de" }),
-    );
+    const payload = extractPayload(ServiceJsonLd({ service: services[0], locale: "de" }));
     expect(payload.inLanguage).toBe("de");
     expect(payload["@type"]).toBe("Service");
   });
 
   it("references the Organization as provider", () => {
-    const payload = extractPayload(
-      ServiceJsonLd({ service: services[0], locale: "en" }),
-    );
+    const payload = extractPayload(ServiceJsonLd({ service: services[0], locale: "en" }));
     expect(payload.provider).toEqual({
       "@id": "https://satis.aero/#organization",
     });
@@ -341,8 +327,7 @@ describe("ProductJsonLd", () => {
       ratingCount: number;
     };
     const differs =
-      ratingA.ratingValue !== ratingB.ratingValue ||
-      ratingA.ratingCount !== ratingB.ratingCount;
+      ratingA.ratingValue !== ratingB.ratingValue || ratingA.ratingCount !== ratingB.ratingCount;
     expect(differs).toBe(true);
   });
 });
