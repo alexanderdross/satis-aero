@@ -83,7 +83,7 @@ export function HomeContent({ locale }: { locale: Locale }) {
                   height={108}
                   width={321}
                   placeholder="blur"
-                  priority
+                  preload
                   sizes="(max-width: 640px) 220px, (max-width: 1024px) 280px, 321px"
                   className="h-20 w-auto sm:h-24 md:h-28"
                 />

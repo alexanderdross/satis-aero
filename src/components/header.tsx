@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { MobileMenu } from "@/components/mobile-menu";
 import { ServicesDropdown } from "@/components/services-dropdown";
 import { routes, t, type Locale, type PageAlternates } from "@/lib/i18n";
 import logo from "../../public/images/brand/satis-logo.png";
@@ -37,7 +38,7 @@ export function Header({
 
   return (
     <header className="satis-header sticky top-0 z-50 border-b border-sky bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:gap-6 sm:px-6 sm:py-4">
+      <div className="relative mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:gap-6 sm:px-6 sm:py-4">
         <Link
           href={r.home}
           aria-label={`${tr.siteName} – ${tr.nav.home}`}
@@ -51,7 +52,7 @@ export function Header({
             height={40}
             width={119}
             placeholder="blur"
-            priority
+            preload
             sizes="(max-width: 640px) 96px, 119px"
             className="h-8 w-auto sm:h-10"
           />
@@ -84,6 +85,9 @@ export function Header({
             </li>
             <li>
               <LanguageSwitcher current={locale} alternates={alternates} />
+            </li>
+            <li className="md:hidden">
+              <MobileMenu locale={locale} />
             </li>
           </ul>
         </nav>

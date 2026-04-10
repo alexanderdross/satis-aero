@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Footer } from "@/components/footer";
+import { OrganizationJsonLd } from "@/components/json-ld";
 import "../globals.css";
 
 // =============================================================================
@@ -149,6 +150,7 @@ export default function GermanRootLayout({
         </a>
         {children}
         <Footer locale="de" />
+        <OrganizationJsonLd locale="de" />
       </body>
     </html>
   );

@@ -178,6 +178,20 @@ hardcoded, sodass keine Redirect-Latenz entsteht.
 - `/about` / `/en/about` – dedizierte About-Seite
 - `/references` / `/en/references` – Referenzen / Kunden
 
+**Strukturierte Daten (JSON-LD):**
+- `Organization` JSON-LD wird in beiden Root-Layouts ausgespielt
+  (Adresse, Logo, Sprachen, ContactPoint)
+- `Service` JSON-LD pro Service-Detailseite mit Provider-Referenz auf
+  die Organization
+- `BreadcrumbList`-Mikrodata direkt im Breadcrumb-Component
+
+**Open Graph Image:**
+- Default-OG-Image (1200×630) statisch generiert via
+  `src/app/opengraph-image.tsx` mit `next/og` `ImageResponse`
+- Brand-Gradient (`#173a5c → #255685 → #3d7bb3`), SATIS-Wortmarke,
+  Tagline, satis.aero
+- Wird automatisch von jeder Page als Fallback referenziert
+
 **i18n-Ansatz – Multi-Root-Layout (server-only):**
 
 DE und EN sind über zwei separate Root-Layouts via Route Groups
@@ -387,6 +401,13 @@ Globale Security-Header für `/(.*)`:
 - `X-Frame-Options: SAMEORIGIN`
 - `Referrer-Policy: strict-origin-when-cross-origin`
 - `Permissions-Policy: camera=(), microphone=(), geolocation=(), browsing-topics=()`
+- `Strict-Transport-Security: max-age=63072000; includeSubDomains; preload`
+- **Content-Security-Policy** mit Whitelist für Cloudflare Turnstile
+  (`script-src 'self' 'unsafe-inline' challenges.cloudflare.com`,
+  `frame-src challenges.cloudflare.com`,
+  `connect-src 'self' challenges.cloudflare.com`), sonst restriktiv
+  (`default-src 'self'`, `frame-ancestors 'self'`,
+  `upgrade-insecure-requests`)
 
 ### 6a.2 Performance-Budgets
 

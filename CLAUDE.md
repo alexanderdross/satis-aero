@@ -144,9 +144,39 @@ berechnen Opacity-Kontraste oft falsch.
 | `/manifest.webmanifest` | `public, max-age=86400, must-revalidate` (1 Tag) |
 | `/browserconfig.xml` | `public, max-age=86400, must-revalidate` (1 Tag) |
 
-Zusätzlich global gesetzt: `X-Content-Type-Options: nosniff`,
-`X-Frame-Options: SAMEORIGIN`, `Referrer-Policy: strict-origin-when-cross-origin`,
-`Permissions-Policy: camera=(), microphone=(), geolocation=(), browsing-topics=()`.
+Zusätzlich global gesetzt für `/(.*)`:
+- `X-Content-Type-Options: nosniff`
+- `X-Frame-Options: SAMEORIGIN`
+- `Referrer-Policy: strict-origin-when-cross-origin`
+- `Permissions-Policy: camera=(), microphone=(), geolocation=(), browsing-topics=()`
+- `Strict-Transport-Security: max-age=63072000; includeSubDomains; preload`
+- `Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' challenges.cloudflare.com; frame-src challenges.cloudflare.com; …`
+  (Turnstile-Whitelist; sonst restriktiv)
+
+## Strukturierte Daten (JSON-LD)
+- `OrganizationJsonLd` wird in beiden Root-Layouts gerendert (DE+EN).
+  Liefert `Organization` mit Adresse, Logo, Sprachen und ContactPoint.
+- `ServiceJsonLd` wird auf jeder Service-Detailseite gerendert. Liefert
+  `Service` mit Provider-Referenz auf die Organization, Audience,
+  Description und Sprache.
+- `BreadcrumbList` Mikrodaten sind direkt im `Breadcrumbs`-Component.
+- Helfer in `src/components/json-ld.tsx`. Bei neuen translatablen Pages
+  immer prüfen, ob ein passender JSON-LD-Typ (Service, Course, Event,
+  Article, …) ergänzt werden sollte.
+
+## Open Graph
+- Statische Default-OG-Image über `src/app/opengraph-image.tsx`
+  (Next.js File-Convention). Wird via `next/og` `ImageResponse`
+  generiert, 1200×630, brand-coloured.
+- **Wichtig:** In ImageResponse keine Emoji verwenden – `@vercel/og`
+  versucht sonst, Twemoji-SVGs von cdn.jsdelivr.net zu laden, was im
+  Build fehlschlagen kann. Außerdem muss jeder `<div>` mit mehr als
+  einem Kind explizit `display: flex` setzen (satori-Constraint).
+
+## Custom 404
+- `src/app/(de)/not-found.tsx` und `src/app/(en)/not-found.tsx`
+- Gemeinsame `NotFoundContent` Komponente, locale-aware
+- `robots: { index: false, follow: false }`
 
 ## i18n
 - Zweisprachig **DE / EN**, DE als Default am Root, EN unter `/en/`.
@@ -170,21 +200,32 @@ Zusätzlich global gesetzt: `X-Content-Type-Options: nosniff`,
 - Jeder `<Link>` und jedes `<a>` hat ein descriptives `title`-Attribut
   aus `src/lib/i18n.ts`.
 
-## Spam-Schutz / Cloudflare Turnstile
-- Spam-Schutz für das Kontaktformular: **Cloudflare Turnstile**
-  (Begründung & volle Implementierungs-Skizze siehe `konzept.md` §9.1)
-- **Niemals** das Turnstile-Script global im Root-Layout laden – nur
-  auf der Contact-Seite.
+## Kontaktformular & Spam-Schutz
+- Spam-Schutz: **Cloudflare Turnstile** + **Honeypot** + **zod**-Validierung
+  (volle Spec in `konzept.md` §9.1).
+- **Turnstile-Script** wird **nur** auf `/kontakt/` und `/en/contact/`
+  geladen, **niemals** im Root-Layout.
 - Loading: `next/script` mit `strategy="lazyOnload"` + `render=explicit`.
-- Widget-Render erst beim ersten `onFocus` eines Form-Felds (Lazy Mount).
-- `<link rel="preconnect" href="https://challenges.cloudflare.com">` über
-  Metadata API auf der Contact-Seite.
-- Reservierter Platz `min-height: 65px` für den Widget-Container (CLS).
-- Server-seitige Verifikation gegen `siteverify` ist **Pflicht** – Token
-  niemals nur clientseitig vertrauen.
-- Env-Vars: `NEXT_PUBLIC_TURNSTILE_SITE_KEY` (client),
-  `TURNSTILE_SECRET_KEY` (server-only). In `.env.example` listen,
-  niemals committen.
+- Widget-Render erst beim ersten `onFocusCapture` auf dem Form
+  (Lazy Mount). 65 px Min-Height-Container reserviert (CLS).
+- **Server-seitige Verifikation gegen `siteverify` ist Pflicht** – der
+  Client-Token darf nie alleine vertraut werden.
+- **Honeypot-Feld** `name="website"`, off-screen, `tabIndex={-1}`,
+  `autoComplete="off"`. Server Action wirft den Submit, wenn das Feld
+  gefüllt ist.
+- **zod-Schema** in `src/app/actions/submit-contact.ts` validiert alle
+  Felder serverseitig (Required, Length-Caps, Email-Format).
+- **Mail-Versand** über **Resend** (`src/app/actions/submit-contact.ts`).
+  Fällt graceful auf Server-Logging zurück, wenn `RESEND_API_KEY` fehlt
+  (Dev/Preview), schlägt aber in Production fehl, wenn die Mail nicht
+  rausgeht.
+- Env-Vars (siehe `.env.example`):
+  - `NEXT_PUBLIC_TURNSTILE_SITE_KEY` (client)
+  - `TURNSTILE_SECRET_KEY` (server-only)
+  - `RESEND_API_KEY` (server-only, Production-Pflicht)
+  - `CONTACT_TO_EMAIL` (Empfänger, Default `info@satis.aero`)
+  - `CONTACT_FROM_EMAIL` (Absender, Default `noreply@satis.aero`,
+    muss in der Resend-Domain verifiziert sein)
 
 ## Coding-Konventionen
 - TypeScript strict, keine `any`.

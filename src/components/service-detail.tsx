@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, CheckCircle2, Users } from "lucide-react";
 import { Breadcrumbs, type BreadcrumbItem } from "@/components/breadcrumbs";
+import { ServiceJsonLd } from "@/components/json-ld";
 import { type Service } from "@/lib/services";
 import { routes, t, type Locale } from "@/lib/i18n";
 
@@ -36,6 +37,7 @@ export function ServiceDetail({
 
   return (
     <>
+      <ServiceJsonLd service={service} locale={locale} />
       <Breadcrumbs items={breadcrumbs} locale={locale} />
 
       {/* HERO ============================================================ */}
