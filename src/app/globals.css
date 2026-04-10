@@ -1,26 +1,72 @@
 @import "tailwindcss";
 
+/* =============================================================================
+ * SATIS Aero – Design Tokens
+ * =============================================================================
+ * Defined according to konzept.md §5 (Design-System).
+ * Logo color #255685 → primary.
+ * Aviation-inspired palette: cockpit blue, runway dark, cloud light, signal
+ * red (Feuerwehr), success teal.
+ * =========================================================================== */
+
 :root {
+  /* Brand */
+  --color-primary: #255685;
+  --color-primary-dark: #173a5c;
+  --color-primary-light: #3d7bb3;
+
+  /* Surfaces */
+  --color-sky: #e8f1f9;
+  --color-cloud: #f8fafc;
+  --color-runway: #1a1a1a;
+
+  /* Semantic */
+  --color-signal: #e63946;
+  --color-success: #2a9d8f;
+
+  /* Page */
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0f172a;
 }
 
 @theme inline {
+  /* Tailwind v4 theme – exposes the tokens above as utility classes
+     (e.g. bg-primary, text-runway, border-sky). */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --color-primary: var(--color-primary);
+  --color-primary-dark: var(--color-primary-dark);
+  --color-primary-light: var(--color-primary-light);
+  --color-sky: var(--color-sky);
+  --color-cloud: var(--color-cloud);
+  --color-runway: var(--color-runway);
+  --color-signal: var(--color-signal);
+  --color-success: var(--color-success);
+
+  /* Font stack – self-hosted Liberation Sans is planned but the woff2
+     files are not yet in public/fonts/. Until then we fall back to
+     system Arial, which is metric-compatible. Wire next/font/local in
+     layout.tsx once the files are available (see konzept.md §10 #6). */
+  --font-sans: Arial, Helvetica, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  font-display: swap;
+}
+
+/* Focus visible – accessible blue ring matching brand */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 2px;
 }
