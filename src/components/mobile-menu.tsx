@@ -85,21 +85,24 @@ export function MobileMenu({ locale }: { locale: Locale }) {
                   {group.items.map((service) => {
                     const Icon = service.icon;
                     const href = serviceUrl(locale, service.slug);
-                    const title = service.title[locale];
+                    const menuTitle = service.menuTitle[locale];
+                    const fullTitle = service.title[locale];
                     return (
                       <li key={service.slug}>
                         <Link
                           href={href}
-                          title={title}
-                          className="flex items-start gap-3 rounded-md px-3 py-2 text-sm text-runway transition-colors hover:bg-sky hover:text-primary"
+                          title={fullTitle}
+                          className="flex items-center gap-3 rounded-md px-3 py-2 text-sm text-runway transition-colors hover:bg-sky hover:text-primary"
                         >
                           <span
-                            className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-sky text-primary"
+                            className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-sky text-primary"
                             aria-hidden="true"
                           >
                             <Icon className="h-4 w-4" />
                           </span>
-                          <span className="leading-snug">{title}</span>
+                          <span className="truncate font-medium">
+                            {menuTitle}
+                          </span>
                         </Link>
                       </li>
                     );
