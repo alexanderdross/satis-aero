@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#255685" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Offline · SATIS Aero</title>
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/icons/apple-icon-180x180.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <style>
+      :root {
+        --primary: #255685;
+        --primary-dark: #173a5c;
+        --sky: #e8f1f9;
+        --cloud: #f7f9fc;
+        --runway: #0f172a;
+        --runway-soft: #334155;
+        --runway-mute: #475569;
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        min-height: 100svh;
+        background: linear-gradient(180deg, var(--sky) 0%, var(--cloud) 100%);
+        font-family: Arial, Helvetica, sans-serif;
+        color: var(--runway);
+        -webkit-font-smoothing: antialiased;
+        display: flex;
+        flex-direction: column;
+      }
+      header {
+        border-bottom: 1px solid var(--sky);
+        background: rgba(255, 255, 255, 0.95);
+      }
+      .header-inner {
+        max-width: 72rem;
+        margin: 0 auto;
+        padding: 0.75rem 1rem;
+        display: flex;
+        align-items: center;
+      }
+      .logo {
+        font-weight: 800;
+        font-size: 1.25rem;
+        color: var(--primary);
+        letter-spacing: -0.02em;
+        text-decoration: none;
+      }
+      main {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 3rem 1rem;
+        text-align: center;
+      }
+      .wrap {
+        max-width: 40rem;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.35rem 1rem;
+        border: 1px solid rgba(37, 86, 133, 0.25);
+        background: #fff;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--primary);
+      }
+      h1 {
+        margin: 1.5rem 0 0;
+        font-size: clamp(2rem, 6vw, 3.5rem);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1.05;
+      }
+      h1 .accent {
+        color: var(--primary);
+      }
+      p {
+        margin: 1rem auto;
+        max-width: 34rem;
+        font-size: 1rem;
+        line-height: 1.6;
+        color: var(--runway-soft);
+      }
+      .actions {
+        margin-top: 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        justify-content: center;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: 9999px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background-color 0.15s;
+      }
+      .btn-primary {
+        background: var(--primary);
+        color: #fff;
+      }
+      .btn-primary:hover {
+        background: var(--primary-dark);
+      }
+      .btn-secondary {
+        border: 1px solid rgba(37, 86, 133, 0.3);
+        background: #fff;
+        color: var(--primary);
+      }
+      .btn-secondary:hover {
+        background: var(--sky);
+      }
+      footer {
+        border-top: 1px solid var(--sky);
+        background: var(--primary-dark);
+        color: #c7d4e3;
+        text-align: center;
+        padding: 1rem;
+        font-size: 0.75rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="header-inner">
+        <a class="logo" href="/" title="SATIS Aero – Startseite / Home">SATIS Aero</a>
+      </div>
+    </header>
+
+    <main>
+      <div class="wrap">
+        <span class="badge">Offline</span>
+
+        <h1>
+          <span lang="de">Keine Verbindung</span><br />
+          <span lang="en" class="accent">You are offline</span>
+        </h1>
+
+        <p lang="de">
+          Diese Seite wurde noch nicht zwischengespeichert. Sobald Ihr Gerät wieder online ist,
+          lädt SATIS Aero automatisch weiter.
+        </p>
+        <p lang="en">
+          This page has not been cached yet. As soon as your device is back online, SATIS Aero
+          will load automatically.
+        </p>
+
+        <div class="actions">
+          <a class="btn btn-primary" href="/" title="Zur deutschen Startseite">
+            Zur Startseite
+          </a>
+          <a class="btn btn-secondary" href="/en/" title="Go to the English home page">
+            English home
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <footer>© SATIS Aero – Hans-Christoph Peter Grunwald</footer>
+  </body>
+</html>

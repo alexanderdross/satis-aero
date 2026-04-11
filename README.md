@@ -87,7 +87,9 @@ src/
 
 public/
 ├── favicon.ico                 # Browser-Auto-Discovery
-├── manifest.webmanifest        # PWA-Manifest, absolute Pfade
+├── manifest.webmanifest        # PWA-Manifest (name, icons, shortcuts)
+├── sw.js                       # Vanilla Service Worker (offline-first)
+├── offline.html                # Bilinguale Offline-Fallback-Page
 ├── browserconfig.xml           # MS-Tile Config
 ├── icons/                      # 24 Platform-Icons (android, apple, ms, favicon)
 └── images/brand/
@@ -102,6 +104,20 @@ public/
 - **[`CLAUDE.md`](./CLAUDE.md)** – technische Leitplanken / Konventionen
 - **[`AGENTS.md`](./AGENTS.md)** – Reminder zur Next.js-16-Version
 
+## Progressive Web App
+
+Die Site ist installierbar (Add to Home Screen / Install App Prompt):
+
+- **Manifest** mit `display: standalone`, Theme-Color, 8 Icons (inkl.
+  maskable) und 3 Quick-Actions (Leistungen, Kontakt, CAT 9).
+- **Vanilla Service Worker** (`public/sw.js`) mit Shell-Precache,
+  Cache-First für Assets, Network-First für HTML, Offline-Fallback
+  auf `public/offline.html`.
+- **Registration** über einen 5-Zeilen `next/script`-Block in den
+  Root-Layouts – keine React-Client-Component.
+- **Deploy-Invalidation**: `CACHE_VERSION` in `sw.js` bumpen, dann
+  räumt der Activate-Handler alte Caches weg.
+
 ## Performance-Garantien
 
 Bei jedem Change muss gelten:
@@ -111,6 +127,7 @@ Bei jedem Change muss gelten:
 3. **Kein** `"use client"` im Layout-Shell (Header, Footer, Layouts,
    LanguageSwitcher, Content-Komponenten)
 4. `npm run lint` gibt keine Warnings aus
+5. `npm run test` – 59+ Tests bleiben grün
 
 ## Deployment
 

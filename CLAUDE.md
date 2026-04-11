@@ -143,16 +143,52 @@ berechnen Opacity-Kontraste oft falsch.
 - Quellbilder vor Commit komprimieren (Ziel: < 200 KB pro Hero).
 - Verzeichnis: `public/images/{brand,hero,services,team,references}/`.
 
+## Progressive Web App (PWA)
+
+Die Site ist eine installierbare PWA. Alle Dateien sind server-only,
+die einzige Client-Komponente ist weiterhin das Kontaktformular
+(Turnstile-Insel).
+
+- **`public/manifest.webmanifest`** – Web App Manifest mit `name`,
+  `short_name`, `display: standalone`, `theme_color: #255685`,
+  `start_url: "/"`, 8 Icon-Entries (inkl. `purpose: maskable`) und
+  3 Shortcuts (Leistungen, Kontakt, CAT 9 Mock-Up).
+- **`public/sw.js`** – Vanilla Service Worker ohne Toolchain-
+  Dependency. Cache-Versionierung über `CACHE_VERSION`-Konstante.
+  Precache für den Shell (Home, EN-Home, Offline-Page, Logo, Icons,
+  Manifest). Runtime-Strategien:
+  - Static-Assets (`/_next/static/*`, `/images/*`, `/icons/*`,
+    `/fonts/*`, `/favicon.ico`, `/manifest.webmanifest`): cache-first
+    mit Network-Fallback
+  - HTML/Navigation: network-first mit Cache-Fallback und zuletzt
+    `/offline.html`
+  - Cross-Origin (Turnstile, Resend): nie abfangen
+- **`public/offline.html`** – bilinguale Standalone-Fallback-Page,
+  Inline-CSS, keine Abhängigkeit vom Next.js-Runtime. Wird vom
+  Service Worker ausgeliefert wenn die Navigation fehlschlägt.
+- **`src/components/sw-register.tsx`** – Server Component, rendert
+  einen `<Script strategy="afterInteractive">` der `/sw.js`
+  registriert. Kein React Client Component, kein `"use client"`.
+- **Cache-Header** (`vercel.json`):
+  - `/sw.js`: `max-age=0, must-revalidate` + `Service-Worker-Allowed: /`
+  - `/offline.html`: `max-age=300, must-revalidate`
+
+**Regel:** Bei einem Deploy mit Breaking-Change am Shell
+(`CACHE_VERSION` bumpen und) `sw.js` anpassen, damit alte Caches
+aktiv geräumt werden.
+
 ## Static Asset Cache (vercel.json)
 
-| Pfad                    | Cache-Control                                    |
-| ----------------------- | ------------------------------------------------ |
-| `/icons/*`              | `public, max-age=31536000, immutable` (1 Jahr)   |
-| `/images/*`             | `public, max-age=31536000, immutable` (1 Jahr)   |
-| `/fonts/*`              | `public, max-age=31536000, immutable` (1 Jahr)   |
-| `/favicon.ico`          | `public, max-age=86400, must-revalidate` (1 Tag) |
-| `/manifest.webmanifest` | `public, max-age=86400, must-revalidate` (1 Tag) |
-| `/browserconfig.xml`    | `public, max-age=86400, must-revalidate` (1 Tag) |
+| Pfad                    | Cache-Control                                     |
+| ----------------------- | ------------------------------------------------- |
+| `/icons/*`              | `public, max-age=31536000, immutable` (1 Jahr)    |
+| `/images/*`             | `public, max-age=31536000, immutable` (1 Jahr)    |
+| `/fonts/*`              | `public, max-age=31536000, immutable` (1 Jahr)    |
+| `/favicon.ico`          | `public, max-age=86400, must-revalidate` (1 Tag)  |
+| `/manifest.webmanifest` | `public, max-age=86400, must-revalidate` (1 Tag)  |
+| `/browserconfig.xml`    | `public, max-age=86400, must-revalidate` (1 Tag)  |
+| `/sw.js`                | `public, max-age=0, must-revalidate` (nie cachen) |
+| `/offline.html`         | `public, max-age=300, must-revalidate` (5 Min)    |
 
 Zusätzlich global gesetzt für `/(.*)`:
 

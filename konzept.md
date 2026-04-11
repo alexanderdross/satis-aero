@@ -405,14 +405,16 @@ einschätzt.
 
 ### 6a.1 Cache- und Security-Header (`vercel.json`)
 
-| Pfad                    | Cache-Control                            |
-| ----------------------- | ---------------------------------------- |
-| `/icons/*`              | `public, max-age=31536000, immutable`    |
-| `/images/*`             | `public, max-age=31536000, immutable`    |
-| `/fonts/*`              | `public, max-age=31536000, immutable`    |
-| `/favicon.ico`          | `public, max-age=86400, must-revalidate` |
-| `/manifest.webmanifest` | `public, max-age=86400, must-revalidate` |
-| `/browserconfig.xml`    | `public, max-age=86400, must-revalidate` |
+| Pfad                    | Cache-Control                                                      |
+| ----------------------- | ------------------------------------------------------------------ |
+| `/icons/*`              | `public, max-age=31536000, immutable`                              |
+| `/images/*`             | `public, max-age=31536000, immutable`                              |
+| `/fonts/*`              | `public, max-age=31536000, immutable`                              |
+| `/favicon.ico`          | `public, max-age=86400, must-revalidate`                           |
+| `/manifest.webmanifest` | `public, max-age=86400, must-revalidate`                           |
+| `/browserconfig.xml`    | `public, max-age=86400, must-revalidate`                           |
+| `/sw.js`                | `public, max-age=0, must-revalidate` + `Service-Worker-Allowed: /` |
+| `/offline.html`         | `public, max-age=300, must-revalidate`                             |
 
 Globale Security-Header für `/(.*)`:
 
@@ -435,6 +437,35 @@ Globale Security-Header für `/(.*)`:
 - LCP: < 1.5 s (statisches HTML aus Edge-Cache)
 - CLS: < 0.05 (statische Image-Dimensionen, `scroll-padding-top` für
   Sticky-Header, `min-height` reservierte Slots)
+
+### 6a.3 Progressive Web App
+
+Die Site ist eine installierbare PWA mit Offline-Support:
+
+- **`public/manifest.webmanifest`** – `display: standalone`,
+  `theme_color: #255685`, 8 Icons inklusive `purpose: maskable` für
+  Android Adaptive Icons, 3 Shortcuts (Leistungen / Kontakt /
+  CAT 9 Mock-Up).
+- **`public/sw.js`** – Vanilla Service Worker ohne Workbox/next-pwa
+  Toolchain. Precache des Shells (Home DE/EN, Logo, Icons,
+  Offline-Page). Runtime-Strategien: cache-first für
+  `/_next/static/*`, `/images/*`, `/icons/*`, `/fonts/*`;
+  network-first für HTML mit Cache-Fallback und finalem
+  `/offline.html`. Cross-Origin (Cloudflare Turnstile, Resend) wird
+  nie abgefangen.
+- **`public/offline.html`** – bilinguale Standalone-Fallback-Page
+  mit Inline-CSS (keine Abhängigkeit vom Next.js-Runtime).
+- **`src/components/sw-register.tsx`** – Server Component, rendert
+  einen `next/script`-Block mit `strategy="afterInteractive"` der
+  `/sw.js` registriert. Null React-Client-Component.
+- **Cache-Invalidation** über die `CACHE_VERSION`-Konstante in
+  `sw.js` – bei jedem Shell-Change bumpen, der Activate-Handler
+  löscht alte Caches automatisch.
+
+**Rechtlicher Hinweis:** Service Worker nutzen kein Tracking und
+keine Cookies – sie speichern nur öffentliche statische Assets im
+Browser-Cache des Nutzers. DSGVO-relevante Daten landen nie im
+Cache.
 
 ---
 
