@@ -1,15 +1,19 @@
 {
-  "name": "SATIS Aero",
+  "name": "SATIS Aero – Smart Aviation Training Innovative Solutions",
   "short_name": "SATIS Aero",
-  "description": "Smart Aviation Training Innovative Solutions – Aviation Consultancy für Flughafenfeuerwehren, Piloten und Flughafenbetreiber.",
+  "description": "Aviation Consultancy für Flughafenfeuerwehren, Piloten und Flughafenbetreiber. EASA-konforme Trainings, ICAO-Übungs-Coaching, CAT 9 Mock-Up und Virtual Reality.",
+  "id": "/",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
   "orientation": "any",
   "background_color": "#ffffff",
   "theme_color": "#255685",
   "lang": "de",
   "dir": "ltr",
+  "categories": ["business", "education", "productivity"],
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "/icons/android-icon-36x36.png",
@@ -45,8 +49,60 @@
       "src": "/icons/android-icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "density": "4.0",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/android-icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/ms-icon-310x310.png",
+      "sizes": "310x310",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Leistungen",
+      "short_name": "Services",
+      "description": "Alle Aviation Trainings und Services anzeigen",
+      "url": "/#leistungen",
+      "icons": [
+        {
+          "src": "/icons/android-icon-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Kontakt",
+      "short_name": "Contact",
+      "description": "Kontaktformular öffnen",
+      "url": "/kontakt/",
+      "icons": [
+        {
+          "src": "/icons/android-icon-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "CAT 9 Mock-Up",
+      "short_name": "CAT 9",
+      "description": "Praktisches Live-Fire-Training am CAT 9 Mock-Up",
+      "url": "/leistungen/cat9-mockup-training/",
+      "icons": [
+        {
+          "src": "/icons/android-icon-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
     }
   ]
 }

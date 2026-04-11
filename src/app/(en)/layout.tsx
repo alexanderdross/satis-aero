@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Footer } from "@/components/footer";
 import { OrganizationJsonLd } from "@/components/json-ld";
+import { SwRegister } from "@/components/sw-register";
 import "../globals.css";
 
 // =============================================================================
@@ -101,10 +102,20 @@ export const metadata: Metadata = {
       },
     ],
   },
+  appleWebApp: {
+    capable: true,
+    title: "SATIS Aero",
+    statusBarStyle: "default",
+    startupImage: [{ url: "/icons/apple-icon-180x180.png" }],
+  },
   other: {
     "msapplication-TileColor": "#255685",
     "msapplication-TileImage": "/icons/ms-icon-144x144.png",
     "msapplication-config": "/browserconfig.xml",
+    // Legacy apple-mobile-web-app-* hints for older iOS Safari
+    "apple-mobile-web-app-capable": "yes",
+    "mobile-web-app-capable": "yes",
+    "application-name": "SATIS Aero",
   },
 };
 
@@ -128,6 +139,7 @@ export default function EnglishRootLayout({ children }: Readonly<{ children: Rea
         {children}
         <Footer locale="en" />
         <OrganizationJsonLd locale="en" />
+        <SwRegister />
       </body>
     </html>
   );
