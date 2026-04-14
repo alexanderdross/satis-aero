@@ -102,22 +102,17 @@ export function Footer({ locale }: { locale: Locale }) {
               52538 Gangelt
             </p>
             <p>
-              <a
-                href="mailto:info@satis.aero"
-                title={tr.contact.mailTitle}
-                className="hover:text-on-primary"
-              >
+              <Link href={r.contact} title={tr.contact.mailTitle} className="hover:text-on-primary">
                 info@satis.aero
-              </a>
+              </Link>
             </p>
           </address>
         </div>
       </div>
 
       <div className="border-t border-white/10">
-        <div className="text-on-primary-mute mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-6 py-4 text-xs sm:flex-row sm:px-8">
+        <div className="text-on-primary-mute mx-auto max-w-6xl px-6 py-4 text-center text-xs sm:px-8">
           <p>{copy}</p>
-          <p>{tr.footer.hosting}</p>
         </div>
       </div>
     </footer>

@@ -236,7 +236,6 @@ export const t = {
         privacy: "Datenschutz",
       },
       copy: "© {year} SATIS Aero – Hans-Christoph Peter Grunwald",
-      hosting: "Hosted on Vercel · Made in Germany",
     },
     imprint: {
       title: "Impressum",
@@ -422,7 +421,6 @@ export const t = {
         privacy: "Privacy",
       },
       copy: "© {year} SATIS Aero – Hans-Christoph Peter Grunwald",
-      hosting: "Hosted on Vercel · Made in Germany",
     },
     imprint: {
       title: "Imprint",
